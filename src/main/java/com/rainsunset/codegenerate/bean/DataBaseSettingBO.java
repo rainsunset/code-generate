@@ -4,10 +4,12 @@ import com.microsoft.sqlserver.jdbc.SQLServerDriver;
 import com.mysql.jdbc.Driver;
 import oracle.jdbc.driver.OracleDriver;
 
-import java.io.Serializable;
-
 /**
- * @author whaosoft
+ * @Description: 数据库配置
+ * @Author: ligangwei
+ * @Company CMBI
+ * @CreateDate: 2019.04.12
+ * @Version : 1.0
  */
 public class DataBaseSettingBO {
 

@@ -15,7 +15,7 @@ public class PackagePathFactory {
 	 * 不同模板在baseClassPath下的分层路径
 	 * 依据文件性质不同在最外层分main test page三个包
 	 * mapping的xml文件是基于main/resources的
-	 * 包路径与模板配置的关系为 main|test|oage + path的first upper
+	 * 包路径与模板配置的关系为 main|test|oage + path的大驼峰命名
 	 *
 	 * @param templateType the template type
 	 * @return the package path bo
@@ -25,15 +25,15 @@ public class PackagePathFactory {
 		if (TemplatesTypeEnum.CMBI.getTemplateType().equals(templateType)) {
 			PackagePathBO packagePathBO = new PackagePathBO("dal.model", "dal.mapper", "mapper",
 					"service.api", "service.impl","manager", "controller",
-					"dao", "service", "",
-					"", "", "");
+					"dal", "service",
+					"","", "", "");
 			return packagePathBO;
 		} else{
 //			默认模板为 TemplatesTypeEnum.RAINSUNSET
 			PackagePathBO packagePathBO = new PackagePathBO("model", "dal", "mapper",
 					"service", "service.impl","", "controller",
-					"mapper", "service", "",
-					"", "", "");
+					"dal", "service",
+					"","", "", "");
 			return packagePathBO;
 		}
 	}

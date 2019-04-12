@@ -60,26 +60,11 @@ public class FilePathConfigReqDTO {
 
 	public String getBaseClassPath() {
 		// 将packagePath 处理成标准package形式com.rainsunset.***
-		String baseClassFilePath = baseClassPath.replace("\\\\", ".")
-				.replace("\\", ".")
-				.replace("/", ".");
-		// 包路径前面的第一个字符为路径分割符时要截掉
-		if (baseClassFilePath.startsWith(".")) {
-			baseClassFilePath.substring(1);
-		}
-		return baseClassFilePath;
+		return StringUtil.formater2JavaPackage(baseClassPath);
 	}
 
 	public String getBaseClassFilePath() {
 		// 将packagePath也处理成文件路径行形式com/rainsunset/***
-		String baseClassFilePath = baseClassPath.replace("\\\\", File.separator)
-				.replace("\\", File.separator)
-				.replace("/", File.separator)
-				.replace(".", File.separator);
-		// 包路径前面的第一个字符为路径分割符时要截掉
-		if (baseClassFilePath.startsWith(File.separator)) {
-			baseClassFilePath.substring(1);
-		}
 		return StringUtil.formater2filePathNoStartWithFileSeparator(baseClassPath);
 	}
 
@@ -97,9 +82,7 @@ public class FilePathConfigReqDTO {
 
 	public String getOutFilePath() {
 		// 对文件路径规范
-		return outFilePath.replace("\\\\", File.separator)
-				.replace("\\", File.separator)
-				.replace("/", File.separator);
+		return StringUtil.formater2filePath(outFilePath);
 	}
 
 	public void setOutFilePath(String outFilePath) {

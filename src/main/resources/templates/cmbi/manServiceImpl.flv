@@ -1,0 +1,74 @@
+package ${classPath}.service.impl;
+
+import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.PageHelper;
+import ${classPath}.${bean}.${firatUpperName};
+import ${classPath}.${dao}.${firatUpperName}Mapper;
+import ${classPath}.service.${firatUpperName}Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+
+/**
+ *
+ * @author whaosoft
+ *
+ */
+@Service
+public class ${firatUpperName}ServiceImpl implements ${firatUpperName}Service {
+
+    @Autowired
+    private ${firatUpperName}Mapper ${firstlowerName}Mapper;
+
+    @Override
+    public void  add${firatUpperName}(${firatUpperName} ${firstlowerName}) {
+        ${firstlowerName}Mapper.add${firatUpperName}(${firstlowerName});
+    }
+
+    @Override
+    public void  update${firatUpperName}ById(${firatUpperName} ${firstlowerName}) {
+        ${firstlowerName}Mapper.update${firatUpperName}ById(${firstlowerName});
+    }
+
+    @Override
+    public List<${firatUpperName}> select${firatUpperName}List(Map<String, Object> param) {
+        return ${firstlowerName}Mapper.select${firatUpperName}List(param);
+    }
+
+    @Override
+    public PageInfo<${firatUpperName}> get${firatUpperName}PageTurn(Map<String, Object> param, int pageNo, int pageSize) {
+        PageHelper.startPage(pageNo, pageSize, true);
+        List<${firatUpperName}> ${firstlowerName}List = ${firstlowerName}Mapper.select${firatUpperName}List(param);
+        PageInfo<${firatUpperName}> pageInfo = new PageInfo<${firatUpperName}>(${firstlowerName}List);
+        return pageInfo;
+    }
+
+    @Override
+    public ${firatUpperName} get${firatUpperName}ById(${keyType} ${tabPrikeyAlias}) {
+        ${firatUpperName} ${firstlowerName}info = new ${firatUpperName}();
+        Map<String, Object> rs = new HashMap<String, Object>();
+        rs.put("${tabPrikeyAlias}", ${tabPrikeyAlias});
+        List<${firatUpperName}> ${firstlowerName}List = ${firstlowerName}Mapper.select${firatUpperName}List(rs);
+        if ((null != ${firstlowerName}List) && (${firstlowerName}List.size() > 0)) {
+            ${firstlowerName}info = ${firstlowerName}List.get(0);
+        }
+        return ${firstlowerName}info;
+    }
+
+    @Override
+    public void del${firatUpperName}ById(${keyType} ${tabPrikeyAlias}) {
+
+     //${firatUpperName} ${firstlowerName} = new ${firatUpperName}();
+     //${firstlowerName}.setIsDeleted(1);
+     //${firstlowerName}.set${tabPrikeyAliasFirstUpper}(${tabPrikeyAlias});
+     //${firstlowerName}Mapper.update${firatUpperName}ById(${firstlowerName});
+
+        ${firstlowerName}Mapper.del${firatUpperName}ById(${tabPrikeyAlias});
+
+    }
+
+}

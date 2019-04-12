@@ -4,7 +4,7 @@ import com.rainsunset.codegenerate.common.constants.Constants;
 
 /**
  * @author whaosoft
- * @Description: 代码各层包文件路径
+ * @Description: 代码各层包文件(绝对)路径
  * @Author: ligangwei
  * @Company rainsunset
  * @CreateDate: 2019.04.11

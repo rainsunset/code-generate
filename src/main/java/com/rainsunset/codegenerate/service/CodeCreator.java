@@ -30,8 +30,8 @@ public class CodeCreator {
      * @param tableName            DB中的表名
      * @param tabNameComment       表描述
      * @param templatesAbsPath     模板文件绝对路径
-     * @param filePathBO           文件包
-     * @param filePathConfigReqDTO the file path config req dto
+     * @param filePathBO           代码各层包文件(绝对)路径
+     * @param filePathConfigReqDTO 文件路径配置
      * @param dbs                  the dbs
      * @author : ligangwei / 2019-04-12
      */
@@ -39,18 +39,18 @@ public class CodeCreator {
         String outFolder2 = outFolder + Constants.SLASH;
         String classPath = (baseClassPath + Constants.DOT + moduleName).replaceAll(Constants.SLASH, Constants.DOT);
         // main
-        String filePath_bean = null == sop ? outFolder2 : sop.getFilePathModel();
-        String filePath_dao = null == sop ? outFolder2 : sop.getFilePathDao();
-        String filePath_service = null == sop ? outFolder2 : sop.getFilePathService();
-        String filePath_service_impl = null == sop ? outFolder2 : sop.getFilePathServiceImpl();
-        String filePath_controller = null == sop ? outFolder2 : sop.getFilePathController();
-        String filePath_test_dao = null == sop ? outFolder2 : sop.getFilePathTestDao();
-        String filePath_test_service = null == sop ? outFolder2 : sop.getFilePathTestService();
-        String filePath_mapping = null == sop ? outFolder2 : sop.getFilePathMapper();
-        String filePath_page = null == sop ? outFolder2 : sop.getFilePathPageView();
-        String filePath_page_controler = null == sop ? outFolder2 : sop.getFilePathPageControler();
-        String filePath_page_service = null == sop ? outFolder2 : sop.getFilePathPageService();
-        String filePath_page_template = null == sop ? outFolder2 : sop.getFilePathPageTemplate();
+        String filePath_bean = null == filePathBO ? outFolder2 : filePathBO.getFilePathModel();
+        String filePath_dao = null == filePathBO ? outFolder2 : filePathBO.getFilePathDao();
+        String filePath_service = null == filePathBO ? outFolder2 : filePathBO.getFilePathService();
+        String filePath_service_impl = null == filePathBO ? outFolder2 : filePathBO.getFilePathServiceImpl();
+        String filePath_controller = null == filePathBO ? outFolder2 : filePathBO.getFilePathController();
+        String filePath_test_dao = null == filePathBO ? outFolder2 : filePathBO.getFilePathTestDao();
+        String filePath_test_service = null == filePathBO ? outFolder2 : filePathBO.getFilePathTestService();
+        String filePath_mapping = null == filePathBO ? outFolder2 : filePathBO.getFilePathMapper();
+        String filePath_page = null == filePathBO ? outFolder2 : filePathBO.getFilePathPageView();
+        String filePath_page_controler = null == filePathBO ? outFolder2 : filePathBO.getFilePathPageControler();
+        String filePath_page_service = null == filePathBO ? outFolder2 : filePathBO.getFilePathPageService();
+        String filePath_page_template = null == filePathBO ? outFolder2 : filePathBO.getFilePathPageTemplate();
 
         // 查询数据库列名及属性
         List<Map<String, Object>> tablColumnList = DBUtil.queryTable(dbs, DataBaseSettingBO.getTablColumnSql(dbs.getDbType(), tableName));
@@ -216,7 +216,7 @@ public class CodeCreator {
      */
     private static void createTestDao(Map<String, Object> map, String templatesPath, String filePath) {
         String fileName = filePath  + "Test" + map.get("firatUpperName") + "Dao.java";
-        handleCreatorCode(fileName, templatesPath + "test/", "testDao.flv", map);
+        handleCreatorCode(fileName, templatesPath + "test/", "testDal.flv", map);
     }
 
     /**
