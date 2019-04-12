@@ -1,0 +1,15 @@
+package ${classPath}.test.dao;
+
+
+
+/**
+ *
+ * @author whaosoft
+ *
+ */
+public class Test${firatUpperName}Dao {
+
+
+
+
+}

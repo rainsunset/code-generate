@@ -1,0 +1,156 @@
+package ${classPath}.controller;
+
+import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.util.StringUtil;
+import ${classPath}.${bean}.${firatUpperName};
+import ${classPath}.service.${firatUpperName}Service;
+import ${classPath}.view.ResponseResult;
+import ${classPath}.view.RestResultGenerator;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+
+/**
+ * @author wuhaosoft
+ * @version $Id ${firatUpperName}Controller.java, ${now} wuhaosoft Exp
+ *
+ */
+@Api(tags = "${tabNameComment}接口")
+@RestController
+@RequestMapping("/${moduleName}")
+public class ${firatUpperName}Controller{
+
+    @Autowired
+    private ${firatUpperName}Service ${firstlowerName}Service;
+
+    @ApiOperation("查询 所有 ${tabNameComment} 分页")
+    @RequestMapping(value = "/${firstlowerName}s", method = RequestMethod.POST)
+    public ResponseResult<PageInfo<${firatUpperName}>> get${firatUpperName}PageTurn(
+            <#list columList as map>
+            @ApiParam(value = "${map.columnComment} (非必传参数)") @RequestParam(required = false) ${map.columType} ${map.columnAlias},
+            </#list>
+            @ApiParam(value = "页码(必传)") @RequestParam Integer pageNo,
+            @ApiParam(value = "每页显示多少数据(必传)") @RequestParam Integer pageSize) throws Exception {
+        Map<String, Object> rs = new HashMap<String, Object>();
+        <#list columList as map>
+        <#switch  map.columType>
+        <#case "String">
+        if (StringUtil.isNotEmpty(${map.columnAlias})) {
+           rs.put("${map.columnAlias}", "%" + ${map.columnAlias} + "%");
+        }
+        <#break>
+        <#default>
+        if (null != ${map.columnAlias}) {
+           rs.put("${map.columnAlias}", ${map.columnAlias});
+        }
+        </#switch>
+        </#list>
+        PageInfo<${firatUpperName}> pageInfo = ${firstlowerName}Service.get${firatUpperName}PageTurn(rs, pageNo, pageSize);
+        return RestResultGenerator.genResult(pageInfo);
+    }
+
+    @ApiOperation("查询 所有 ${tabNameComment}")
+    @RequestMapping(value = "/all${firatUpperName}s", method = RequestMethod.POST)
+    public ResponseResult<List<${firatUpperName}>> select${firatUpperName}List(
+        <#list columList as map>
+        @ApiParam(value = "${map.columnComment} (非必传参数)") @RequestParam(required = false) ${map.columType} ${map.columnAlias}<#if map_has_next>,</#if>
+        </#list>
+        )throws Exception {
+        Map<String, Object> rs = new HashMap<String, Object>();
+        <#list columList as map>
+        <#switch  map.columType>
+        <#case "String">
+         if (StringUtil.isNotEmpty(${map.columnAlias})) {
+            rs.put("${map.columnAlias}", "%" + ${map.columnAlias} + "%");
+         }
+         <#break>
+         <#default>
+        if (null != ${map.columnAlias}) {
+            rs.put("${map.columnAlias}", ${map.columnAlias});
+        }
+        </#switch>
+        </#list>
+        List<${firatUpperName}> ${firstlowerName}List = ${firstlowerName}Service.select${firatUpperName}List(rs);
+        return RestResultGenerator.genResult(${firstlowerName}List);
+    }
+
+    @ApiOperation("新增 ${tabNameComment}")
+    @RequestMapping(value = "/${firstlowerName}", method = RequestMethod.POST)
+    public ResponseResult<String> add${firatUpperName}(
+            <#list columList as map>
+                @ApiParam(value = "${map.columnComment} (非必传参数)") @RequestParam(required = false) ${map.columType} ${map.columnAlias}<#if map_has_next>,</#if>
+            </#list>
+            ) throws Exception {
+        ${firatUpperName} ${firstlowerName} = new ${firatUpperName}();
+        <#list columList as map>
+        <#switch  map.columType>
+        <#case "String">
+        if (StringUtil.isNotEmpty(${map.columnAlias})) {
+           ${firstlowerName}.set${map.columnAliasFirstUpper}(${map.columnAlias});
+        }
+        <#break>
+        <#default>
+        if (null != ${map.columnAlias}) {
+            ${firstlowerName}.set${map.columnAliasFirstUpper}(${map.columnAlias});
+        }
+        </#switch>
+        </#list>
+        //${firstlowerName}.setCreatedDate(new Date());
+        ${firstlowerName}Service.add${firatUpperName}(${firstlowerName});
+        return RestResultGenerator.genResult("sucess");
+    }
+
+    @ApiOperation("更新 ${tabNameComment}")
+    @RequestMapping(value = "/${firstlowerName}/{${tabPrikeyAlias}}", method = RequestMethod.PUT)
+    public ResponseResult<String> update${firatUpperName}ById(
+            @ApiParam(value = "${tabPrikeyComment} (必传参数)") @PathVariable ${keyType}  ${tabPrikeyAlias},
+             <#list columList as map>
+             @ApiParam(value = "${map.columnComment} (非必传参数)") @RequestParam(required = false) ${map.columType} ${map.columnAlias}<#if map_has_next>,</#if>
+             </#list>
+            ) throws Exception {
+        ${firatUpperName} ${firstlowerName} = new ${firatUpperName}();
+        ${firstlowerName}.set${tabPrikeyAliasFirstUpper}(${tabPrikeyAlias});
+
+        <#list columList as map>
+         <#switch  map.columType>
+         <#case "String">
+         if (StringUtil.isNotEmpty(${map.columnAlias})) {
+            ${firstlowerName}.set${map.columnAliasFirstUpper}(${map.columnAlias});
+         }
+         <#break>
+         <#default>
+         if (null != ${map.columnAlias}) {
+            ${firstlowerName}.set${map.columnAliasFirstUpper}(${map.columnAlias});
+         }
+        </#switch>
+        </#list>
+        //${firstlowerName}.setModifiedDate(new Date());
+        ${firstlowerName}Service.update${firatUpperName}ById(${firstlowerName});
+        return RestResultGenerator.genResult("sucess");
+    }
+
+    @ApiOperation("删除 ${tabNameComment}")
+    @RequestMapping(value = "/${firstlowerName}/{${tabPrikeyAlias}}", method = RequestMethod.DELETE)
+    public ResponseResult<String> del${firatUpperName}ById(
+             @ApiParam(value = "${tabPrikeyComment} (必传参数)") @PathVariable ${keyType}  ${tabPrikeyAlias}
+            ) throws Exception {
+        ${firstlowerName}Service.del${firatUpperName}ById(${tabPrikeyAlias});
+        return RestResultGenerator.genResult("sucess");
+    }
+
+    @ApiOperation("查询 ${tabNameComment}")
+    @RequestMapping(value = "/${firstlowerName}/{${tabPrikeyAlias}}", method = RequestMethod.GET)
+    public ResponseResult<${firatUpperName}> get${firatUpperName}ById(
+            @ApiParam(value = "${tabPrikeyComment} (必传参数)") @PathVariable ${keyType}  ${tabPrikeyAlias}) throws Exception {
+        return RestResultGenerator.genResult(${firstlowerName}Service.get${firatUpperName}ById(${tabPrikeyAlias}));
+    }
+}
+

@@ -1,0 +1,12 @@
+define([], function() {
+    return function($resource) {
+        var fun={};
+        fun.list=$resource('/api/${moduleName}/${firstlowerName}s');
+        fun.create=$resource('/api/${moduleName}/${firstlowerName}');
+        fun.update=$resource('/api/${moduleName}/${firstlowerName}/{${tabPrikeyAlias}}');
+        fun.delete=$resource('/api/${moduleName}//${firstlowerName}/{${tabPrikeyAlias}}');
+        fun.manList=$resource('/api/${moduleName}/all${firatUpperName}s');
+        fun.tree=$resource('/api/${moduleName}/${firstlowerName}/{${tabPrikeyAlias}}');
+        return fun;
+    };
+});

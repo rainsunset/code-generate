@@ -1,0 +1,153 @@
+define([], function () {
+    return function ($scope, $rootScope, $state, ${firstlowerName}Service, $modal) {
+        $scope.page = 1;
+        $scope.rows = 10;
+        $rootScope.fresh = function () {
+            var postData = new ${firstlowerName}Service.list();
+            postData.pageNo = $scope.page;
+            postData.pageSize = $scope.rows;
+            postData.$save(function (result, putResponseHeaders) {
+                $scope.data = JSON.parse(result.json);
+                $scope.count = $scope.data.totalCount;
+                $scope.pages = Math.ceil($scope.count / $scope.rows);
+                $scope.res = $scope.data.result;
+            });
+
+        };
+
+        $rootScope.fresh();
+
+        $scope.delete = function (row) {
+            var postData;
+            postData = new ${firstlowerName}Service.delete();
+            postData.${tabPrikeyAlias} = row.${tabPrikeyAlias};
+            postData.$save(function (result, putResponseHeaders) {
+                var res = result.json;
+                $rootScope.fresh();
+            });
+        };
+
+        $scope.selectPage = function (num) {
+            if (num <= 0)return;
+            if (num > $scope.pages)return;
+            $scope.page = num;
+            $rootScope.fresh();
+        };
+
+        $scope.edit = function (row) {
+            $rootScope.man = JSON.parse(JSON.stringify(row));
+            $scope.openDialog();
+        };
+
+        $scope.plus = function () {
+            $rootScope.pro = null;
+            $scope.openDialog();
+        };
+
+        //弹出
+        $scope.openDialog = function (size) {
+            var modalInstance = $modal.open({
+                templateUrl: 'my${firatUpperName}Content.html',
+                controller: function ($scope, $rootScope, $modalInstance, $modal, $timeout) {
+                    if ($rootScope.man != null) {
+                        $scope.new = false;
+                        $scope.manufactor = $rootScope.man;
+                    } else {
+                        $scope.new = true;
+                    }
+                    var postData = new ${firstlowerName}Service.manList();
+                    postData.$save(function (result, putResponseHeaders) {
+                        $scope.manSelect = JSON.parse(result.json).obj;
+                    });
+                    $scope.my_tree = {};
+                    $scope.treeLoad = function () {
+                        $scope.treeShow = true;
+                    }
+                    $scope.my_tree_handler = function (node) {
+                        $("#treeInput").focus();
+                        $scope.treeShow = true;
+                        if (node.children.length == 0) {
+                            if ($scope.${firstlowerName} == null) {
+                                $scope.${firstlowerName} = {};
+                            }
+                            $scope.${firstlowerName}.categoryName = node.categoryName;
+                            $scope.treeDiv = false;
+                        }
+                    };
+
+                    $scope.inputFocus=function () {
+                        $scope.treeInput = true;
+                        $scope.treeDiv = false;
+                    }
+                    $scope.divClick=function () {
+                        $scope.treeDiv=true;
+                    }
+                    $scope.treeInput = false;
+                    $scope.treeDiv = false;
+                    $scope.my_data = new Array();
+                    var treeData = new ${firstlowerName}Service.tree();
+                    treeData.$save(function (result, putResponseHeaders) {
+                        $scope.treeData = JSON.parse(result.json).obj;
+                        var todo = new Array();
+                        var treeRes = new Array();
+                        $scope.treeData.forEach(function (ele, index, arr) {
+                            ele.label = ele.categoryName;
+                            if (ele.parentId == '0') {
+                                todo.push(ele);
+                                treeRes.push(ele);
+                            }
+                        });
+                        while (todo.length != 0) {
+                            $scope.treeData.forEach(function (ele, index, arr) {
+                                if (ele.parentId == todo[0].categoryId) {
+                                    if (todo[0].children == null) {
+                                        todo[0].children = new Array();
+                                    }
+                                    todo[0].children.push(ele);
+                                    todo.push(ele);
+                                }
+                            });
+                            todo.splice(0, 1);
+                        }
+                        $scope.my_data = treeRes;
+                        $scope.my_tree.collapse_all();
+                    });
+
+                    $scope.cancel = function () {
+                        $modalInstance.dismiss('cancel');
+                    };
+                    $scope.ok = function (info) {
+                        $scope.haveTest = true;
+                        if (!info.$valid) {
+                            alert("请认真填写表单");
+                            return;
+                        }
+                        var postData;
+                        if ($scope.new) {
+                            postData = new ${firstlowerName}Service.create();
+                        } else {
+                            postData = new ${firstlowerName}Service.update();
+                            postData.${tabPrikeyAlias} = $scope.man.${tabPrikeyAlias};
+                        }
+                        <#list columList as map>
+                        postData.${map.columnAlias} = $scope.${firstlowerName}.${map.columnAlias};
+                        </#list>
+                        postData.$save(function (result, putResponseHeaders) {
+                            $scope.res = result.json;
+                            $rootScope.fresh();
+                        });
+
+                        $modalInstance.dismiss('cancel');
+                    };
+                },
+                size: size
+            });
+            modalInstance.result.then(function (selectedItem) {
+
+            }, function () {
+            });
+        };
+
+    };
+});
+

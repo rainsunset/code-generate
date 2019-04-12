@@ -1,0 +1,56 @@
+package ${classPath}.${bean};
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+import java.util.Date;
+/**
+ * @author wuhaosoft
+ * @version $Id ${firatUpperName}.java, ${now} wuhaosoft Exp
+ *
+ */
+@ApiModel(description = "${tabNameComment}")
+public class ${firatUpperName} {
+
+    @ApiModelProperty(value = "${tabPrikeyComment}")
+    private ${keyType}  ${tabPrikeyAlias};
+    <#list columList as map>
+
+    @ApiModelProperty(value = "${map.columnComment}")
+    private ${map.columType} ${map.columnAlias};
+    </#list>
+
+    public ${firatUpperName}(){}
+
+    public ${firatUpperName}(
+        ${keyType}  ${tabPrikeyAlias},
+        <#list columList as map>
+        ${map.columType} ${map.columnAlias}<#if map_has_next>,</#if>
+        </#list>
+    ) {
+        <#list columList as map>
+        this.${map.columnAlias} = ${map.columnAlias};
+        </#list>
+    }
+    public ${keyType} get${tabPrikeyAliasFirstUpper}(){
+        return ${tabPrikeyAlias};
+    }
+
+    public void set${tabPrikeyAliasFirstUpper}(${keyType}  ${tabPrikeyAlias}) {
+        this.${tabPrikeyAlias} = ${tabPrikeyAlias};
+    }
+    <#list columList as map>
+
+    public ${map.columType} get${map.columnAliasFirstUpper}() {
+        return ${map.columnAlias};
+    }
+
+    public void set${map.columnAliasFirstUpper}(${map.columType}  ${map.columnAlias}) {
+        this.${map.columnAlias} = ${map.columnAlias};
+    }
+    </#list>
+
+}
+
+
+

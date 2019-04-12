@@ -1,0 +1,102 @@
+<div class="panel panel-default" style="height: 100%;margin:0 0 0 20px">
+
+    <div class="panel-heading m-b-10">
+        <h4>${tabNameComment}信息</h4>
+    </div>
+    <div class="panel-body no-p">
+        <div style="text-align: right;height: 35px">
+            <button class="btn btn-primary m-b-5"  data-ng-click="plus()">添加${tabNameComment}</button>
+        </div>
+        <div class="table-container" style="min-height: 300px">
+            <table st-table="displayed" class="table table-striped">
+                <thead>
+                <tr>
+                 <#list columList as map>
+                  <th style="">${map.columnComment}</th>
+                 </#list>
+                    <th style="">操作</th>
+                </tr>
+                </thead>
+                <tbody >
+                    <tr ng-repeat="row in res">
+                    <#list columList as map>
+                    <td>{{row.${map.columnAlias}}}</td>
+                    </#list>
+                    <td >
+                            <span style="cursor:pointer" ng-click="edit(row)">
+                                <i class="fa fa-pencil" style="font-size: 20px"></i>
+                            </span>
+                            <span style="cursor:pointer" ng-click="delete(row)">
+                                <i class="fa fa-times" style="font-size: 20px"></i>
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="10" class="text-center">
+                        <div st-items-by-page="1" st-pagination="" st-template="">
+                            <nav data-ng-if="pages>1">
+                                <ul class="pagination">
+                                    <li><a data-ng-click="selectPage(1)"><<</a></li>
+                                    <li><a data-ng-click="selectPage(page - 1)">&lt;</a></li>
+                                    <li><a><page-select>{{page}}</page-select>/{{pages}}</a></li>
+                                    <li><a data-ng-click="selectPage(page + 1)">&gt;</a></li>
+                                    <li><a data-ng-click="selectPage(pages)">&gt;&gt;</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+<style>
+.inputs .col{
+    margin: 5px 0;
+    padding: 0;
+    text-align: right;
+    line-height: 34px;
+}
+.inputs .col input{
+    display: inline;
+    width: 140px;
+}
+.modal.fade.ng-isolate-scope.in .modal-dialog{
+    top:calc(50% - 250px)
+}
+</style>
+<!--弹出框-->
+<script type="text/ng-template" id="my${firatUpperName}Content.html" style="">
+
+    <div id="dialog" style="overflow-y: auto;">
+        <div class="modal-header">
+            <div>
+                <h3 class="modal-title" ng-show="new">添加${tabNameComment}</h3>
+                <h3 class="modal-title" ng-show="!new">编辑${tabNameComment}</h3>
+            </div>
+        </div>
+        <div class="modal-body row inputs" style="margin: 0px;height: 300px">
+            <form name="form">
+                <h4>基本信息：</h4>
+                 <#list columList as map>
+                 <div class="col col-xs-2">${map.columnComment}：</div>
+                    <div class="col col-xs-3">
+                    <input type="text" class="form-control" name="${firstlowerName}_${map.columnAlias}" data-ng-model="${firstlowerName}.${map.columnAlias}" required>
+                     <div style="color: red;line-height: normal" ng-show="form.${firstlowerName}_${map.columnAlias}.$invalid &&(form.${firstlowerName}_${map.columnAlias}.$dirty||haveTest)">必填</div>
+                 </div>
+                 </#list>
+                <div class="col col-xs-1"></div>
+                <div style="clear: both"></div>
+
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary btn-rounded btn-line" data-ng-click="ok(form)">确定</button>
+            <button type="button" class="btn btn-default btn-rounded btn-line" data-ng-click="cancel()">取消</button>
+        </div>
+    </div>
+</script>
+

@@ -1,0 +1,12 @@
+package ${classPath}.test.service;
+
+
+/**
+ *
+ * @author whaosoft
+ *
+ */
+public class Test${firatUpperName}Service{
+
+
+}

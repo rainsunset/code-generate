@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="${classPath}.${dao}.${firatUpperName}Mapper">
+
+    <insert id="add${firatUpperName}" parameterType="${classPath}.${bean}.${firatUpperName}">
+        INSERT INTO ${tableName}
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <#list columList as map>
+                <if test="${map.columnAlias} != null">
+                    ${map.column},
+                </if>
+            </#list>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <#list columList as map>
+                <if test="${map.columnAlias} != null">
+                    ${u0023}{${map.columnAlias}},
+                </if>
+            </#list>
+        </trim>
+    </insert>
+
+    <update id="update${firatUpperName}ById" parameterType="${classPath}.${bean}.${firatUpperName}">
+        update ${tableName}
+        <trim prefix="set" suffixOverrides=",">
+            <#list columList as map>
+                <if test="${map.columnAlias} != null">
+                    ${map.column} =${u0023}{${map.columnAlias}},
+                </if>
+            </#list>
+        </trim>
+        where ${tabPrikeyName} = ${u0023}{${tabPrikeyAlias}}
+    </update>
+
+    <select id="select${firatUpperName}List" parameterType="java.util.Map"
+            resultType="${classPath}.${bean}.${firatUpperName}">
+        select
+        <#list columList as map>
+            ${map.column} ${map.columnAlias},
+        </#list>
+        ${tabPrikeyName} ${tabPrikeyAlias}
+        from ${tableName}
+        WHERE
+        1=1
+        <if test="${tabPrikeyAlias} != null">
+            and ${tabPrikeyName} = ${u0023}{${tabPrikeyAlias}}
+        </if>
+        <#list columList as map>
+        <#switch  map.columType>
+        <#case "String">
+        <if test="${map.columnAlias} != null">
+            and ${map.column} like ${u0023}{${map.columnAlias}}
+        </if>
+        <#break>
+        <#default>
+        <if test="${map.columnAlias} != null">
+            and ${map.column} = ${u0023}{${map.columnAlias}}
+        </if>
+        </#switch>
+        </#list>
+        ORDER BY ${tabPrikeyName} ASC
+    </select>
+
+    <delete id="del${firatUpperName}ById" parameterType="${keypackage}">
+        DELETE FROM  ${tableName}
+        where
+        ${tabPrikeyName} = ${u0023}{${tabPrikeyAlias}}
+    </delete>
+
+</mapper>
