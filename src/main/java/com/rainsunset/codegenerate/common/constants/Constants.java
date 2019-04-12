@@ -35,21 +35,19 @@ public class Constants {
 	/** / */
 	static public final String SLASH = "/";
 
-	/** main */
-	static public final String PACKAGE_MAIN = "main";
+	/** bean */
+	static public final String PACKAGE_BEAN = "bean";
 
-	/** main */
-	static public final String PACKAGE_JAVA = "java";
-
-	/** resource */
-	static public final String PACKAGE_RESOURCE = "resource";
+	/** dao */
+	static public final String PACKAGE_DAO = "dao";
 
 	/** test */
 	static public final String PACKAGE_TEST = "test";
 
+	/**
+	 * page
+	 */
 	static public final String PACKAGE_PAGE = "page";
-
-	static public final String PACKAGE_TEMPLATE = "template";
 
 	// endregion
 

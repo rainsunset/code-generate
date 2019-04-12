@@ -3,6 +3,8 @@ package com.rainsunset.codegenerate.common.util;
 import org.springframework.util.StringUtils;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @ClassName SpecStringUtil
@@ -25,8 +27,8 @@ public class StringUtil {
 	public static String conlitionStr(String str1, String... str2) {
 		StringBuilder sb = new StringBuilder(str1);
 		if (str2.length > 0) {
-			for (int i = 0; i < str2.length; i++) {
-				sb.append(str2[i]);
+			for (String str : str2) {
+				sb.append(str);
 			}
 		}
 		return sb.toString();
@@ -116,19 +118,14 @@ public class StringUtil {
 				.replace("-",",")
 				.replace(" ",",");
 		String[] pathArray = path.split(",");
-		if (pathArray.length > 1) {
-			StringBuilder sb = new StringBuilder();
-			for (int i = 0; i < pathArray.length; i++) {
-				String s = pathArray[i];
-				if (StringUtils.isEmpty(s)) {
-					continue;
-				}
-				sb.append(wordFirst2upper(s));
+		StringBuilder sb = new StringBuilder();
+		for(String str : pathArray) {
+			if (StringUtils.isEmpty(str)) {
+				continue;
 			}
-			return sb.toString();
-		} else {
-			return wordFirst2upper(pathArray[0]);
+			sb.append(wordFirst2upper(str));
 		}
+		return sb.toString();
 	}
 
 	/**
@@ -147,7 +144,69 @@ public class StringUtil {
 	}
 
 	/**
-	 * 单词首字母大写其余小写
+	 * 格式化表名/数据名 到大驼峰形式
+	 *
+	 * @param tname
+	 * @return
+	 */
+	public static String formaterTabName2bigCamel(String tname) {
+		if (StringUtils.isEmpty(tname)) {
+			return "";
+		}
+		String UNDERLINE = "_";
+		String formateName = null;
+		// 横杠也算分隔符
+		formateName.replace("-", UNDERLINE);
+		// 若第二个字符为下划线则支取第第二个字符之后的部分
+		if (tname.substring(1, 2).equals(UNDERLINE)) {
+			formateName = tname.substring(2);
+		}
+		else {
+			formateName = tname;
+		}
+		// 检查表命名方式是否都是大写 以前三个字母为准
+		boolean isAllUpper = true;
+		int checkLength = formateName.length() > 3 ? 3 : formateName.length();
+		String checkStr = formateName.substring(0, checkLength);
+		for (int i = 0; i < checkLength; i++) {
+			String currentCheckStr = checkStr.substring(i, i + 1);
+			boolean currentCheckRes = currentCheckStr.equals(currentCheckStr.toUpperCase());
+			isAllUpper = (isAllUpper && currentCheckRes);
+		}
+		// 如果全是大写字母则转换成全小写字母
+		if (isAllUpper) {
+			formateName = formateName.toLowerCase();
+		}
+		// 按照下划线和横杠分割表名，每部分首字母大写后拼接
+		String[] formateNameArray = formateName.split(UNDERLINE);
+		StringBuilder sb = new StringBuilder();
+		for (String str : formateNameArray) {
+			if (StringUtils.isEmpty(str)) {
+				continue;
+			}
+			sb.append(wordFirst2lower(str));
+		}
+		return sb.toString();
+	}
+
+	/**
+	 * 格式化表名/数据名 到小驼峰形式
+	 *
+	 * @param tname the tname
+	 * @return the string
+	 * @author : ligangwei / 2019-04-13
+	 */
+	public static String formaterTabName2smallCamel(String tname) {
+		if (StringUtils.isEmpty(tname)) {
+			return "";
+		}
+		// 首字母小写的Name
+		String tnameSmallCamel = formaterTabName2bigCamel(tname);
+		return wordFirst2lower(tnameSmallCamel);
+	}
+
+	/**
+	 * 单词首字母大写其余不变
 	 *
 	 * @param word the word
 	 * @return the string
@@ -155,7 +214,7 @@ public class StringUtil {
 	 */
 	private static String wordFirst2upper(String word) {
 		if (StringUtils.hasText(word)) {
-			word = word.toLowerCase();
+//			word = word.toLowerCase();
 			StringBuilder sb = new StringBuilder(word.substring(0, 1).toUpperCase());
 			sb.append(word.substring(1));
 			return sb.toString();

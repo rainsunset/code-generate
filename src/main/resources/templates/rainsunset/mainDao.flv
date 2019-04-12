@@ -1,6 +1,6 @@
-package ${classPath}.${dao};
+package ${rootPackage}.${dao};
 
-import ${classPath}.${bean}.${firatUpperName};
+import ${rootPackage}.${bean}.${tableBigCamel};
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,31 +12,31 @@ import java.util.Map;
  *
  */
  @Repository
-public interface ${firatUpperName}Mapper {
+public interface ${tableBigCamel}Mapper {
 
     /**
-     * 添加 ${tabNameComment}
-     * @param ${firstlowerName}
+     * 添加 ${tableComment}
+     * @param ${tableSmallCamel}
      */
-    public void  add${firatUpperName}(${firatUpperName} ${firstlowerName});
+    public void  add${tableBigCamel}(${tableBigCamel} ${tableSmallCamel});
 
     /**
-     * 依据主键更新 ${tabNameComment}
-     * @param ${firstlowerName}
+     * 依据主键更新 ${tableComment}
+     * @param ${tableSmallCamel}
      */
-    public void  update${firatUpperName}ById(${firatUpperName} ${firstlowerName});
+    public void  update${tableBigCamel}ById(${tableBigCamel} ${tableSmallCamel});
 
     /**
-     * 依据条件查找 ${tabNameComment} 列表
+     * 依据条件查找 ${tableComment} 列表
      * @param param
      * @return
      */
-    public List<${firatUpperName}> select${firatUpperName}List(Map<String, Object> param);
+    public List<${tableBigCamel}> select${tableBigCamel}List(Map<String, Object> param);
 
     /**
-     * 依据主键删除 ${tabNameComment} 记录
-     * @param ${tabPrikeyAlias}
+     * 依据主键删除 ${tableComment} 记录
+     * @param ${tabPrikeySmallCamel}
      */
-    public void  del${firatUpperName}ById(${keyType} ${tabPrikeyAlias});
+    public void  del${tableBigCamel}ById(${tabPrikeyType} ${tabPrikeySmallCamel});
 
 }

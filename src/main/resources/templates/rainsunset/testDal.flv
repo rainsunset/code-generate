@@ -1,4 +1,4 @@
-package ${classPath}.test.dao;
+package ${rootPackage}.test.dao;
 
 
 
@@ -7,7 +7,7 @@ package ${classPath}.test.dao;
  * @author whaosoft
  *
  */
-public class Test${firatUpperName}Dao {
+public class Test${tableBigCamel}Dao {
 
 
 

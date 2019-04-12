@@ -1,7 +1,7 @@
-package ${classPath}.service;
+package ${rootPackage}.service;
 
 import com.github.pagehelper.PageInfo;
-import ${classPath}.${bean}.${firatUpperName};
+import ${rootPackage}.${bean}.${tableBigCamel};
 
 import java.util.List;
 import java.util.Map;
@@ -11,46 +11,46 @@ import java.util.Map;
  * @author whaosoft
  *
  */
-public interface ${firatUpperName}Service {
+public interface ${tableBigCamel}Service {
 
     /**
-     * 添加 ${tabNameComment}
-     * @param ${firstlowerName}
+     * 添加 ${tableComment}
+     * @param ${tableSmallCamel}
      */
-    public void  add${firatUpperName}(${firatUpperName} ${firstlowerName});
+    public void  add${tableBigCamel}(${tableBigCamel} ${tableSmallCamel});
 
     /**
-     * 依据主键更新 ${tabNameComment}
-     * @param ${firstlowerName}
+     * 依据主键更新 ${tableComment}
+     * @param ${tableSmallCamel}
      */
-    public void  update${firatUpperName}ById(${firatUpperName} ${firstlowerName});
+    public void  update${tableBigCamel}ById(${tableBigCamel} ${tableSmallCamel});
 
     /**
-     * 依据条件查找 ${tabNameComment} 列表
+     * 依据条件查找 ${tableComment} 列表
      * @param param
      * @return
      */
-    public List<${firatUpperName}> select${firatUpperName}List(Map<String, Object> param);
+    public List<${tableBigCamel}> select${tableBigCamel}List(Map<String, Object> param);
 
     /**
-     * 依据条件查找分页 ${tabNameComment} 列表
+     * 依据条件查找分页 ${tableComment} 列表
      * @param param
      * @param pageNo
      * @param pageSize
      * @return
      */
-    public PageInfo<${firatUpperName}> get${firatUpperName}PageTurn(Map<String, Object> param, int pageNo, int pageSize);
+    public PageInfo<${tableBigCamel}> get${tableBigCamel}PageTurn(Map<String, Object> param, int pageNo, int pageSize);
 
     /**
-     * 依据Id查找 ${tabNameComment} 详情
-     * @param ${tabPrikeyAlias}
+     * 依据Id查找 ${tableComment} 详情
+     * @param ${tabPrikeySmallCamel}
      * @return
      */
-    public ${firatUpperName} get${firatUpperName}ById(${keyType} ${tabPrikeyAlias});
+    public ${tableBigCamel} get${tableBigCamel}ById(${tabPrikeyType} ${tabPrikeySmallCamel});
 
     /**
-     * 依据Id删除 ${tabNameComment} 记录
-     * @param ${tabPrikeyAlias}
+     * 依据Id删除 ${tableComment} 记录
+     * @param ${tabPrikeySmallCamel}
      */
-    public void del${firatUpperName}ById(${keyType} ${tabPrikeyAlias});
+    public void del${tableBigCamel}ById(${tabPrikeyType} ${tabPrikeySmallCamel});
 }

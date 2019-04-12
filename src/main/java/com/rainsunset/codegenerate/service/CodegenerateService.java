@@ -99,17 +99,23 @@ public class CodegenerateService {
         // 构建包文件夹绝对路径，并依据配置创建文件夹
         FilePathBO filePathBO = doCreateSource(filePathConfigReqDTO,packagePathBO);
         // 获取模版绝对系统文件路径
-        String templatesAbsPath = getTemplatesAbsPath(templatesType);
-        if (StringUtils.isEmpty(templatesAbsPath)) {
+        String templatesPath = getTemplatesAbsPath(templatesType);
+        if (StringUtils.isEmpty(templatesPath)) {
             return false;
         }
         // 获取数据库表注释
         Map<String,String> tabCommentMap = getTablesComment(dbs);
-        for (String tbName : tabNameList) {
-            logger.debug(" >>> 开始依据表{}创建代码：",tbName);
-            String tabComment = tabCommentMap.get(tbName);
-            CodeCreator.creatorCode(tbName,tabComment,templatesAbsPath,filePathBO,filePathConfigReqDTO,dbs);
-            logger.debug(" >>> 依据表{}创建代码完成：",tbName);
+        for (String tabName : tabNameList) {
+            if (StringUtils.isEmpty(tabName)) {
+                continue;
+            }
+            logger.debug(" >>> 开始依据表{}创建代码：",tabName);
+            String tabComment = tabCommentMap.get(tabName);
+            // 表对象
+            TableInfoBO tableInfoBO = new TableInfoBO(tabName,tabComment,dbs);
+            // 数据已准备好 开始按照模板生成代码
+            CodeCreator.creatorCode(templatesPath,filePathBO,filePathConfigReqDTO,tableInfoBO);
+            logger.debug(" >>> 依据表{}创建代码完成：",tabName);
         }
         return true;
     }
@@ -136,7 +142,8 @@ public class CodegenerateService {
 
 
     /**
-     * 获取表注释
+     * 获取表说明
+     * 默认说明为表名+表
      *
      * @param dbs the dbs
      * @return the map
@@ -152,7 +159,7 @@ public class CodegenerateService {
             if ((null != tbNameComment) && (!"".equals(tbNameComment))) {
                 tabCommentMap.put(tbName,tbNameComment);
             } else {
-                tabCommentMap.put(tbName,"");
+                tabCommentMap.put(tbName,StringUtil.conlitionStr(tbName,"表"));
             }
         }
         return tabCommentMap;

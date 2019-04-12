@@ -209,4 +209,5 @@ public class DataBaseSettingBO {
                 + password + '\'' + ", url='" + url + '\'' + ", driver='" + driver + '\'' + ", testSql='" + testSql
                 + '\'' + ", showTable='" + showTable + '\'' + '}';
     }
+
 }

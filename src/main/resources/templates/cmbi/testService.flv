@@ -1,4 +1,4 @@
-package ${classPath}.test.service;
+package ${rootPackage}.test.service;
 
 
 /**
@@ -6,7 +6,7 @@ package ${classPath}.test.service;
  * @author whaosoft
  *
  */
-public class Test${firatUpperName}Service{
+public class Test${tableBigCamel}Service{
 
 
 }

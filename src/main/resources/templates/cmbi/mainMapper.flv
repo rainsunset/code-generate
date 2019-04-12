@@ -1,72 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="${classPath}.${dao}.${firatUpperName}Mapper">
+<mapper namespace="${rootPackage}.${dao}.${tableBigCamel}Mapper">
 
-    <insert id="add${firatUpperName}" parameterType="${classPath}.${bean}.${firatUpperName}">
+    <insert id="add${tableBigCamel}" parameterType="${rootPackage}.${bean}.${tableBigCamel}">
         INSERT INTO ${tableName}
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            ${tabPrikeyName},
+            ${tabPrikey},
             <#list columList as map>
-                <if test="${map.columnAlias} != null">
+                <if test="${map.columnSmallCamel} != null">
                     ${map.column},
                 </if>
             </#list>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            ${u0023}{${tabPrikeyAlias}},
+            ${u0023}{${tabPrikeySmallCamel}},
             <#list columList as map>
-                <if test="${map.columnAlias} != null">
-                    ${u0023}{${map.columnAlias}},
+                <if test="${map.columnSmallCamel} != null">
+                    ${u0023}{${map.columnSmallCamel}},
                 </if>
             </#list>
         </trim>
     </insert>
 
-    <update id="update${firatUpperName}ById" parameterType="${classPath}.${bean}.${firatUpperName}">
+    <update id="update${tableBigCamel}ById" parameterType="${rootPackage}.${bean}.${tableBigCamel}">
         update ${tableName}
         <trim prefix="set" suffixOverrides=",">
             <#list columList as map>
-                <if test="${map.columnAlias} != null">
-                    ${map.column} =${u0023}{${map.columnAlias}},
+                <if test="${map.columnSmallCamel} != null">
+                    ${map.column} =${u0023}{${map.columnSmallCamel}},
                 </if>
             </#list>
         </trim>
-        where ${tabPrikeyName} = ${u0023}{${tabPrikeyAlias}}
+        where ${tabPrikey} = ${u0023}{${tabPrikeySmallCamel}}
     </update>
 
-    <select id="select${firatUpperName}List" parameterType="java.util.Map"
-            resultType="${classPath}.${bean}.${firatUpperName}">
+    <select id="select${tableBigCamel}List" parameterType="java.util.Map"
+            resultType="${rootPackage}.${bean}.${tableBigCamel}">
         select
         <#list columList as map>
-            ${map.column} ${map.columnAlias},
+            ${map.column} ${map.columnSmallCamel},
         </#list>
-        ${tabPrikeyName} ${tabPrikeyAlias}
+        ${tabPrikey} ${tabPrikeySmallCamel}
         from ${tableName}
         WHERE
         1=1
-        <if test="${tabPrikeyAlias} != null">
-            and ${tabPrikeyName} = ${u0023}{${tabPrikeyAlias}}
+        <if test="${tabPrikeySmallCamel} != null">
+            and ${tabPrikey} = ${u0023}{${tabPrikeySmallCamel}}
         </if>
         <#list columList as map>
-        <#switch  map.columType>
+        <#switch  map.columnType>
         <#case "String">
-        <if test="${map.columnAlias} != null">
-            and ${map.column} like ${u0023}{${map.columnAlias}}
+        <if test="${map.columnSmallCamel} != null">
+            and ${map.column} like ${u0023}{${map.columnSmallCamel}}
         </if>
         <#break>
         <#default>
-        <if test="${map.columnAlias} != null">
-            and ${map.column} = ${u0023}{${map.columnAlias}}
+        <if test="${map.columnSmallCamel} != null">
+            and ${map.column} = ${u0023}{${map.columnSmallCamel}}
         </if>
         </#switch>
         </#list>
-        ORDER BY ${tabPrikeyName} ASC
+        ORDER BY ${tabPrikey} ASC
     </select>
 
-    <delete id="del${firatUpperName}ById" parameterType="${keypackage}">
+    <delete id="del${tableBigCamel}ById" parameterType="${tabPrikeyTypeFullName}">
         DELETE FROM  ${tableName}
         where
-        ${tabPrikeyName} = ${u0023}{${tabPrikeyAlias}}
+        ${tabPrikey} = ${u0023}{${tabPrikeySmallCamel}}
     </delete>
 
 </mapper>
