@@ -1,14 +1,17 @@
-package ${rootPackage}.${bean};
+package ${rootPackage}.${packModel};
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.util.Date;
-/**
- * @author wuhaosoft
- * @version $Id ${tableBigCamel}.java, ${now} wuhaosoft Exp
- *
- */
+
+ /**
+  * @Description: ${tableComment} Model
+  * @Author: ${codeAuthor}
+  * @Company ${codeCompany}
+  * @CreateDate: ${now}
+  * @Version : ${codeVersion}
+  */
 @ApiModel(description = "${tableComment}")
 public class ${tableBigCamel} {
 

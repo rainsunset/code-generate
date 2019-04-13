@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="${rootPackage}.${dao}.${tableBigCamel}Mapper">
+<mapper namespace="${rootPackage}.${packDao}.${tableBigCamel}Mapper">
 
-    <insert id="add${tableBigCamel}" parameterType="${rootPackage}.${bean}.${tableBigCamel}">
+    <insert id="add${tableBigCamel}" parameterType="${rootPackage}.${packModel}.${tableBigCamel}">
         INSERT INTO ${tableName}
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <#list columList as map>
@@ -20,7 +20,7 @@
         </trim>
     </insert>
 
-    <update id="update${tableBigCamel}ById" parameterType="${rootPackage}.${bean}.${tableBigCamel}">
+    <update id="update${tableBigCamel}ById" parameterType="${rootPackage}.${packModel}.${tableBigCamel}">
         update ${tableName}
         <trim prefix="set" suffixOverrides=",">
             <#list columList as map>
@@ -33,7 +33,7 @@
     </update>
 
     <select id="select${tableBigCamel}List" parameterType="java.util.Map"
-            resultType="${rootPackage}.${bean}.${tableBigCamel}">
+            resultType="${rootPackage}.${packModel}.${tableBigCamel}">
         select
         <#list columList as map>
             ${map.column} ${map.columnSmallCamel},

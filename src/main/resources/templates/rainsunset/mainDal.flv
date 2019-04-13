@@ -1,16 +1,18 @@
-package ${rootPackage}.${dao};
+package ${rootPackage}.${packDao};
 
-import ${rootPackage}.${bean}.${tableBigCamel};
+import ${rootPackage}.${packModel}.${tableBigCamel};
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
 
-/**
- *
- * @author whaosoft
- *
- */
+ /**
+  * @Description: ${tableComment} Mapper
+  * @Author: ${codeAuthor}
+  * @Company ${codeCompany}
+  * @CreateDate: ${now}
+  * @Version : ${codeVersion}
+  */
  @Repository
 public interface ${tableBigCamel}Mapper {
 

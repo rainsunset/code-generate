@@ -1,53 +1,27 @@
-package ${rootPackage}.${bean};
+package ${rootPackage}.${packModel};
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 import java.util.Date;
-/**
- * @author wuhaosoft
- * @version $Id ${tableBigCamel}.java, ${now} wuhaosoft Exp
- *
- */
-@ApiModel(description = "${tableComment}")
+
+ /**
+  * @Description: ${tableComment} Model
+  * @Author: ${codeAuthor}
+  * @Company ${codeCompany}
+  * @CreateDate: ${now}
+  * @Version : ${codeVersion}
+  */
+@Data
 public class ${tableBigCamel} {
+    <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
 
-    @ApiModelProperty(value = "${tabPrikeyComment}")
+    /** ${tabPrikeyComment} */
     private ${tabPrikeyType}  ${tabPrikeySmallCamel};
+    </#if>
     <#list columList as map>
 
-    @ApiModelProperty(value = "${map.columnComment}")
+    /** ${map.columnComment} */
     private ${map.columnType} ${map.columnSmallCamel};
-    </#list>
-
-    public ${tableBigCamel}(){}
-
-    public ${tableBigCamel}(
-        ${tabPrikeyType}  ${tabPrikeySmallCamel},
-        <#list columList as map>
-        ${map.columnType} ${map.columnSmallCamel}<#if map_has_next>,</#if>
-        </#list>
-    ) {
-        <#list columList as map>
-        this.${map.columnSmallCamel} = ${map.columnSmallCamel};
-        </#list>
-    }
-    public ${tabPrikeyType} get${tabPrikeyBigCamel}(){
-        return ${tabPrikeySmallCamel};
-    }
-
-    public void set${tabPrikeyBigCamel}(${tabPrikeyType}  ${tabPrikeySmallCamel}) {
-        this.${tabPrikeySmallCamel} = ${tabPrikeySmallCamel};
-    }
-    <#list columList as map>
-
-    public ${map.columnType} get${map.columnBigCamel}() {
-        return ${map.columnSmallCamel};
-    }
-
-    public void set${map.columnBigCamel}(${map.columnType}  ${map.columnSmallCamel}) {
-        this.${map.columnSmallCamel} = ${map.columnSmallCamel};
-    }
     </#list>
 
 }

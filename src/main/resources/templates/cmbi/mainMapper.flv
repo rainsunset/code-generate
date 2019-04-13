@@ -1,56 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="${rootPackage}.${dao}.${tableBigCamel}Mapper">
-
-    <insert id="add${tableBigCamel}" parameterType="${rootPackage}.${bean}.${tableBigCamel}">
-        INSERT INTO ${tableName}
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            ${tabPrikey},
-            <#list columList as map>
-                <if test="${map.columnSmallCamel} != null">
-                    ${map.column},
-                </if>
-            </#list>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            ${u0023}{${tabPrikeySmallCamel}},
-            <#list columList as map>
-                <if test="${map.columnSmallCamel} != null">
-                    ${u0023}{${map.columnSmallCamel}},
-                </if>
-            </#list>
-        </trim>
-    </insert>
-
-    <update id="update${tableBigCamel}ById" parameterType="${rootPackage}.${bean}.${tableBigCamel}">
-        update ${tableName}
-        <trim prefix="set" suffixOverrides=",">
-            <#list columList as map>
-                <if test="${map.columnSmallCamel} != null">
-                    ${map.column} =${u0023}{${map.columnSmallCamel}},
-                </if>
-            </#list>
-        </trim>
-        where ${tabPrikey} = ${u0023}{${tabPrikeySmallCamel}}
-    </update>
+<mapper namespace="${rootPackage}.${packDao}.${tableBigCamel}Mapper">
 
     <select id="select${tableBigCamel}List" parameterType="java.util.Map"
-            resultType="${rootPackage}.${bean}.${tableBigCamel}">
-        select
-        <#list columList as map>
-            ${map.column} ${map.columnSmallCamel},
-        </#list>
-        ${tabPrikey} ${tabPrikeySmallCamel}
+            resultType="${rootPackage}.${packModel}.${tableBigCamel}">
+        select <#if tabPrikeySmallCamel?? && tabPrikeySmallCamel != "">${tabPrikey} ${tabPrikeySmallCamel}, </#if>
+        <#list columList as map><#if map_index%4 == 0><w:p></w:p></#if>${map.column} ${map.columnSmallCamel}<#if map_has_next>, </#if></#list>
         from ${tableName}
         WHERE
         1=1
+        <#if tabPrikeySmallCamel?? && tabPrikeySmallCamel != "">
         <if test="${tabPrikeySmallCamel} != null">
             and ${tabPrikey} = ${u0023}{${tabPrikeySmallCamel}}
         </if>
+        </#if>
         <#list columList as map>
-        <#switch  map.columnType>
+        <#switch map.columnType>
         <#case "String">
-        <if test="${map.columnSmallCamel} != null">
+        <if test="${map.columnSmallCamel} != null and ${map.columnSmallCamel} != ''">
             and ${map.column} like ${u0023}{${map.columnSmallCamel}}
         </if>
         <#break>
@@ -63,10 +30,75 @@
         ORDER BY ${tabPrikey} ASC
     </select>
 
-    <delete id="del${tableBigCamel}ById" parameterType="${tabPrikeyTypeFullName}">
-        DELETE FROM  ${tableName}
-        where
-        ${tabPrikey} = ${u0023}{${tabPrikeySmallCamel}}
-    </delete>
+    <#if tabPrikeySmallCamel?? && tabPrikeySmallCamel != "">
+    <select id="get${tableBigCamel}Detail" parameterType="${tabPrikeyTypeFullName}"
+            resultType="${rootPackage}.${packModel}.${tableBigCamel}">
+        select
+        ${tabPrikey} ${tabPrikeySmallCamel}
+        <#list columList as map><#if map_index%4 == 0><w:p></w:p></#if>${map.column} ${map.columnSmallCamel}<#if map_has_next>, </#if></#list>
+        from ${tableName}
+        WHERE ${tabPrikey} = ${u0023}{${tabPrikeySmallCamel}}
+    </select>
+    </#if>
 
+    <insert id="add${tableBigCamel}" parameterType="${rootPackage}.${packModel}.${tableBigCamel}">
+        INSERT INTO ${tableName}
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "") && (!tabPrikeyIsautoIncrement)>
+            <if test="${tabPrikeySmallCamel} != null}">
+                ${tabPrikey},
+            </if>
+            </#if>
+            <#list columList as map>
+            <if test="${map.columnSmallCamel} != null">
+                ${map.column},
+            </if>
+            </#list>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "") && (!tabPrikeyIsautoIncrement)>
+            <if test="${tabPrikeySmallCamel} != null}">
+                ${u0023}{${tabPrikeySmallCamel}},
+            </if>
+            </#if>
+            <#list columList as map>
+            <if test="${map.columnSmallCamel} != null">
+                ${u0023}{${map.columnSmallCamel}},
+            </if>
+            </#list>
+        </trim>
+    </insert>
+
+    <insert id="fullInsert${tableBigCamel}" parameterType="${rootPackage}.${packModel}.${tableBigCamel}">
+        INSERT INTO ${tableName} ( <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "") && (!tabPrikeyIsautoIncrement)>${tabPrikey}, </#if>
+            <#list columList as map><#if map_index%4 == 0><w:p></w:p></#if>${map.column}<#if map_has_next>, </#if></#list>
+        ) VALUES (
+            <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "") && (!tabPrikeyIsautoIncrement)>${u0023}{${tabPrikeySmallCamel}},</#if>
+            <#list columList as map><#if map_index%4 == 0><w:p></w:p></#if>${u0023}{${map.columnSmallCamel}}<#if map_has_next>, </#if></#list>
+        )
+    </insert>
+
+    <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
+    <update id="update${tableBigCamel}" parameterType="${rootPackage}.${packModel}.${tableBigCamel}">
+        update ${tableName}
+        <trim prefix="set" suffixOverrides=",">
+            <#list columList as map>
+                <if test="${map.columnSmallCamel} != null">
+                    ${map.column} =${u0023}{${map.columnSmallCamel}},
+                </if>
+            </#list>
+        </trim>
+        where ${tabPrikey} = ${u0023}{${tabPrikeySmallCamel}}
+    </update>
+    </#if>
+
+    <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
+    <delete id="delete${tableBigCamel}s">
+        DELETE FROM  ${tableName}
+        where ${tabPrikey} IN
+        <foreach collection="${tabPrikeySmallCamel}s" item="${tabPrikeySmallCamel}" open="(" close=")" separator=",">
+            ${u0023}{${tabPrikeySmallCamel}}
+        </foreach>
+    </delete>
+    </#if>
 </mapper>

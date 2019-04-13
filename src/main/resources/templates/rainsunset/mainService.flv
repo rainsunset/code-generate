@@ -1,16 +1,18 @@
 package ${rootPackage}.service;
 
 import com.github.pagehelper.PageInfo;
-import ${rootPackage}.${bean}.${tableBigCamel};
+import ${rootPackage}.${packModel}.${tableBigCamel};
 
 import java.util.List;
 import java.util.Map;
 
-/**
- *
- * @author whaosoft
- *
- */
+ /**
+  * @Description: ${tableComment} Service
+  * @Author: ${codeAuthor}
+  * @Company ${codeCompany}
+  * @CreateDate: ${now}
+  * @Version : ${codeVersion}
+  */
 public interface ${tableBigCamel}Service {
 
     /**

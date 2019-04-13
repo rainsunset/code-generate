@@ -1,74 +1,51 @@
 package ${rootPackage}.controller;
 
-import com.github.pagehelper.PageInfo;
-import com.github.pagehelper.util.StringUtil;
-import ${rootPackage}.${bean}.${tableBigCamel};
-import ${rootPackage}.service.${tableBigCamel}Service;
-import ${rootPackage}.view.ResponseResult;
-import ${rootPackage}.view.RestResultGenerator;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import com.cmbi.base.Response;
+import ${rootPackage}.${packModel}.${tableBigCamel};
+import ${rootPackage}.${packService}.${tableBigCamel}Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.util.StringUtils;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 
-/**
- * @author wuhaosoft
- * @version $Id ${tableBigCamel}Controller.java, ${now} wuhaosoft Exp
- *
- */
-@Api(tags = "${tableComment}接口")
+ /**
+  * @Description: ${tableComment} API
+  * @Author: ${codeAuthor}
+  * @Company ${codeCompany}
+  * @CreateDate: ${now}
+  * @Version : ${codeVersion}
+  */
+@CrossOrigin
 @RestController
-@RequestMapping("/${moduleName}")
+@RequestMapping("/${moduleName}/${tableSmallCamel}}")
 public class ${tableBigCamel}Controller{
 
     @Autowired
     private ${tableBigCamel}Service ${tableSmallCamel}Service;
 
-    @ApiOperation("查询 所有 ${tableComment} 分页")
-    @RequestMapping(value = "/${tableSmallCamel}s", method = RequestMethod.POST)
-    public ResponseResult<PageInfo<${tableBigCamel}>> get${tableBigCamel}PageTurn(
-            <#list columList as map>
-            @ApiParam(value = "${map.columnComment} (非必传参数)") @RequestParam(required = false) ${map.columnType} ${map.columnSmallCamel},
-            </#list>
-            @ApiParam(value = "页码(必传)") @RequestParam Integer pageNo,
-            @ApiParam(value = "每页显示多少数据(必传)") @RequestParam Integer pageSize) throws Exception {
-        Map<String, Object> rs = new HashMap<String, Object>();
+    /**
+     * 依据条件查找 ${tableComment} 列表
+     *
+     <#list columList as map>
+     * @param ${map.columnSmallCamel} ${map.columnComment}
+     </#list>
+     * @return
+     */
+    @RequestMapping(value = "/findList", method = RequestMethod.POST)
+    public Response<List<${tableBigCamel}>> findList(
         <#list columList as map>
-        <#switch  map.columnType>
-        <#case "String">
-        if (StringUtil.isNotEmpty(${map.columnSmallCamel})) {
-           rs.put("${map.columnSmallCamel}", "%" + ${map.columnSmallCamel} + "%");
-        }
-        <#break>
-        <#default>
-        if (null != ${map.columnSmallCamel}) {
-           rs.put("${map.columnSmallCamel}", ${map.columnSmallCamel});
-        }
-        </#switch>
-        </#list>
-        PageInfo<${tableBigCamel}> pageInfo = ${tableSmallCamel}Service.get${tableBigCamel}PageTurn(rs, pageNo, pageSize);
-        return RestResultGenerator.genResult(pageInfo);
-    }
-
-    @ApiOperation("查询 所有 ${tableComment}")
-    @RequestMapping(value = "/all${tableBigCamel}s", method = RequestMethod.POST)
-    public ResponseResult<List<${tableBigCamel}>> select${tableBigCamel}List(
-        <#list columList as map>
-        @ApiParam(value = "${map.columnComment} (非必传参数)") @RequestParam(required = false) ${map.columnType} ${map.columnSmallCamel}<#if map_has_next>,</#if>
+        @RequestParam(required = false) ${map.columnType} ${map.columnSmallCamel}<#if map_has_next>,</#if>
         </#list>
         )throws Exception {
         Map<String, Object> rs = new HashMap<String, Object>();
         <#list columList as map>
         <#switch  map.columnType>
         <#case "String">
-         if (StringUtil.isNotEmpty(${map.columnSmallCamel})) {
+         if (!StringUtils.isEmpty(${map.columnSmallCamel})) {
             rs.put("${map.columnSmallCamel}", "%" + ${map.columnSmallCamel} + "%");
          }
          <#break>
@@ -78,22 +55,44 @@ public class ${tableBigCamel}Controller{
         }
         </#switch>
         </#list>
-        List<${tableBigCamel}> ${tableSmallCamel}List = ${tableSmallCamel}Service.select${tableBigCamel}List(rs);
-        return RestResultGenerator.genResult(${tableSmallCamel}List);
+        return ${tableSmallCamel}Service.select${tableBigCamel}List(rs);
     }
 
-    @ApiOperation("新增 ${tableComment}")
-    @RequestMapping(value = "/${tableSmallCamel}", method = RequestMethod.POST)
-    public ResponseResult<String> add${tableBigCamel}(
+    <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
+    /**
+     * 依据Id查询 ${tableComment} 详情
+     *
+     * @param ${tabPrikeySmallCamel} ${tabPrikeyComment}
+     * @return
+     */
+    @ApiOperation("查询 ${tableComment}")
+    @RequestMapping(value = "/getDetail", method = RequestMethod.POST)
+    public Response<${tableBigCamel}> get${tableBigCamel}ById( @RequestParam ${tabPrikeyType} ${tabPrikeySmallCamel}){
+        return ${tableSmallCamel}Service.get${tableBigCamel}Detail(${tabPrikeySmallCamel});
+    }
+
+    /**
+     * 新增或更新 ${tableComment}
+     *
+     * @param ${tabPrikeySmallCamel} ${tabPrikeyComment}
+     <#list columList as map>
+     * @param ${map.columnSmallCamel} ${map.columnComment}
+     </#list>
+     * @return
+     */
+    @RequestMapping(value = "/addOrUpdate", method = RequestMethod.POST)
+    public Response<Boolean> addOrUpdate(
+            @RequestParam ${tabPrikeyType} ${tabPrikeySmallCamel},
             <#list columList as map>
-                @ApiParam(value = "${map.columnComment} (非必传参数)") @RequestParam(required = false) ${map.columnType} ${map.columnSmallCamel}<#if map_has_next>,</#if>
+            @RequestParam(required = false) ${map.columnType} ${map.columnSmallCamel}<#if map_has_next>,</#if>
             </#list>
             ) throws Exception {
         ${tableBigCamel} ${tableSmallCamel} = new ${tableBigCamel}();
+        ${tableSmallCamel}.set${tabPrikeyBigCamel}(${tabPrikeySmallCamel});
         <#list columList as map>
-        <#switch  map.columnType>
+        <#switch map.columnType>
         <#case "String">
-        if (StringUtil.isNotEmpty(${map.columnSmallCamel})) {
+        if (!StringUtils.isEmpty(${map.columnSmallCamel})) {
            ${tableSmallCamel}.set${map.columnBigCamel}(${map.columnSmallCamel});
         }
         <#break>
@@ -103,54 +102,20 @@ public class ${tableBigCamel}Controller{
         }
         </#switch>
         </#list>
-        //${tableSmallCamel}.setCreatedDate(new Date());
-        ${tableSmallCamel}Service.add${tableBigCamel}(${tableSmallCamel});
-        return RestResultGenerator.genResult("sucess");
+        return ${tableSmallCamel}Service.addOrUpdate${tableBigCamel}(${tableSmallCamel});
     }
 
-    @ApiOperation("更新 ${tableComment}")
-    @RequestMapping(value = "/${tableSmallCamel}/{${tabPrikeySmallCamel}}", method = RequestMethod.PUT)
-    public ResponseResult<String> update${tableBigCamel}ById(
-            @ApiParam(value = "${tabPrikeyComment} (必传参数)") @PathVariable ${tabPrikeyType}  ${tabPrikeySmallCamel},
-             <#list columList as map>
-             @ApiParam(value = "${map.columnComment} (非必传参数)") @RequestParam(required = false) ${map.columnType} ${map.columnSmallCamel}<#if map_has_next>,</#if>
-             </#list>
-            ) throws Exception {
-        ${tableBigCamel} ${tableSmallCamel} = new ${tableBigCamel}();
-        ${tableSmallCamel}.set${tabPrikeyBigCamel}(${tabPrikeySmallCamel});
-
-        <#list columList as map>
-         <#switch  map.columnType>
-         <#case "String">
-         if (StringUtil.isNotEmpty(${map.columnSmallCamel})) {
-            ${tableSmallCamel}.set${map.columnBigCamel}(${map.columnSmallCamel});
-         }
-         <#break>
-         <#default>
-         if (null != ${map.columnSmallCamel}) {
-            ${tableSmallCamel}.set${map.columnBigCamel}(${map.columnSmallCamel});
-         }
-        </#switch>
-        </#list>
-        //${tableSmallCamel}.setModifiedDate(new Date());
-        ${tableSmallCamel}Service.update${tableBigCamel}ById(${tableSmallCamel});
-        return RestResultGenerator.genResult("sucess");
+    /**
+     * 依据Id批量删除 ${tableComment}
+     *
+     * @param ${tabPrikeySmallCamel}s ${tabPrikeyComment}数组
+     * @return
+     */
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public Response<Boolean> delete(@RequestParam ${tabPrikeyType}[] ${tabPrikeySmallCamel}s) throws Exception {
+        return ${tableSmallCamel}Service.delete${tableBigCamel}s(${tabPrikeySmallCamel}s);
     }
+    </#if>
 
-    @ApiOperation("删除 ${tableComment}")
-    @RequestMapping(value = "/${tableSmallCamel}/{${tabPrikeySmallCamel}}", method = RequestMethod.DELETE)
-    public ResponseResult<String> del${tableBigCamel}ById(
-             @ApiParam(value = "${tabPrikeyComment} (必传参数)") @PathVariable ${tabPrikeyType}  ${tabPrikeySmallCamel}
-            ) throws Exception {
-        ${tableSmallCamel}Service.del${tableBigCamel}ById(${tabPrikeySmallCamel});
-        return RestResultGenerator.genResult("sucess");
-    }
-
-    @ApiOperation("查询 ${tableComment}")
-    @RequestMapping(value = "/${tableSmallCamel}/{${tabPrikeySmallCamel}}", method = RequestMethod.GET)
-    public ResponseResult<${tableBigCamel}> get${tableBigCamel}ById(
-            @ApiParam(value = "${tabPrikeyComment} (必传参数)") @PathVariable ${tabPrikeyType}  ${tabPrikeySmallCamel}) throws Exception {
-        return RestResultGenerator.genResult(${tableSmallCamel}Service.get${tableBigCamel}ById(${tabPrikeySmallCamel}));
-    }
 }
 

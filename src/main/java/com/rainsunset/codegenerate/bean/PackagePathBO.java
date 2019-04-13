@@ -1,5 +1,6 @@
 package com.rainsunset.codegenerate.bean;
 
+import com.rainsunset.codegenerate.common.constants.Constants;
 import com.rainsunset.codegenerate.common.util.StringUtil;
 import org.springframework.util.StringUtils;
 
@@ -71,14 +72,29 @@ public class PackagePathBO {
 	}
 
 	/**
-	 * 约定 - 按照代码的package层生成代码层文件夹
-	 * 如service.impl为service实现层包路径，则生成的文件夹路径为service/impl
-	 *
+	 * 约定 - 按照代码的package层约定各层包文件(绝对)路径
+	 * 如service.impl为service实现层包路径，则生成的文件夹路径为filePathModule/service/impl
+	 * 生成文件结构如下
+	 * |--moduleName
+	 * |----model
+	 * |----dal
+	 * |----mapper
+	 * |----service
+	 * |----serviceimpl
+	 * |----manager
+	 * |----controller
+	 * |----test
+	 * |------testservice
+	 * |------testdao
+	 * |----page
+	 * @param filePathModule 目标文件夹绝对路径
 	 * @return the string
 	 * @author : ligangwei / 2019-04-12
 	 */
-	public String getPackModelRelFilePath() {
-		return packModel.replace(".", File.separator);
+	public String getPackModelDirPath(String filePathModule) {
+		String dirPathModel= StringUtils.isEmpty(packModel) ? null :
+				StringUtil.conlitionStr(filePathModule, File.separator, packModel.replace(".", File.separator));
+		return dirPathModel;
 	}
 
 	/**
@@ -106,8 +122,10 @@ public class PackagePathBO {
 		return packDao;
 	}
 
-	public String getPackDaoRelFilePath() {
-		return packDao.replace(".", File.separator);
+	public String getPackDaoDirPath(String filePathModule) {
+		String dirPathDal = StringUtils.isEmpty(packDao) ? null :
+				StringUtil.conlitionStr(filePathModule, File.separator, packDao.replace(".", File.separator));
+		return dirPathDal;
 	}
 
 	public String getPackDaoTemplateFileName() {
@@ -122,8 +140,10 @@ public class PackagePathBO {
 		return packMapper;
 	}
 
-	public String getPackMapperRelFilePath() {
-		return packMapper.replace(".", File.separator);
+	public String getPackMapperDirPath(String filePathModule) {
+		String dirPathMapper= StringUtils.isEmpty(packMapper) ? null :
+				StringUtil.conlitionStr(filePathModule, File.separator, packMapper.replace(".", File.separator));
+		return dirPathMapper;
 	}
 
 	public String getPackMapperTemplateFileName() {
@@ -142,8 +162,10 @@ public class PackagePathBO {
 		return packService;
 	}
 
-	public String getPackServiceRelFilePath() {
-		return packService.replace(".", File.separator);
+	public String getPackServiceDirPath(String filePathModule) {
+		String dirPathService = StringUtils.isEmpty(packService) ? null :
+				StringUtil.conlitionStr(filePathModule, File.separator, packService.replace(".", File.separator));
+		return dirPathService;
 	}
 
 	public String getPackServiceTemplateFileName() {
@@ -158,8 +180,10 @@ public class PackagePathBO {
 		return packServiceImpl;
 	}
 
-	public String getPackServiceImplRelFilePath() {
-		return packServiceImpl.replace(".", File.separator);
+	public String getPackServiceImplDirPath(String filePathModule) {
+		String dirPathServiceImpl = StringUtils.isEmpty(packServiceImpl) ? null :
+				StringUtil.conlitionStr(filePathModule, File.separator, packServiceImpl.replace(".", File.separator));
+		return dirPathServiceImpl;
 	}
 
 	public String getPackServiceImplTemplateFileName() {
@@ -174,8 +198,10 @@ public class PackagePathBO {
 		return packManager;
 	}
 
-	public String getPackManagerRelFilePath() {
-		return packManager.replace(".", File.separator);
+	public String getPackManagerDirPath(String filePathModule) {
+		String dirPathManager= StringUtils.isEmpty(packManager) ? null :
+				StringUtil.conlitionStr(filePathModule, File.separator, packManager.replace(".", File.separator));
+		return dirPathManager;
 	}
 
 	public String getPackManagerTemplateFileName() {
@@ -190,8 +216,10 @@ public class PackagePathBO {
 		return packController;
 	}
 
-	public String getPackControllerRelFilePath() {
-		return packController.replace(".", File.separator);
+	public String getPackControllerDirPath(String filePathModule) {
+		String dirPathController = StringUtils.isEmpty(packController) ? null :
+				StringUtil.conlitionStr(filePathModule, File.separator, packController.replace(".", File.separator));
+		return dirPathController;
 	}
 
 	public String getPackControllerTemplateFileName() {
@@ -206,7 +234,10 @@ public class PackagePathBO {
 		return packTestDao;
 	}
 
-	public String getPackTestDaoRelFilePath() {
+	public String getPackTestDaoDirPath(String filePathModule) {
+		String dirPathTestDao= StringUtils.isEmpty(packTestDao) ? null :
+				StringUtil.conlitionStr(filePathModule, File.separator, Constants.PACKAGE_TEST,
+						File.separator, packTestDao.replace(".", File.separator));
 		return packTestDao.replace(".", File.separator);
 	}
 
@@ -222,8 +253,11 @@ public class PackagePathBO {
 		return packTestService;
 	}
 
-	public String getPackTestServiceRelFilePath() {
-		return packTestService.replace(".", File.separator);
+	public String getPackTestServiceDirPath(String filePathModule) {
+		String dirPathTestService= StringUtils.isEmpty(packTestService) ? null :
+				StringUtil.conlitionStr(filePathModule, File.separator, Constants.PACKAGE_TEST,
+						File.separator,packTestService.replace(".", File.separator));
+		return dirPathTestService;
 	}
 
 	public String getPackTestServiceTemplateFileName() {
@@ -238,8 +272,11 @@ public class PackagePathBO {
 		return packPageControler;
 	}
 
-	public String getPackPageControlerRelFilePath() {
-		return packPageControler.replace(".", File.separator);
+	public String getPackPageControlerDirPath(String filePathModule) {
+		String dirPathPageControler= StringUtils.isEmpty(packPageControler) ? null :
+				StringUtil.conlitionStr(filePathModule, File.separator, Constants.PACKAGE_PAGE,
+						File.separator,packPageControler.replace(".", File.separator));
+		return dirPathPageControler;
 	}
 
 	public String getPackPageControlerTemplateFileName() {
@@ -254,8 +291,11 @@ public class PackagePathBO {
 		return packPageService;
 	}
 
-	public String getPackPageServiceRelFilePath() {
-		return packPageService.replace(".", File.separator);
+	public String getPackPageServiceDirPath(String filePathModule) {
+		String dirPathPageService= StringUtils.isEmpty(packPageService) ? null :
+				StringUtil.conlitionStr(filePathModule, File.separator, Constants.PACKAGE_PAGE,
+						File.separator,packPageService.replace(".", File.separator));
+		return dirPathPageService;
 	}
 
 	public String getPackPageServiceTemplateFileName() {
@@ -270,8 +310,11 @@ public class PackagePathBO {
 		return packPageTemplate;
 	}
 
-	public String getPackPageTemplateRelFilePath() {
-		return packPageTemplate.replace(".", File.separator);
+	public String getPackPageTemplateDirPath(String filePathModule) {
+		String dirPathPageTemplate = StringUtils.isEmpty(packPageTemplate) ? null :
+				StringUtil.conlitionStr(filePathModule, File.separator, Constants.PACKAGE_PAGE,
+						File.separator,packPageTemplate.replace(".", File.separator));
+		return dirPathPageTemplate;
 	}
 
 	public String getPackPageTemplateTemplateFileName() {
@@ -286,7 +329,10 @@ public class PackagePathBO {
 		return packPageView;
 	}
 
-	public String getPackPageRelFilePath() {
+	public String getPackPageViewDirPath(String filePathModule) {
+		String dirPathPageView= StringUtils.isEmpty(packPageView) ? null :
+				StringUtil.conlitionStr(filePathModule, File.separator, Constants.PACKAGE_PAGE,
+						File.separator,packPageView.replace(".", File.separator));
 		return packPageView.replace(".", File.separator);
 	}
 

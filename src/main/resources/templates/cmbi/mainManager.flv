@@ -1,0 +1,81 @@
+package ${rootPackage}.{packServiceImpl};
+
+import com.cmbi.information.common.enums.ErrorCode;
+import com.cmbi.information.common.exception.ServiceException;
+import ${rootPackage}.${packModel}.${tableBigCamel};
+import ${rootPackage}.${packDao}.${tableBigCamel}Mapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+
+ /**
+  * @Description: ${tableComment} 业务实现
+  * @Author: ${codeAuthor}
+  * @Company ${codeCompany}
+  * @CreateDate: ${now}
+  * @Version : ${codeVersion}
+  */
+@Service
+public class ${tableBigCamel}Manager{
+
+    @Autowired
+    private ${tableBigCamel}Mapper ${tableSmallCamel}Mapper;
+
+    /**
+     * 依据条件查找 ${tableComment} 列表
+     * @param param
+     * @return
+     */
+    @Override
+    public List<${tableBigCamel}> select${tableBigCamel}List(Map<String, Object> param){
+        return ${tableSmallCamel}Mapper.select${tableBigCamel}List(param);
+    }
+
+    <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
+    /**
+     * 依据Id查找 ${tableComment} 详情
+     * @param ${tabPrikeySmallCamel}
+     * @return
+     */
+    @Override
+    public ${tableBigCamel} get${tableBigCamel}Detail(${tabPrikeyType} ${tabPrikeySmallCamel}){
+        ${tableBigCamel} ${tableSmallCamel} = ${tableSmallCamel}Mapper.get${tableBigCamel}Detail(rs);
+        return ${tableSmallCamel};
+    }
+    </#if>
+
+    <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
+    /**
+     * 新增或更新 ${tableComment} Id不为空时更新
+     * @param ${tableSmallCamel}
+     */
+    @Override
+    public void addOrUpdate${tableBigCamel}(${tableBigCamel} ${tableSmallCamel}){
+        // 检查参数
+        if (null == ${tableSmallCamel}){
+            throw new ServiceException(ErrorCode.ERROR_CODE_415001.getCode(), ErrorCode.ERROR_CODE_415001.getDesc());
+        }
+        if(null == ${tableSmallCamel}.get${tabPrikeyBigCamel}){
+            ${tableSmallCamel}Mapper.fullInsert${tableBigCamel}(${tableSmallCamel});
+        } else {
+            ${tableSmallCamel}Mapper.update${tableBigCamel}(${tableSmallCamel});
+        }
+    }
+    </#if>
+
+    <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
+    /**
+     * 依据Id批量删除 ${tableComment} 记录
+     * @param ${tabPrikeySmallCamel}s ${tabPrikeyComment}数组
+     */
+    @Override
+    public void delete${tableBigCamel}s(${tabPrikeyType}[] ${tabPrikeySmallCamel}s){
+        ${tableSmallCamel}Mapper.delete${tableBigCamel}s(extmenuIds);
+    }
+    </#if>
+
+}

@@ -1,0 +1,61 @@
+package ${rootPackage}.{packServiceImpl};
+
+import com.cmbi.base.Response;
+import ${rootPackage}.${packModel}.${tableBigCamel};
+import ${rootPackage}.${packDao}.${tableBigCamel}Manager;
+import ${rootPackage}.{packService}.${tableBigCamel}Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+
+ /**
+  * @Description: ${tableComment} 接口实现
+  * @Author: ${codeAuthor}
+  * @Company ${codeCompany}
+  * @CreateDate: ${now}
+  * @Version : ${codeVersion}
+  */
+@Service
+public class ${tableBigCamel}ServiceImpl implements ${tableBigCamel}Service {
+
+    @Autowired
+    private ${tableBigCamel}Manager ${tableSmallCamel}Manager;
+
+    @Override
+    public Response<List<${tableBigCamel}>> select${tableBigCamel}List(Map<String, Object> param){
+        Response<List<${tableBigCamel}>> response = new Response<>();
+    	List<${tableBigCamel}> res = ${tableSmallCamel}Manager.select${tableBigCamel}List(param);
+    	response.setResult(res);
+        return response;
+    }
+
+    <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
+    @Override
+    public Response<${tableBigCamel}> get${tableBigCamel}Detail(${tabPrikeyType} ${tabPrikeySmallCamel}){
+        Response<${tableBigCamel}> response = new Response<>();
+        ${tableBigCamel} res = ${tableSmallCamel}Manager.get${tableBigCamel}Detail(${tabPrikeySmallCamel});
+        response.setResult(res);
+        return response;
+    }
+
+    @Override
+    public Response<Boolean> addOrUpdate${tableBigCamel}(${tableBigCamel} ${tableSmallCamel}){
+        Response<Boolean> response = new Response<>();
+        ${tableSmallCamel}Manager.addOrUpdate${tableBigCamel}(${tableSmallCamel});
+        response.setResult(true);
+        return response;
+    }
+
+    @Override
+    public Response<Boolean> delete${tableBigCamel}s(${tabPrikeyType}[] ${tabPrikeySmallCamel}s){
+        Response<Boolean> response = new Response<>();
+        ${tableSmallCamel}Manager.delete${tableBigCamel}s(${tabPrikeySmallCamel}s);
+        response.setResult(true);
+        return response;
+    }
+    </#if>
+}

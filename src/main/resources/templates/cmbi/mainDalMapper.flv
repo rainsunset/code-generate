@@ -1,30 +1,21 @@
-package ${rootPackage}.${dao};
+package ${rootPackage}.${packDao};
 
-import ${rootPackage}.${bean}.${tableBigCamel};
+import ${rootPackage}.${packModel}.${tableBigCamel};
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
 
-/**
- *
- * @author whaosoft
- *
- */
+ /**
+  * @Description: ${tableComment} Mapper
+  * @Author: ${codeAuthor}
+  * @Company ${codeCompany}
+  * @CreateDate: ${now}
+  * @Version : ${codeVersion}
+  */
  @Repository
 public interface ${tableBigCamel}Mapper {
-
-    /**
-     * 添加 ${tableComment}
-     * @param ${tableSmallCamel}
-     */
-    public void  add${tableBigCamel}(${tableBigCamel} ${tableSmallCamel});
-
-    /**
-     * 依据主键更新 ${tableComment}
-     * @param ${tableSmallCamel}
-     */
-    public void  update${tableBigCamel}ById(${tableBigCamel} ${tableSmallCamel});
 
     /**
      * 依据条件查找 ${tableComment} 列表
@@ -33,10 +24,40 @@ public interface ${tableBigCamel}Mapper {
      */
     public List<${tableBigCamel}> select${tableBigCamel}List(Map<String, Object> param);
 
+    <#if tabPrikeySmallCamel?? && tabPrikeySmallCamel != "">
+    /**
+     * 依据Id查找 ${tableComment} 详情
+     * @param ${tabPrikeySmallCamel}
+     * @return
+     */
+    public ${tableBigCamel} get${tableBigCamel}Detail(${tabPrikeyType} ${tabPrikeySmallCamel});
+    </#if>
+
+    /**
+     * 添加 ${tableComment}
+     * @param ${tableSmallCamel}
+     */
+    public void  add${tableBigCamel}(${tableBigCamel} ${tableSmallCamel});
+
+    /**
+     * 全量插入 ${tableComment}
+     * @param ${tableSmallCamel}
+     */
+    public void  fullInsert${tableBigCamel}(${tableBigCamel} ${tableSmallCamel});
+
+    <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
+    /**
+     * 依据主键更新 ${tableComment}
+     * @param ${tableSmallCamel}
+     */
+    public void  update${tableBigCamel}(${tableBigCamel} ${tableSmallCamel});
+    </#if>
+
+    <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
     /**
      * 依据主键删除 ${tableComment} 记录
-     * @param ${tabPrikeySmallCamel}
+     * @param ${tabPrikeySmallCamel}s
      */
-    public void  del${tableBigCamel}ById(${tabPrikeyType} ${tabPrikeySmallCamel});
-
+    public void  delete${tableBigCamel}s(@Param("${tabPrikeySmallCamel}s") ${tabPrikeyType}[] ${tabPrikeySmallCamel}s);
+    </#if>
 }

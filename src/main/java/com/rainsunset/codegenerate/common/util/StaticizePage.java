@@ -1,10 +1,9 @@
-package com.rainsunset.codegenerate.service.cmbi;
+package com.rainsunset.codegenerate.common.util;
 
 import freemarker.log.Logger;
 import freemarker.template.*;
 
 import java.io.*;
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 

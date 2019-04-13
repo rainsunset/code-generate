@@ -2,8 +2,8 @@ package ${rootPackage}.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.util.StringUtil;
-import ${rootPackage}.${bean}.${tableBigCamel};
-import ${rootPackage}.service.${tableBigCamel}Service;
+import ${rootPackage}.${packModel}.${tableBigCamel};
+import ${rootPackage}.{packService}.${tableBigCamel}Service;
 import ${rootPackage}.view.ResponseResult;
 import ${rootPackage}.view.RestResultGenerator;
 import io.swagger.annotations.Api;
@@ -18,11 +18,13 @@ import java.util.List;
 import java.util.Map;
 
 
-/**
- * @author wuhaosoft
- * @version $Id ${tableBigCamel}Controller.java, ${now} wuhaosoft Exp
- *
- */
+ /**
+  * @Description: ${tableComment} API
+  * @Author: ${codeAuthor}
+  * @Company ${codeCompany}
+  * @CreateDate: ${now}
+  * @Version : ${codeVersion}
+  */
 @Api(tags = "${tableComment}接口")
 @RestController
 @RequestMapping("/${moduleName}")

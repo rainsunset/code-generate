@@ -118,6 +118,8 @@ public class TableInfoBO {
 				this.tabPrikeyComment = columnComment;
 				if ("auto_increment".equals((String) tabColumnMap.get("Extra"))) {
 					this.tabPrikeyIsautoIncrement = true;
+				} else {
+					this.tabPrikeyIsautoIncrement = false;
 				}
 			} else {
 				//处理注释字段 以及字段属性
@@ -128,6 +130,7 @@ public class TableInfoBO {
 				columList.add(tableFullColumnsBO);
 			}
 		}
+		this.columList = columList;
 	}
 
 	public String getTabPrikey() {

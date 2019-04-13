@@ -1,10 +1,10 @@
-package ${rootPackage}.service.impl;
+package ${rootPackage}.{packServiceImpl};
 
 import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.PageHelper;
-import ${rootPackage}.${bean}.${tableBigCamel};
-import ${rootPackage}.${dao}.${tableBigCamel}Mapper;
-import ${rootPackage}.service.${tableBigCamel}Service;
+import ${rootPackage}.${packModel}.${tableBigCamel};
+import ${rootPackage}.${packDao}.${tableBigCamel}Mapper;
+import ${rootPackage}.{packService}.${tableBigCamel}Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,12 +12,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
-/**
- *
- * @author whaosoft
- *
- */
+ /**
+  * @Description: ${tableComment} ServiceImpl
+  * @Author: ${codeAuthor}
+  * @Company ${codeCompany}
+  * @CreateDate: ${now}
+  * @Version : ${codeVersion}
+  */
 @Service
 public class ${tableBigCamel}ServiceImpl implements ${tableBigCamel}Service {
 
