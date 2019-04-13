@@ -4,4 +4,6 @@
 
 server:
     port: 8180
-    name: pureframe
+    name: code-generate
+    servlet:
+        context-path: /code-generate/
