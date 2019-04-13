@@ -1,7 +1,7 @@
 # code-generate
 **链接测试**
 ```$xslt
-http://localhost:8180/generate/test
+http://localhost:8180/code-generate/generate/test
 {
 	"dbType":"MySql",
 	"dbName":"wtgldb2",
@@ -15,7 +15,7 @@ http://localhost:8180/generate/test
 
 **查询数据库表**
 ```$xslt
-http://localhost:8180/generate/getTabs
+http://localhost:8180/code-generate/generate/getTabs
 {
 	"dbType":"MySql",
 	"dbName":"wtgldb2",
@@ -29,7 +29,7 @@ http://localhost:8180/generate/getTabs
 
 **生成代码**
 ```$xslt
-http://localhost:8180/generate/execute
+http://localhost:8180/code-generate/generate/execute
 {
 	"dataBaseConfigReqDTO":{
 		"dbType":"MySql",
