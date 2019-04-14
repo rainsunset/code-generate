@@ -1,6 +1,8 @@
 package com.rainsunset.codegenerate.common.enums;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public enum TemplatesTypeEnum {
 
@@ -32,4 +34,14 @@ public enum TemplatesTypeEnum {
         // 默认rainsunset
         return RAINSUNSET.getTemplatePath();
     }
+
+    public static  List<String> getTemplateTypes() {
+        List<String> templateTypes = new ArrayList<>();
+        for (TemplatesTypeEnum templatesTypeEnum : TemplatesTypeEnum.values()) {
+            templateTypes.add(templatesTypeEnum.getTemplateType());
+        }
+        // 默认rainsunset
+        return templateTypes;
+    }
+
 }

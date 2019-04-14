@@ -29,7 +29,7 @@ public enum GlobalErrorInfoEnum implements ErrorInfoInterface{
     // 全局系统异常 占用范围-999 -- 1000
     SUCCESS("0", "success"),
     SYSTEM_ERROR("-1","系统异常") ,
-
+    PARAM_ERROR("-101","参数异常") ,
     //endregion
 
     ;

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+<!--{-->
+<!--"success": false,-->
+<!--"message": " [ # 数据库连接失败 # ] java.sql.SQLException: Access denied for user 'root'@'10.0.2.35' (using password: YES)",-->
+<!--"errorcode": "-1"-->
+<!--}-->
+
+<!--{-->
+<!--"success": true,-->
+<!--"message": "success",-->
+<!--"data": true-->
+<!--}-->
+
+<!--{-->
+<!--"success": true,-->
+<!--"message": "success",-->
+<!--"data": [-->
+<!--"ODS_TBL_STATISTICS_EXCHANGE",-->
+<!--"T_HK_US_STOCK_OPERATION",-->
+<!--"T_TABLE_TASK",-->
+<!--"cmbi_zy_table",-->
+<!--"ods_cmbi_zy_table",-->
+<!--"tbl_user_info"-->
+<!--]-->
+<!--}-->
+
+<!--{-->
+<!--"success": true,-->
+<!--"message": "success",-->
+<!--"data": true-->
+<!--}-->
+
+<div th:each="item : ${templatesType}">
+    <p><a th:text="${{item}}"></a></p>
+</div>
+
+<div th:each="item : ${provideDbType}">
+    <p><a th:text="${{item}}"></a></p>
+</div>
+
+</body>
+</html>

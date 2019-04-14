@@ -1,9 +1,10 @@
-#spring:
-#    profiles:
-#        active: dev
-
 server:
     port: 8180
     name: code-generate
     servlet:
         context-path: /code-generate/
+#thymeleaf模版前缀
+spring:
+    thymeleaf:
+        prefix: classpath:/view/page/
+        mode: HTML5
