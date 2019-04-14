@@ -5,7 +5,9 @@
     <select id="select${tableBigCamel}List" parameterType="java.util.Map"
             resultType="${rootPackage}.${packModel}.${tableBigCamel}">
         select <#if tabPrikeySmallCamel?? && tabPrikeySmallCamel != "">${tabPrikey} ${tabPrikeySmallCamel}, </#if>
-        <#list columList as map><#if map_index%4 == 0><w:p></w:p></#if>${map.column} ${map.columnSmallCamel}<#if map_has_next>, </#if></#list>
+        <#list columList?chunk(4) as row>
+        <#list row as map>${map.column} ${map.columnSmallCamel}<#if map_has_next>, </#if></#list><#if row_has_next>, </#if>
+        </#list>
         from ${tableName}
         WHERE
         1=1
@@ -35,7 +37,9 @@
             resultType="${rootPackage}.${packModel}.${tableBigCamel}">
         select
         ${tabPrikey} ${tabPrikeySmallCamel}
-        <#list columList as map><#if map_index%4 == 0><w:p></w:p></#if>${map.column} ${map.columnSmallCamel}<#if map_has_next>, </#if></#list>
+        <#list columList?chunk(4) as row>
+        <#list row as map>${map.column} ${map.columnSmallCamel}<#if map_has_next>, </#if></#list><#if row_has_next>, </#if>
+        </#list>
         from ${tableName}
         WHERE ${tabPrikey} = ${u0023}{${tabPrikeySmallCamel}}
     </select>
@@ -71,10 +75,13 @@
 
     <insert id="fullInsert${tableBigCamel}" parameterType="${rootPackage}.${packModel}.${tableBigCamel}">
         INSERT INTO ${tableName} ( <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "") && (!tabPrikeyIsautoIncrement)>${tabPrikey}, </#if>
-            <#list columList as map><#if map_index%4 == 0><w:p></w:p></#if>${map.column}<#if map_has_next>, </#if></#list>
-        ) VALUES (
-            <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "") && (!tabPrikeyIsautoIncrement)>${u0023}{${tabPrikeySmallCamel}},</#if>
-            <#list columList as map><#if map_index%4 == 0><w:p></w:p></#if>${u0023}{${map.columnSmallCamel}}<#if map_has_next>, </#if></#list>
+            <#list columList?chunk(4) as row>
+            <#list row as map>${map.column}<#if map_has_next>, </#if></#list><#if row_has_next>, </#if>
+            </#list>
+        ) VALUES ( <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "") && (!tabPrikeyIsautoIncrement)>${u0023}{${tabPrikeySmallCamel}},</#if>
+            <#list columList?chunk(4) as row>
+            <#list row as map>${map.column} ${map.columnSmallCamel}<#if map_has_next>, </#if></#list><#if row_has_next>, </#if>
+            </#list>
         )
     </insert>
 

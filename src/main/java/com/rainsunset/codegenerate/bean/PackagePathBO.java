@@ -238,7 +238,7 @@ public class PackagePathBO {
 		String dirPathTestDao= StringUtils.isEmpty(packTestDao) ? null :
 				StringUtil.conlitionStr(filePathModule, File.separator, Constants.PACKAGE_TEST,
 						File.separator, packTestDao.replace(".", File.separator));
-		return packTestDao.replace(".", File.separator);
+		return dirPathTestDao;
 	}
 
 	public String getPackTestDaoTemplateFileName() {
@@ -333,7 +333,7 @@ public class PackagePathBO {
 		String dirPathPageView= StringUtils.isEmpty(packPageView) ? null :
 				StringUtil.conlitionStr(filePathModule, File.separator, Constants.PACKAGE_PAGE,
 						File.separator,packPageView.replace(".", File.separator));
-		return packPageView.replace(".", File.separator);
+		return dirPathPageView;
 	}
 
 	public String getPackPageViewTemplateFileName() {

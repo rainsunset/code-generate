@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.util.StringUtils;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,8 +38,8 @@ public class ${tableBigCamel}Controller{
      */
     @RequestMapping(value = "/findList", method = RequestMethod.POST)
     public Response<List<${tableBigCamel}>> findList(
-        <#list columList as map>
-        @RequestParam(required = false) ${map.columnType} ${map.columnSmallCamel}<#if map_has_next>,</#if>
+        <#list columList?chunk(2) as row>
+        <#list row as map>@RequestParam(required = false) ${map.columnType} ${map.columnSmallCamel}<#if map_has_next>, </#if></#list><#if row_has_next>, </#if>
         </#list>
         )throws Exception {
         Map<String, Object> rs = new HashMap<String, Object>();
@@ -65,7 +66,6 @@ public class ${tableBigCamel}Controller{
      * @param ${tabPrikeySmallCamel} ${tabPrikeyComment}
      * @return
      */
-    @ApiOperation("查询 ${tableComment}")
     @RequestMapping(value = "/getDetail", method = RequestMethod.POST)
     public Response<${tableBigCamel}> get${tableBigCamel}ById( @RequestParam ${tabPrikeyType} ${tabPrikeySmallCamel}){
         return ${tableSmallCamel}Service.get${tableBigCamel}Detail(${tabPrikeySmallCamel});
@@ -83,8 +83,8 @@ public class ${tableBigCamel}Controller{
     @RequestMapping(value = "/addOrUpdate", method = RequestMethod.POST)
     public Response<Boolean> addOrUpdate(
             @RequestParam ${tabPrikeyType} ${tabPrikeySmallCamel},
-            <#list columList as map>
-            @RequestParam(required = false) ${map.columnType} ${map.columnSmallCamel}<#if map_has_next>,</#if>
+             <#list columList?chunk(2) as row>
+            <#list row as map>@RequestParam(required = false) ${map.columnType} ${map.columnSmallCamel}<#if map_has_next>, </#if></#list><#if row_has_next>, </#if>
             </#list>
             ) throws Exception {
         ${tableBigCamel} ${tableSmallCamel} = new ${tableBigCamel}();
