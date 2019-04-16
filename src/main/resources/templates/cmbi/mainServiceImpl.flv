@@ -2,7 +2,7 @@ package ${rootPackage}.${packServiceImpl};
 
 import com.cmbi.base.Response;
 import ${rootPackage}.${packModel}.${tableBigCamel};
-import ${rootPackage}.${packDao}.${tableBigCamel}Manager;
+import ${rootPackage}.${packManager}.${tableBigCamel}Manager;
 import ${rootPackage}.${packService}.${tableBigCamel}Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

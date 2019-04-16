@@ -1,7 +1,7 @@
 package ${rootPackage}.${packManager};
 
-import com.cmbi.information.common.enums.ErrorCode;
-import com.cmbi.information.common.exception.ServiceException;
+import com.cmbi.${moduleName}}.common.enums.ErrorCode;
+import com.cmbi.${moduleName}}.common.exception.ServiceException;
 import ${rootPackage}.${packModel}.${tableBigCamel};
 import ${rootPackage}.${packDao}.${tableBigCamel}Mapper;
 import org.springframework.beans.factory.annotation.Autowired;

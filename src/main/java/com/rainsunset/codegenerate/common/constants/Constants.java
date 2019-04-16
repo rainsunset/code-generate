@@ -98,7 +98,6 @@ public class Constants {
 	 */
 	static public final String PAGE_VIEW_FILE_SUFFIX = ".html";
 
-
 	/** / */
 	static public final String SLASH = "/";
 
@@ -122,8 +121,8 @@ public class Constants {
 	 * 类上注释信息
 	 */
 	static public final String CODE_AUTHOR = "ligangwei";
-	static public final String CODE_COMPANY = "rainsunset";
-	static public final String CODE_VERSION = "1.0";
+	static public final String CODE_COMPANY = "CMBI";
+	static public final String CODE_VERSION = "1.0-SNAPSHOT";
 
 
 
