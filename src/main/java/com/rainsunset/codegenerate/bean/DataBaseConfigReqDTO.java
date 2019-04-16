@@ -23,8 +23,6 @@ public class DataBaseConfigReqDTO{
 
 	private String password;
 
-	private String url;
-
 	public String getDbType() {
 		return dbType;
 	}
@@ -73,14 +71,6 @@ public class DataBaseConfigReqDTO{
 		this.password = password;
 	}
 
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
 	@Override
 	public String toString() {
 		return "DataBaseConfigReqDTO{" +
@@ -90,7 +80,6 @@ public class DataBaseConfigReqDTO{
 				", port='" + port + '\'' +
 				", username='" + username + '\'' +
 				", password='" + password + '\'' +
-				", url='" + url + '\'' +
 				'}';
 	}
 }

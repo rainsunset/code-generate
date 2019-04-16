@@ -2,6 +2,7 @@ package com.rainsunset.codegenerate.bean;
 
 import com.microsoft.sqlserver.jdbc.SQLServerDriver;
 import com.mysql.jdbc.Driver;
+import com.rainsunset.codegenerate.common.util.StringUtil;
 import oracle.jdbc.driver.OracleDriver;
 
 /**
@@ -45,7 +46,6 @@ public class DataBaseSettingBO {
         this.port = dataBaseConfigReqDTO.getPort();
         this.username = dataBaseConfigReqDTO.getUsername();
         this.password = dataBaseConfigReqDTO.getPassword();
-        this.url = dataBaseConfigReqDTO.getUrl();
         // 自动装配驱动及查询语句
         this.processDriver();
     }
@@ -150,6 +150,7 @@ public class DataBaseSettingBO {
             testSql = "select 1";
             showTable = " show tables ";
             showTablColumn = "SHOW TABLE STATUS FROM "+ dbName;
+            url = StringUtil.conlitionStr("jdbc:mysql://", address, ":", port, "/", dbName);
             return;
         }
         if (dbType.equals("Oracle")) {
@@ -157,6 +158,7 @@ public class DataBaseSettingBO {
             testSql = "select 1 from dual";
             showTable = "SELECT TABLE_NAME as Tables_in_" + dbName + " FROM user_tab_comments "
                     + "where table_type='TABLE'";
+            url = StringUtil.conlitionStr("jdbc:oracle:thin:@", address, ":", port, "/", dbName);
             return;
         }
         if (dbType.equals("MSSqlServer")) {
@@ -167,6 +169,7 @@ public class DataBaseSettingBO {
                     "from sysobjects " +
                     "left join sys.extended_properties on sysobjects.id=sys.extended_properties.major_id " +
                     "where type= 'U' and sys.extended_properties.minor_id='0' order by name";
+            url = StringUtil.conlitionStr("jdbc:sqlserver://", address, ":", port, ";DatabaseName=", dbName);
             return;
         }
     }

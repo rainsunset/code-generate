@@ -8,8 +8,7 @@ http://localhost:8180/code-generate/generate/test
 	"address":"localhost",
 	"port":"3306",
 	"username":"root",
-	"password":"root",
-	"url":"jdbc:mysql://localhost:3306/smart_home"
+	"password":"root"
 }
 ```
 
@@ -22,8 +21,7 @@ http://localhost:8180/code-generate/generate/getTabs
 	"address":"localhost",
 	"port":"3306",
 	"username":"root",
-	"password":"root",
-	"url":"jdbc:mysql://localhost:3306/smart_home"
+	"password":"root"
 }
 ```
 
@@ -37,8 +35,7 @@ http://localhost:8180/code-generate/generate/execute
 		"address":"localhost",
 		"port":"3306",
 		"username":"root",
-		"password":"root",
-		"url":"jdbc:mysql://localhost:3306/wtgldb2"
+		"password":"root"
 	},
 	"filePathConfigReqDTO":{
 		"baseClassPath":"com.cmbi",
