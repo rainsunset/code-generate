@@ -20,7 +20,7 @@
         <#switch map.columnType>
         <#case "String">
         <if test="${map.columnSmallCamel} != null and ${map.columnSmallCamel} != ''">
-            and ${map.column} like ${u0023}{${map.columnSmallCamel}}
+            and ${map.column} = ${u0023}{${map.columnSmallCamel}}
         </if>
         <#break>
         <#default>
@@ -45,7 +45,8 @@
     </select>
     </#if>
 
-    <insert id="add${tableBigCamel}" parameterType="${rootPackage}.${packModel}.${tableBigCamel}">
+    <insert id="add${tableBigCamel}" parameterType="${rootPackage}.${packModel}.${tableBigCamel}"
+        useGeneratedKeys="true" keyProperty="${map.columnSmallCamel}">
         INSERT INTO ${tableName}
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "") && (!tabPrikeyIsautoIncrement)>
@@ -73,14 +74,15 @@
         </trim>
     </insert>
 
-    <insert id="fullInsert${tableBigCamel}" parameterType="${rootPackage}.${packModel}.${tableBigCamel}">
+    <insert id="fullInsert${tableBigCamel}" parameterType="${rootPackage}.${packModel}.${tableBigCamel}"
+        useGeneratedKeys="true" keyProperty="${map.columnSmallCamel}">
         INSERT INTO ${tableName} ( <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "") && (!tabPrikeyIsautoIncrement)>${tabPrikey}, </#if>
             <#list columList?chunk(4) as row>
             <#list row as map>${map.column}<#if map_has_next>, </#if></#list><#if row_has_next>, </#if>
             </#list>
         ) VALUES ( <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "") && (!tabPrikeyIsautoIncrement)>${u0023}{${tabPrikeySmallCamel}},</#if>
             <#list columList?chunk(4) as row>
-            <#list row as map>${map.column} ${map.columnSmallCamel}<#if map_has_next>, </#if></#list><#if row_has_next>, </#if>
+            <#list row as map> ${map.columnSmallCamel}<#if map_has_next>, </#if></#list><#if row_has_next>, </#if>
             </#list>
         )
     </insert>

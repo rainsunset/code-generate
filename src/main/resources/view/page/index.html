@@ -4,45 +4,94 @@
     <meta charset="UTF-8"/>
     <title>Title</title>
 </head>
+<style>
+    .bottom-area{
+
+    }
+</style>
 <body>
-<!--{-->
-<!--"success": false,-->
-<!--"message": " [ # 数据库连接失败 # ] java.sql.SQLException: Access denied for user 'root'@'10.0.2.35' (using password: YES)",-->
-<!--"errorcode": "-1"-->
-<!--}-->
 
-<!--{-->
-<!--"success": true,-->
-<!--"message": "success",-->
-<!--"data": true-->
-<!--}-->
+<div class="top-area">
+    <div class="dbinfo">
+        <div>
+            <label>数据库类型：</label>
+            <select>
+                <option th:each="dbType,dbTypeStat:${provideDbType}" th:text="${dbType}" th:value="${dbType}"
+                        th:selected="${dbTypeStat.first}"></option>
+            </select>
+        </div>
+        <div>
+            <label>host：</label>
+            <input type="text">
+        </div>
+        <div>
+            <label>port：</label>
+            <input type="number">
+        </div>
+        <div>
+            <label>dbName：</label>
+            <input type="text">
+        </div>
+        <div>
+            <label>username：</label>
+            <input type="text">
+        </div>
+        <div>
+            <label>password：</label>
+            <input type="text">
+        </div>
+    </div>
+    <div class="dblist">
 
-<!--{-->
-<!--"success": true,-->
-<!--"message": "success",-->
-<!--"data": [-->
-<!--"ODS_TBL_STATISTICS_EXCHANGE",-->
-<!--"T_HK_US_STOCK_OPERATION",-->
-<!--"T_TABLE_TASK",-->
-<!--"cmbi_zy_table",-->
-<!--"ods_cmbi_zy_table",-->
-<!--"tbl_user_info"-->
-<!--]-->
-<!--}-->
-
-<!--{-->
-<!--"success": true,-->
-<!--"message": "success",-->
-<!--"data": true-->
-<!--}-->
-
-<div th:each="item : ${templatesType}">
-    <p><a th:text="${{item}}"></a></p>
+    </div>
 </div>
-
-<div th:each="item : ${provideDbType}">
-    <p><a th:text="${{item}}"></a></p>
+<div class="bottom-area">
+    <div>
+        <label>输出文件路径</label>
+        <input type="text">
+    </div>
+    <div>
+        <label>基础包路径：</label>
+        <input type="text">
+    </div>
+    <div>
+        <label>模块名称：</label>
+        <input type="text">
+    </div>
+    <div>
+        <label>代码模板：</label>
+        <select>
+            <option th:each="tmpType,tmpTypeStat:${templatesType}" th:text="${tmpType}" th:value="${tmpType}"
+                    th:selected="${tmpTypeStat.first}"></option>
+        </select>
+    </div>
+    <div class="modue-radio">
+        <P>选择生成部分</P>
+        <div>
+            <label>Model：</label>
+            <input type="radio">
+        </div>
+        <div>
+            <label>Dao：</label>
+            <input type="radio">
+        </div>
+        <div>
+            <label>Service：</label>
+            <input type="radio">
+        </div>
+        <div>
+            <label>Controller：</label>
+            <input type="radio">
+        </div>
+        <div>
+            <label>Test：</label>
+            <input type="radio">
+        </div>
+        <div>
+            <label>Page：</label>
+            <input type="radio">
+        </div>
+    </div>
 </div>
-
 </body>
 </html>
