@@ -8,3 +8,7 @@ spring:
     thymeleaf:
         prefix: classpath:/view/page/
         mode: HTML5
+    mvc:
+      static-path-pattern: /static/**
+    resources:
+        static-locations: classpath:/view/static/

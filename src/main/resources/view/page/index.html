@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8"/>
-    <link href="../static/css/flex.css" type="text/css">
+    <script type="text/javascript" src="./static/js/jquery.min.js"></script>
     <title>Title</title>
 </head>
 <style>
@@ -10,21 +10,21 @@
 
     }
 
-     .top-area {
-         display: flex;
-         margin-bottom: 25px;
-         border: 1px solid black;
-     }
-     .dbinfo {
-         width: 400px;
-     }
-     .dblist {
-         border-left: 1px solid black;
-         flex: 1;
-     }
-     .item {
-         margin: 20px auto;
-     }
+    .top-area {
+        display: flex;
+        margin-bottom: 25px;
+        border: 1px solid black;
+    }
+    .dbinfo {
+        width: 400px;
+    }
+    .dblist {
+        border-left: 1px solid black;
+        flex: 1;
+    }
+    .item {
+        margin: 20px auto;
+    }
     .item>label {
         display: inline-block;
         width: 150px;
@@ -50,88 +50,200 @@
     <div class="dbinfo item-display-flex">
         <div class="item">
             <label>数据库类型：</label>
-            <select>
+            <select name="dbType">
                 <option th:each="dbType,dbTypeStat:${provideDbType}" th:text="${dbType}" th:value="${dbType}"
                         th:selected="${dbTypeStat.first}"></option>
             </select>
         </div>
         <div class="item">
             <label>host：</label>
-            <input type="text">
+            <input type="text" name="address">
         </div>
         <div class="item">
             <label>port：</label>
-            <input type="number">
+            <input type="number" name="port">
         </div>
         <div class="item">
             <label>dbName：</label>
-            <input type="text">
+            <input type="text" name="dbName">
         </div>
         <div class="item">
             <label>username：</label>
-            <input type="text">
+            <input type="text" name="username">
         </div>
         <div class="item">
             <label>password：</label>
-            <input type="text">
+            <input type="text" name="password">
+        </div>
+        <div class="item">
+            <button id="test_connect">连接</button>
         </div>
     </div>
     <div class="dblist">
-
+        <div class="dblist-title">
+            <label>全选</label>
+            <input type="checkbox" id="all_table" value="page">
+        </div>
+        <div class="dblist-content">
+            <div th:each="tabName,tabStat:${tablist}" >
+                <label th:text="${tabName}"></label>
+                <input name="selectTab" type="checkbox" th:text="${tabName}" th:value="${tabName}">
+            </div>
+        </div>
     </div>
 </div>
 <div class="bottom-area">
     <div class="path">
         <div>
             <label>输出文件路径</label>
-            <input type="text">
+            <input type="text" name="outFilePath">
         </div>
         <div>
             <label>基础包路径：</label>
-            <input type="text">
+            <input type="text" name="baseClassPath">
         </div>
         <div>
             <label>模块名称：</label>
-            <input type="text">
+            <input type="text" name="moduleName">
         </div>
         <div>
             <label>代码模板：</label>
-            <select>
+            <select name="templatesType">
                 <option th:each="tmpType,tmpTypeStat:${templatesType}" th:text="${tmpType}" th:value="${tmpType}"
                         th:selected="${tmpTypeStat.first}"></option>
             </select>
         </div>
     </div>
     <div style="clear: both"></div>
-
-
     <div class="modue-checkbox">
         <P>选择生成部分</P>
         <div>
             <label>Model：</label>
-            <input type="checkbox">
+            <input type="checkbox" name="modue" spectag="model">
         </div>
         <div>
             <label>Dao：</label>
-            <input type="checkbox">
+            <input type="checkbox" name="modue" spectag="dao">
         </div>
         <div>
             <label>Service：</label>
-            <input type="checkbox">
+            <input type="checkbox" name="modue" spectag="service">
         </div>
         <div>
             <label>Controller：</label>
-            <input type="checkbox">
+            <input type="checkbox" name="modue" spectag="controller">
         </div>
         <div>
             <label>Test：</label>
-            <input type="checkbox">
+            <input type="checkbox" name="modue" spectag="test">
         </div>
         <div>
             <label>Page：</label>
-            <input type="checkbox">
+            <input type="checkbox" name="modue" spectag="page">
         </div>
+        <div>
+            <label>全选</label>
+            <input type="checkbox" id="all_modue">
+        </div>
+    </div>
+    <div style="clear: both"></div>
+    <div>
+        <button id="generate">Start Generate</button>
     </div>
 </div>
 </body>
+<script type="text/javascript">
+    $(document).ready(function (a, b) {
+        $("#test_connect").on("click",function () {
+            testConnect()
+        });
+
+        $("#generate").on("click",function () {
+            generate()
+        });
+
+        $("#all_table").on("click",function () {
+            console.log(33)
+
+        });
+
+        $("#all_modue").on("click",function () {
+            console.log(44)
+
+        });
+    });
+
+    function testConnect() {
+        var dbType = $("[name='dbType']").val();
+        var address = $("[name='address']").val();
+        var port = $("[name='port']").val();
+        var dbName = $("[name='dbName']").val();
+        var username = $("[name='username']").val();
+        var password = $("[name='password']").val();
+        var dataBaseConfigReqDTO = {
+            "dbType":dbType,
+            "address":address,
+            "port":port,
+            "dbName":dbName,
+            "username":username,
+            "password":password
+        }
+        console.log(JSON.stringify(dataBaseConfigReqDTO));
+
+        // var data = JSON.parse(reasult);
+        // $.ajax({
+        //     url: './generate/getTabs',
+        //     type: "POST",
+        //     dataType: 'json',
+        //     async: false,
+        //     data: dataBaseConfigReqDTO,
+        //     success: function (data) {
+        //         console.log(JSON.stringify(data))
+        //     },
+        //     error: function (error) {
+        //         console.log(JSON.stringify(error));
+        //     }
+        // });
+
+
+    }
+
+    function generate() {
+        var outFilePath = $("[name='outFilePath']").val();
+        var baseClassPath = $("[name='baseClassPath']").val();
+        var moduleName = $("[name='moduleName']").val();
+        var generateModel = $("[name='modue'][spectag='model']").prop("checked");
+        var generateDao = $("[name='modue'][spectag='dao']").prop("checked");
+        var generateService = $("[name='modue'][spectag='service']").prop("checked");
+        var generateController = $("[name='modue'][spectag='controller']").prop("checked");
+        var generateTest = $("[name='modue'][spectag='test']").prop("checked");
+        var generatePage = $("[name='modue'][spectag='page']").prop("checked");
+        var filePathConfigReqDTO = {
+            "baseClassPath":baseClassPath,
+            "moduleName":moduleName,
+            "outFilePath":outFilePath,
+            "generateModel":generateModel,
+            "generateDao":generateDao,
+            "generateService":generateService,
+            "generateController":generateController,
+            "generateTest":generateTest,
+            "generatePage":generatePage
+        }
+        console.log(JSON.stringify(filePathConfigReqDTO))
+
+        var selectTab = $("[name='selectTab']");
+        var tabArray = [];
+        for (i in selectTab) {
+            var checkstatus = selectTab[i].prop("checked");
+            var tabname = $(selectTab[i]).val()
+            if (checkstatus) {
+                tabArray.push(tabname)
+            }
+        }
+        console.log(JSON.stringify(tabArray));
+
+        var templatesType = $("[name='templatesType']").val();
+        console.log(templatesType);
+    }
+</script>
 </html>
