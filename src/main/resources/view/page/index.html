@@ -2,41 +2,75 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8"/>
+    <link href="../static/css/flex.css" type="text/css">
     <title>Title</title>
 </head>
 <style>
     .bottom-area{
 
     }
+
+     .top-area {
+         display: flex;
+         margin-bottom: 25px;
+         border: 1px solid black;
+     }
+     .dbinfo {
+         width: 400px;
+     }
+     .dblist {
+         border-left: 1px solid black;
+         flex: 1;
+     }
+     .item {
+         margin: 20px auto;
+     }
+    .item>label {
+        display: inline-block;
+        width: 150px;
+        text-align: right;
+    }
+
+    .item>input, .item>select {
+        width: 200px;
+    }
+    .path>div {
+        float: left;
+    }
+
+    .modue-checkbox>div,.modue-checkbox>p {
+        float: left;
+        margin: 16px 30px 16px 0 ;
+    }
 </style>
 <body>
 
 <div class="top-area">
-    <div class="dbinfo">
-        <div>
+    <div class="dbinfo item-display-flex">
+        <div class="item">
             <label>数据库类型：</label>
             <select>
                 <option th:each="dbType,dbTypeStat:${provideDbType}" th:text="${dbType}" th:value="${dbType}"
                         th:selected="${dbTypeStat.first}"></option>
             </select>
         </div>
-        <div>
+        <div class="item">
             <label>host：</label>
             <input type="text">
         </div>
-        <div>
+        <div class="item">
             <label>port：</label>
             <input type="number">
         </div>
-        <div>
+        <div class="item">
             <label>dbName：</label>
             <input type="text">
         </div>
-        <div>
+        <div class="item">
             <label>username：</label>
             <input type="text">
         </div>
-        <div>
+        <div class="item">
             <label>password：</label>
             <input type="text">
         </div>
@@ -46,50 +80,55 @@
     </div>
 </div>
 <div class="bottom-area">
-    <div>
-        <label>输出文件路径</label>
-        <input type="text">
+    <div class="path">
+        <div>
+            <label>输出文件路径</label>
+            <input type="text">
+        </div>
+        <div>
+            <label>基础包路径：</label>
+            <input type="text">
+        </div>
+        <div>
+            <label>模块名称：</label>
+            <input type="text">
+        </div>
+        <div>
+            <label>代码模板：</label>
+            <select>
+                <option th:each="tmpType,tmpTypeStat:${templatesType}" th:text="${tmpType}" th:value="${tmpType}"
+                        th:selected="${tmpTypeStat.first}"></option>
+            </select>
+        </div>
     </div>
-    <div>
-        <label>基础包路径：</label>
-        <input type="text">
-    </div>
-    <div>
-        <label>模块名称：</label>
-        <input type="text">
-    </div>
-    <div>
-        <label>代码模板：</label>
-        <select>
-            <option th:each="tmpType,tmpTypeStat:${templatesType}" th:text="${tmpType}" th:value="${tmpType}"
-                    th:selected="${tmpTypeStat.first}"></option>
-        </select>
-    </div>
-    <div class="modue-radio">
+    <div style="clear: both"></div>
+
+
+    <div class="modue-checkbox">
         <P>选择生成部分</P>
         <div>
             <label>Model：</label>
-            <input type="radio">
+            <input type="checkbox">
         </div>
         <div>
             <label>Dao：</label>
-            <input type="radio">
+            <input type="checkbox">
         </div>
         <div>
             <label>Service：</label>
-            <input type="radio">
+            <input type="checkbox">
         </div>
         <div>
             <label>Controller：</label>
-            <input type="radio">
+            <input type="checkbox">
         </div>
         <div>
             <label>Test：</label>
-            <input type="radio">
+            <input type="checkbox">
         </div>
         <div>
             <label>Page：</label>
-            <input type="radio">
+            <input type="checkbox">
         </div>
     </div>
 </div>
