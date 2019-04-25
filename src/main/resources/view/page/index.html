@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="ch" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
     <script type="text/javascript" src="./static/js/jquery.min.js"></script>
@@ -34,14 +34,34 @@
     .item>input, .item>select {
         width: 200px;
     }
+
+    .path{
+        margin: 16px auto;
+    }
+
     .path>div {
         float: left;
-        margin-right: 20px;
+        margin: 0px 20px 5px 0 ;
+    }
+
+    .modue-checkbox{
+        margin: 16px auto;
     }
 
     .modue-checkbox>div,.modue-checkbox>p {
         float: left;
-        margin: 16px 30px 16px 0 ;
+        margin: 0px 30px 5px 0 ;
+    }
+
+    .dblist-content>div {
+        float: left;
+        width: 200px;
+        margin: 2px 5px;
+    }
+    .dblist-content>div>label {
+        display: inline-block;
+        width: 180px;
+        text-align: left;
     }
 </style>
 <body>
@@ -57,23 +77,23 @@
         </div>
         <div class="item">
             <label>host：</label>
-            <input type="text" name="address">
+            <input type="text" name="address" value="127.0.0.1">
         </div>
         <div class="item">
             <label>port：</label>
-            <input type="number" name="port">
+            <input type="number" name="port"  value="3306">
         </div>
         <div class="item">
             <label>dbName：</label>
-            <input type="text" name="dbName">
+            <input type="text" name="dbName"  value="test">
         </div>
         <div class="item">
             <label>username：</label>
-            <input type="text" name="username">
+            <input type="text" name="username"  value="root">
         </div>
         <div class="item">
             <label>password：</label>
-            <input type="text" name="password">
+            <input type="text" name="password"  value="root">
         </div>
         <div class="item">
             <button id="test_connect">连接</button>
@@ -84,11 +104,7 @@
             <label>全选</label>
             <input type="checkbox" id="all_table" value="page">
         </div>
-        <div class="dblist-content">
-            <div th:each="tabName,tabStat:${tablist}" >
-                <label th:text="${tabName}"></label>
-                <input name="selectTab" type="checkbox" th:text="${tabName}" th:value="${tabName}">
-            </div>
+        <div class="dblist-content" id="tabNameList">
         </div>
     </div>
 </div>
@@ -96,15 +112,15 @@
     <div class="path">
         <div>
             <label>输出文件路径</label>
-            <input type="text" name="outFilePath">
+            <input style="width:350px" type="text" name="outFilePath" placeholder="linux下形如‘/usr/local’ win下形如‘C:\Users\anmin\Desktop’">
         </div>
         <div>
             <label>基础包路径：</label>
-            <input type="text" name="baseClassPath">
+            <input type="text" name="baseClassPath" placeholder="形如‘com.rainsunset">
         </div>
         <div>
             <label>模块名称：</label>
-            <input type="text" name="moduleName">
+            <input type="text" name="moduleName" placeholder="形如‘test">
         </div>
         <div>
             <label>代码模板：</label>
@@ -118,28 +134,28 @@
     <div class="modue-checkbox">
         <P>选择生成部分</P>
         <div>
-            <label>Model：</label>
-            <input type="checkbox" name="modue" spectag="model">
+            <label for="modue_model">Model</label>
+            <input type="checkbox" id="modue_model" name="modue" spectag="model">
         </div>
         <div>
-            <label>Dao：</label>
-            <input type="checkbox" name="modue" spectag="dao">
+            <label for="modue_dao">Dao</label>
+            <input type="checkbox" id="modue_dao" name="modue" spectag="dao">
         </div>
         <div>
-            <label>Service：</label>
-            <input type="checkbox" name="modue" spectag="service">
+            <label for="modue_service">Service</label>
+            <input type="checkbox" id="modue_service" name="modue" spectag="service">
         </div>
         <div>
-            <label>Controller：</label>
-            <input type="checkbox" name="modue" spectag="controller">
+            <label for="modue_controller">Controller</label>
+            <input type="checkbox" id="modue_controller" name="modue" spectag="controller">
         </div>
         <div>
-            <label>Test：</label>
-            <input type="checkbox" name="modue" spectag="test">
+            <label for="modue_test">Test</label>
+            <input type="checkbox" id="modue_test" name="modue" spectag="test">
         </div>
         <div>
-            <label>Page：</label>
-            <input type="checkbox" name="modue" spectag="page">
+            <label for="modue_page">Page</label>
+            <input type="checkbox" id="modue_page" name="modue" spectag="page">
         </div>
         <div>
             <label>全选</label>
@@ -163,23 +179,42 @@
         });
 
         $("#all_table").on("click",function () {
-            console.log(33)
-
+            checkAllTableSelect();
         });
 
         $("#all_modue").on("click",function () {
-            console.log(44)
+            checkAllModueSelect();
+        });
 
+        $("#tabNameList").on("click","[name='selectTab']",function () {
+            var len = $("input[name='selectTab']").length;
+            //复选框被选中的个数
+            var checked = $("input[name='selectTab']:checked").length;
+            var flag = len ==checked ;
+            $("#all_table").prop("checked",flag);
+        });
+
+        $(".modue-checkbox").on("click","[name='modue']",function () {
+            var len = $("input[name='modue']").length;
+            //复选框被选中的个数
+            var checked = $("input[name='modue']:checked").length;
+            var flag = len ==checked ;
+            $("#all_modue").prop("checked",flag);
         });
     });
 
     function testConnect() {
-        var dbType = $("[name='dbType']").val();
-        var address = $("[name='address']").val();
-        var port = $("[name='port']").val();
-        var dbName = $("[name='dbName']").val();
-        var username = $("[name='username']").val();
-        var password = $("[name='password']").val();
+        var dbType =$.trim($("[name='dbType']").val());
+        var address = $.trim($("[name='address']").val());
+        var port = $.trim($("[name='port']").val());
+        var dbName = $.trim($("[name='dbName']").val());
+        var username = $.trim($("[name='username']").val());
+        var password = $.trim($("[name='password']").val());
+        if (dbType.length == 0 || address.length == 0 || port.length == 0 ||
+            dbName.length == 0 || username.length == 0 || password.length == 0){
+            alert("补齐数据库链接信息");
+            return;
+        }
         var dataBaseConfigReqDTO = {
             "dbType":dbType,
             "address":address,
@@ -188,36 +223,72 @@
             "username":username,
             "password":password
         }
-        console.log(JSON.stringify(dataBaseConfigReqDTO));
-
-        // var data = JSON.parse(reasult);
-        // $.ajax({
-        //     url: './generate/getTabs',
-        //     type: "POST",
-        //     dataType: 'json',
-        //     async: false,
-        //     data: dataBaseConfigReqDTO,
-        //     success: function (data) {
-        //         console.log(JSON.stringify(data))
-        //     },
-        //     error: function (error) {
-        //         console.log(JSON.stringify(error));
-        //     }
-        // });
-
-
+        $.ajax({
+            url: './generate/getTabs',
+            type: "POST",
+            dataType: 'json',
+            contentType: 'application/json',
+            async: false,
+            data: JSON.stringify(dataBaseConfigReqDTO),
+            success: function (data) {
+                if (data.success){
+                    var tabNameList = data.data;
+                    if(null == tabNameList || 0 == tabNameList.length){
+                        return;
+                    }
+                    var str = '';
+                    for (i = 0 ; i < tabNameList.length ; i++) {
+                        tabName = tabNameList[i];
+                        str += '<div>';
+                        str += '<input name="selectTab" type="checkbox" id="tn_' + tabName + '" value="' + tabName + '">';
+                        str += '<label for="tn_' + tabName + '">' + tabName + '</label>';
+                        str += '</div>';
+                    }
+                    $('#tabNameList').html(str);
+                } else {
+                    alert(JSON.stringify(data.message));
+                }
+            },
+            error: function (error) {
+                console.log(JSON.stringify(error));
+            }
+        });
     }
 
     function generate() {
-        var outFilePath = $("[name='outFilePath']").val();
-        var baseClassPath = $("[name='baseClassPath']").val();
-        var moduleName = $("[name='moduleName']").val();
+        var dbType =$.trim($("[name='dbType']").val());
+        var address = $.trim($("[name='address']").val());
+        var port = $.trim($("[name='port']").val());
+        var dbName = $.trim($("[name='dbName']").val());
+        var username = $.trim($("[name='username']").val());
+        var password = $.trim($("[name='password']").val());
+        if (dbType.length == 0 || address.length == 0 || port.length == 0 ||
+            dbName.length == 0 || username.length == 0 || password.length == 0){
+            alert("补齐数据库链接信息");
+            return;
+        }
+        var dataBaseConfigReqDTO = {
+            "dbType":dbType,
+            "address":address,
+            "port":port,
+            "dbName":dbName,
+            "username":username,
+            "password":password
+        }
+
+        var outFilePath = $.trim($("[name='outFilePath']").val());
+        var baseClassPath = $.trim($("[name='baseClassPath']").val());
+        var moduleName = $.trim($("[name='moduleName']").val());
         var generateModel = $("[name='modue'][spectag='model']").prop("checked");
         var generateDao = $("[name='modue'][spectag='dao']").prop("checked");
         var generateService = $("[name='modue'][spectag='service']").prop("checked");
         var generateController = $("[name='modue'][spectag='controller']").prop("checked");
         var generateTest = $("[name='modue'][spectag='test']").prop("checked");
         var generatePage = $("[name='modue'][spectag='page']").prop("checked");
+        if (outFilePath.length == 0 || baseClassPath.length == 0 || moduleName.length == 0){
+            alert("补齐文件路径配置");
+            return;
+        }
         var filePathConfigReqDTO = {
             "baseClassPath":baseClassPath,
             "moduleName":moduleName,
@@ -229,21 +300,59 @@
             "generateTest":generateTest,
             "generatePage":generatePage
         }
-        console.log(JSON.stringify(filePathConfigReqDTO))
 
-        var selectTab = $("[name='selectTab']");
         var tabArray = [];
-        for (i in selectTab) {
-            var checkstatus = selectTab[i].prop("checked");
-            var tabname = $(selectTab[i]).val()
-            if (checkstatus) {
-                tabArray.push(tabname)
-            }
-        }
-        console.log(JSON.stringify(tabArray));
+        $("input[name='selectTab']:checked").each(function(i){
+            tabArray[i] =$(this).val();
+        });
 
+        if (!(generateModel || generateDao || generateService || generateController || generateTest || generatePage) ||
+         0 == tabArray.length){
+            alert("啥都不生成可不行");
+            return;
+        }
         var templatesType = $("[name='templatesType']").val();
-        console.log(templatesType);
+
+        var generatePathConfigReqDTO = {};
+        generatePathConfigReqDTO.dataBaseConfigReqDTO = dataBaseConfigReqDTO;
+        generatePathConfigReqDTO.filePathConfigReqDTO = filePathConfigReqDTO;
+        generatePathConfigReqDTO.templatesType = templatesType;
+        generatePathConfigReqDTO.tabNameList = tabArray;
+        $.ajax({
+            url: './generate/execute',
+            type: "POST",
+            dataType: 'json',
+            contentType: 'application/json',
+            async: false,
+            data: JSON.stringify(generatePathConfigReqDTO),
+            success: function (data) {
+                if (data.success){
+                    var success = data.data;
+                    alert(success ? "生成完成" : "生成异常");
+                } else {
+                    alert(JSON.stringify(data.message));
+                }
+            },
+            error: function (error) {
+                console.log(JSON.stringify(error));
+            }
+        });
+    }
+
+    function checkAllTableSelect(){
+        var len = $("input[name='selectTab']").length;
+        var allTableSelect = $("#all_table").prop("checked");
+        $("input[name='selectTab']").each(function () {
+            this.checked = allTableSelect;
+        });
+    }
+
+    function checkAllModueSelect(){
+        var len = $("input[name='modue']").length;
+        var allModueSelect = $("#all_modue").prop("checked");
+        $("input[name='modue']").each(function () {
+            this.checked = allModueSelect;
+        });
     }
 </script>
 </html>
