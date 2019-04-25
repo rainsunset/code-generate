@@ -8,7 +8,7 @@ import oracle.jdbc.driver.OracleDriver;
 /**
  * @Description: 数据库配置
  * @Author: ligangwei
- * @Company CMBI
+ * @Company rainsunset
  * @CreateDate: 2019.04.12
  * @Version : 1.0
  */

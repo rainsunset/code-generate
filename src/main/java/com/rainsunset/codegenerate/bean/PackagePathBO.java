@@ -10,13 +10,17 @@ import java.io.File;
  * @ClassName PackagePathBO
  * @Description: 每层包文件配置
  * @Author: 李刚伟
- * @Company CMBI
+ * @Company rainsunset
  * @CreateDate: 2019/4/11 11:01
  */
 public class PackagePathBO {
 
 	// main
 	private String packModel;
+
+	private String reqDto;
+
+	private String resDto;
 
 	private String packDao;
 
@@ -26,9 +30,7 @@ public class PackagePathBO {
 
 	private String packServiceImpl;
 
-	/**
-	 * dubbo类项目
-	 */
+	/** dubbo类项目 */
 	private String packManager;
 
 	private String packController;
@@ -47,12 +49,14 @@ public class PackagePathBO {
 
 	private String packPageView;
 
-	public PackagePathBO(String packModel, String packDao, String packMapper,
-	                     String packService, String packServiceImpl, String packManager,
-	                     String packController, String packTestDao, String packTestService,
-	                     String packPageControler, String packPageService, String packPageTemplate,
-	                     String packPageView) {
+	public PackagePathBO(String packModel, String reqDto, String resDto,
+	                     String packDao, String packMapper, String packService,
+	                     String packServiceImpl, String packManager, String packController,
+	                     String packTestDao, String packTestService, String packPageControler,
+	                     String packPageService, String packPageTemplate, String packPageView) {
 		this.packModel = packModel;
+		this.reqDto = reqDto;
+		this.resDto = resDto;
 		this.packDao = packDao;
 		this.packMapper = packMapper;
 		this.packService = packService;
@@ -80,6 +84,8 @@ public class PackagePathBO {
 	 * |----dal
 	 * |----mapper
 	 * |----service
+	 * |----reqDto
+	 * |----resDto
 	 * |----serviceimpl
 	 * |----manager
 	 * |----controller
@@ -118,6 +124,42 @@ public class PackagePathBO {
 		this.packModel = packModel;
 	}
 
+	public String getReqDto() {
+		return reqDto;
+	}
+
+	public String getReqDtoDirPath(String filePathModule) {
+		String dirPathReqDto = StringUtils.isEmpty(reqDto) ? null :
+				StringUtil.conlitionStr(filePathModule, File.separator, reqDto.replace(".", File.separator));
+		return dirPathReqDto;
+	}
+
+	public String getReqDtoTemplateFileName() {
+		return StringUtils.isEmpty(reqDto) ? "" : StringUtil.conlitionStr("main",StringUtil.formater2bigCamel(reqDto),".flv");
+	}
+
+	public void setReqDto(String reqDto) {
+		this.reqDto = reqDto;
+	}
+
+	public String getResDto() {
+		return resDto;
+	}
+
+	public String getResDtoDirPath(String filePathModule) {
+		String dirPathResDto = StringUtils.isEmpty(resDto) ? null :
+				StringUtil.conlitionStr(filePathModule, File.separator, resDto.replace(".", File.separator));
+		return dirPathResDto;
+	}
+
+	public String getResDtoTemplateFileName() {
+		return StringUtils.isEmpty(resDto) ? "" : StringUtil.conlitionStr("main",StringUtil.formater2bigCamel(resDto),".flv");
+	}
+
+	public void setResDto(String resDto) {
+		this.resDto = resDto;
+	}
+
 	public String getPackDao() {
 		return packDao;
 	}
@@ -148,10 +190,6 @@ public class PackagePathBO {
 
 	public String getPackMapperTemplateFileName() {
 		return StringUtils.isEmpty(packMapper) ? "" : StringUtil.conlitionStr("main" , StringUtil.formater2bigCamel(packMapper),".flv");
-	}
-
-	public String getPackMapperIncrementTemplateFileName() {
-		return StringUtils.isEmpty(packMapper) ? "" : StringUtil.conlitionStr("main" , StringUtil.formater2bigCamel(packMapper),"Increment.flv");
 	}
 
 	public void setPackMapper(String packMapper) {
@@ -348,6 +386,8 @@ public class PackagePathBO {
 	public String toString() {
 		return "PackagePathBO{" +
 				"packModel='" + packModel + '\'' +
+				", reqDto='" + reqDto + '\'' +
+				", resDto='" + resDto + '\'' +
 				", packDao='" + packDao + '\'' +
 				", packMapper='" + packMapper + '\'' +
 				", packService='" + packService + '\'' +

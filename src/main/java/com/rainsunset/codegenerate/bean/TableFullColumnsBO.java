@@ -4,7 +4,7 @@ package com.rainsunset.codegenerate.bean;
 /**
  * @Description: 数据库表 每列信息
  * @Author: ligangwei
- * @Company CMBI
+ * @Company rainsunset
  * @CreateDate: 2019.04.13
  * @Version : 1.0
  */

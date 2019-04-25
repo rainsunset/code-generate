@@ -6,7 +6,7 @@ import com.rainsunset.codegenerate.common.enums.TemplatesTypeEnum;
  * @ClassName PackagePathFactory
  * @Description: 代码分层包相对路径
  * @Author: 李刚伟
- * @Company CMBI
+ * @Company rainsunset
  * @CreateDate: 2019/4/11 14:36
  */
 public class PackagePathFactory {
@@ -23,14 +23,14 @@ public class PackagePathFactory {
 	 */
 	public static PackagePathBO getPackagePath(String templateType) {
 		if (TemplatesTypeEnum.CMBI.getTemplateType().equals(templateType)) {
-			PackagePathBO packagePathBO = new PackagePathBO("dal.model", "dal.mapper", "mapper",
-					"service.api", "service.impl","manager", "controller",
-					"dal", "service",
-					"","", "", "");
+			PackagePathBO packagePathBO = new PackagePathBO("dal.model", "service.request",
+					"service.response","dal.mapper", "mapper","service.api",
+					"service.impl","manager", "controller","dal",
+					"service","","", "", "");
 			return packagePathBO;
 		} else{
 //			默认模板为 TemplatesTypeEnum.RAINSUNSET
-			PackagePathBO packagePathBO = new PackagePathBO("model", "dal", "mapper",
+			PackagePathBO packagePathBO = new PackagePathBO("model","","", "dal", "mapper",
 					"service", "service.impl","", "controller",
 					"dal", "service",
 					"","", "", "");

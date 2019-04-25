@@ -124,9 +124,6 @@ public class CodeCreator {
             // mapper文件路径及名称
             String fileName = StringUtil.conlitionStr(dirPathMapper, File.separator, tableSmallCamel, Constants.MAPPER_FILE_SUFFIX);
             // mapper模板文件名称
-//            String templatesName = tableInfoBO.getTabPrikeyIsautoIncrement() ?
-//                    packagePathBO.getPackMapperIncrementTemplateFileName() :
-//                    packagePathBO.getPackMapperTemplateFileName();
             String templatesName = packagePathBO.getPackMapperTemplateFileName();
             // 生成mapper文件
             handleCreatorCode(fileName, templatesPath ,templatesName, demoMap);

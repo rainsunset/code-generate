@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @ClassName ViewPageController
  * @Description: html页面
  * @Author: 李刚伟
- * @Company CMBI
+ * @Company rainsunset
  * @CreateDate: 2019/4/14 15:02
  */
 @CrossOrigin
