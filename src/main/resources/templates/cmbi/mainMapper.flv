@@ -82,7 +82,7 @@
             </#list>
         ) VALUES ( <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "") && (!tabPrikeyIsautoIncrement)>${u0023}{${tabPrikeySmallCamel}},</#if>
             <#list columList?chunk(4) as row>
-            <#list row as map>${u0023} ${map.columnSmallCamel}<#if map_has_next>, </#if></#list><#if row_has_next>, </#if>
+            <#list row as map>${u0023}{${map.columnSmallCamel}}<#if map_has_next>, </#if></#list><#if row_has_next>, </#if>
             </#list>
         )
     </insert>
