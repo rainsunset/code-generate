@@ -1,8 +1,12 @@
 package ${rootPackage}.controller;
 
 import com.cmbi.base.Response;
-import ${rootPackage}.${packModel}.${tableBigCamel};
-import ${rootPackage}.${packService}.${tableBigCamel}Service;
+import ${rootPackage}.service.api.${tableBigCamel}Service;
+import ${rootPackage}.service.request.${tableBigCamel}BatchDelReqDTO;
+import ${rootPackage}.service.request.${tableBigCamel}DetailReqDTO;
+import ${rootPackage}.service.request.${tableBigCamel}ListReqDTO;
+import ${rootPackage}.service.request.${tableBigCamel}ReqDTO;
+import ${rootPackage}.service.response.${tableBigCamel}ResDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.util.StringUtils;
@@ -22,7 +26,7 @@ import java.util.Map;
   */
 @CrossOrigin
 @RestController
-@RequestMapping("/${moduleName}/${tableSmallCamel}}")
+@RequestMapping("/${moduleName}/${tableSmallCamel}")
 public class ${tableBigCamel}Controller{
 
     @Autowired
@@ -31,89 +35,46 @@ public class ${tableBigCamel}Controller{
     /**
      * 依据条件查找 ${tableComment} 列表
      *
-     <#list columList as map>
-     * @param ${map.columnSmallCamel} ${map.columnComment}
-     </#list>
+     * @param ${tableSmallCamel}ListReqDTO
      * @return
      */
     @RequestMapping(value = "/findList", method = RequestMethod.POST)
-    public Response<List<${tableBigCamel}>> findList(
-        <#list columList?chunk(2) as row>
-        <#list row as map>@RequestParam(required = false) ${map.columnType} ${map.columnSmallCamel}<#if map_has_next>, </#if></#list><#if row_has_next>, </#if>
-        </#list>
-        )throws Exception {
-        Map<String, Object> rs = new HashMap<String, Object>();
-        <#list columList as map>
-        <#switch  map.columnType>
-        <#case "String">
-         if (!StringUtils.isEmpty(${map.columnSmallCamel})) {
-            rs.put("${map.columnSmallCamel}", "%" + ${map.columnSmallCamel} + "%");
-         }
-         <#break>
-         <#default>
-        if (null != ${map.columnSmallCamel}) {
-            rs.put("${map.columnSmallCamel}", ${map.columnSmallCamel});
-        }
-        </#switch>
-        </#list>
-        return ${tableSmallCamel}Service.select${tableBigCamel}List(rs);
+    public Response<List<${tableBigCamel}ResDTO>> findList(@RequestBody ${tableBigCamel}ListReqDTO ${tableSmallCamel}ListReqDTO) {
+        return ${tableSmallCamel}Service.select${tableBigCamel}List(${tableSmallCamel}ListReqDTO);
     }
 
     <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
     /**
      * 依据Id查询 ${tableComment} 详情
      *
-     * @param ${tabPrikeySmallCamel} ${tabPrikeyComment}
+     * @param ${tableSmallCamel}DetailReqDTO
      * @return
      */
     @RequestMapping(value = "/getDetail", method = RequestMethod.POST)
-    public Response<${tableBigCamel}> get${tableBigCamel}ById( @RequestParam ${tabPrikeyType} ${tabPrikeySmallCamel}){
-        return ${tableSmallCamel}Service.get${tableBigCamel}Detail(${tabPrikeySmallCamel});
+    public Response<${tableBigCamel}ResDTO> get${tableBigCamel}Detail(@RequestBody ${tableBigCamel}DetailReqDTO ${tableSmallCamel}DetailReqDTO) {
+        return ${tableSmallCamel}Service.get${tableBigCamel}Detail(${tableSmallCamel}DetailReqDTO);
     }
 
     /**
      * 新增或更新 ${tableComment}
      *
-     * @param ${tabPrikeySmallCamel} ${tabPrikeyComment}
-     <#list columList as map>
-     * @param ${map.columnSmallCamel} ${map.columnComment}
-     </#list>
+     * @param ${tableSmallCamel}ReqDTO
      * @return
      */
     @RequestMapping(value = "/addOrUpdate", method = RequestMethod.POST)
-    public Response<Boolean> addOrUpdate(
-            @RequestParam ${tabPrikeyType} ${tabPrikeySmallCamel},
-             <#list columList?chunk(2) as row>
-            <#list row as map>@RequestParam(required = false) ${map.columnType} ${map.columnSmallCamel}<#if map_has_next>, </#if></#list><#if row_has_next>, </#if>
-            </#list>
-            ) throws Exception {
-        ${tableBigCamel} ${tableSmallCamel} = new ${tableBigCamel}();
-        ${tableSmallCamel}.set${tabPrikeyBigCamel}(${tabPrikeySmallCamel});
-        <#list columList as map>
-        <#switch map.columnType>
-        <#case "String">
-        if (!StringUtils.isEmpty(${map.columnSmallCamel})) {
-           ${tableSmallCamel}.set${map.columnBigCamel}(${map.columnSmallCamel});
-        }
-        <#break>
-        <#default>
-        if (null != ${map.columnSmallCamel}) {
-            ${tableSmallCamel}.set${map.columnBigCamel}(${map.columnSmallCamel});
-        }
-        </#switch>
-        </#list>
-        return ${tableSmallCamel}Service.addOrUpdate${tableBigCamel}(${tableSmallCamel});
+    public Response<Integer> addOrUpdate(@RequestBody ${tableBigCamel}ReqDTO ${tableSmallCamel}ReqDTO) {
+        return ${tableSmallCamel}Service.addOrUpdate${tableBigCamel}(${tableSmallCamel}ReqDTO);
     }
 
     /**
      * 依据Id批量删除 ${tableComment}
      *
-     * @param ${tabPrikeySmallCamel}s ${tabPrikeyComment}数组
+     * @param ${tableSmallCamel}BatchDelReqDTO 待删除${tabPrikeyComment}数组
      * @return
      */
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public Response<Boolean> delete(@RequestParam ${tabPrikeyType}[] ${tabPrikeySmallCamel}s) throws Exception {
-        return ${tableSmallCamel}Service.delete${tableBigCamel}s(${tabPrikeySmallCamel}s);
+    public Response<Integer> delete(@RequestBody ${tableBigCamel}BatchDelReqDTO ${tableSmallCamel}BatchDelReqDTO) {
+        return ${tableSmallCamel}Service.delete${tableBigCamel}s(${tableSmallCamel}BatchDelReqDTO);
     }
     </#if>
 

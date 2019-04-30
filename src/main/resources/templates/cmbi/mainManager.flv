@@ -1,9 +1,9 @@
-package ${rootPackage}.${packManager};
+package ${rootPackage}.manager;
 
 import com.cmbi.${moduleName}}.common.enums.ErrorCode;
 import com.cmbi.${moduleName}}.common.exception.ServiceException;
-import ${rootPackage}.${packModel}.${tableBigCamel};
-import ${rootPackage}.${packDao}.${tableBigCamel}Mapper;
+import ${rootPackage}.dal.model.${tableBigCamel};
+import ${rootPackage}.dal.mapper.${tableBigCamel}Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

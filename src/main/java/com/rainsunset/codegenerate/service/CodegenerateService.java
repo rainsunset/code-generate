@@ -1,7 +1,6 @@
 package com.rainsunset.codegenerate.service;
 
 import com.rainsunset.codegenerate.bean.*;
-import com.rainsunset.codegenerate.common.constants.Constants;
 import com.rainsunset.codegenerate.common.enums.TemplatesTypeEnum;
 import com.rainsunset.codegenerate.common.util.DBUtil;
 import com.rainsunset.codegenerate.common.util.StringUtil;
@@ -95,9 +94,12 @@ public class CodegenerateService {
         DataBaseSettingBO dbs = new DataBaseSettingBO(generatePathConfigReqDTO.getDataBaseConfigReqDTO());
         List<String> tabNameList = generatePathConfigReqDTO.getTabNameList();
         // 依据模板构建包相对路径
-        PackagePathBO packagePathBO = PackagePathFactory.getPackagePath(templatesType);
+        PackageGenerateInfoBO packageGenerateInfoBO = PackagePathFactory.getPackagePath(templatesType);
         // 获取模版绝对系统文件路径
         String templatesPath = getTemplatesAbsPath(templatesType);
+        String codeAuthor = generatePathConfigReqDTO.getCodeAuthor();
+        String codeCompany = generatePathConfigReqDTO.getCodeCompany();
+        String codeVersion = generatePathConfigReqDTO.getCodeVersion();
         if (StringUtils.isEmpty(templatesPath)) {
             return false;
         }
@@ -112,7 +114,8 @@ public class CodegenerateService {
             // 表对象
             TableInfoBO tableInfoBO = new TableInfoBO(tabName,tabComment,dbs);
             // 数据已准备好 开始按照模板生成代码
-            CodeCreator.creatorCode(templatesPath,filePathConfigReqDTO,packagePathBO,tableInfoBO);
+            CodeCreator.creatorCode(templatesPath, filePathConfigReqDTO, packageGenerateInfoBO, tableInfoBO, codeAuthor,
+                    codeCompany, codeVersion);
             logger.debug(" >>> 依据表{}创建代码完成：",tabName);
         }
         return true;

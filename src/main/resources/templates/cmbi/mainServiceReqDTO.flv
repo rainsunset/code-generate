@@ -1,6 +1,9 @@
-package ${rootPackage}.dal.model;
+package ${rootPackage}.service.request;
 
+import com.cmbi.reward.service.request.base.BaseRequest;
 import lombok.Data;
+import lombok.ToString;
+import org.hibernate.validator.constraints.NotBlank;
 
 import java.util.Date;
 
@@ -12,7 +15,8 @@ import java.util.Date;
   * @Version : ${codeVersion}
   */
 @Data
-public class ${tableBigCamel} {
+@ToString(callSuper = true)
+public class ${tableBigCamel}ReqDTO extends BaseRequest {
     <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
 
     /** ${tabPrikeyComment} */
@@ -21,6 +25,7 @@ public class ${tableBigCamel} {
     <#list columList as map>
 
     /** ${map.columnComment} */
+    @NotBlank(message = "${map.columnComment}不能为空")
     private ${map.columnType} ${map.columnSmallCamel};
     </#list>
 

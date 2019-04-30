@@ -1,10 +1,10 @@
-package ${rootPackage}.${packServiceImpl};
+package ${rootPackage}.service.impl;
 
 import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.PageHelper;
-import ${rootPackage}.${packModel}.${tableBigCamel};
-import ${rootPackage}.${packDao}.${tableBigCamel}Mapper;
-import ${rootPackage}.${packService}.${tableBigCamel}Service;
+import ${rootPackage}.model.${tableBigCamel};
+import ${rootPackage}.dal.${tableBigCamel}Mapper;
+import ${rootPackage}.service.${tableBigCamel}Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

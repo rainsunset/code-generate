@@ -113,15 +113,16 @@
     <div class="path">
         <div>
             <label>输出文件路径</label>
-            <input style="width:350px" type="text" name="outFilePath" placeholder="linux下形如‘/usr/local’ win下形如‘C:\Users\anmin\Desktop’">
+            <input style="width:350px" type="text" name="outFilePath" value="C:"
+                   placeholder="linux下形如‘/usr/local’ win下形如‘C:\Users\anmin\Desktop’">
         </div>
         <div>
             <label>基础包路径：</label>
-            <input type="text" name="baseClassPath" placeholder="形如‘com.rainsunset">
+            <input type="text" name="baseClassPath" value="com.rainsunset" placeholder="形如‘com.rainsunset’">
         </div>
         <div>
             <label>模块名称：</label>
-            <input type="text" name="moduleName" placeholder="形如‘test">
+            <input type="text" name="moduleName" value="test" placeholder="形如‘test’">
         </div>
         <div>
             <label>代码模板：</label>
@@ -129,6 +130,18 @@
                 <option th:each="tmpType,tmpTypeStat:${templatesType}" th:text="${tmpType}" th:value="${tmpType}"
                         th:selected="${tmpTypeStat.first}"></option>
             </select>
+        </div>
+        <div>
+            <label>注释-作者：</label>
+            <input type="text" name="codeAuthor" placeholder="形如‘test" value="ligangwei">
+        </div>
+        <div>
+            <label>注释-公司名：</label>
+            <input type="text" name="codeCompany" placeholder="形如‘test"  value="rainsunset">
+        </div>
+        <div>
+            <label>注释-版本：</label>
+            <input type="text" name="codeVersion" placeholder="形如‘test"  value="1.0-SNAPSHOT">
         </div>
     </div>
     <div style="clear: both"></div>
@@ -301,17 +314,24 @@
             "generateTest":generateTest,
             "generatePage":generatePage
         }
-
         var tabArray = [];
         $("input[name='selectTab']:checked").each(function(i){
             tabArray[i] =$(this).val();
         });
-
         if (!(generateModel || generateDao || generateService || generateController || generateTest || generatePage) ||
          0 == tabArray.length){
             alert("啥都不生成可不行");
             return;
         }
+
+        var codeAuthor = $.trim($("[name='codeAuthor']").val());
+        var codeCompany = $.trim($("[name='codeCompany']").val());
+        var codeVersion = $.trim($("[name='codeVersion']").val());
+        if (codeAuthor.length == 0 || codeCompany.length == 0 || codeVersion.length == 0){
+            alert("补齐注释配置");
+            return;
+        }
+
         var templatesType = $("[name='templatesType']").val();
 
         var generatePathConfigReqDTO = {};
@@ -319,6 +339,10 @@
         generatePathConfigReqDTO.filePathConfigReqDTO = filePathConfigReqDTO;
         generatePathConfigReqDTO.templatesType = templatesType;
         generatePathConfigReqDTO.tabNameList = tabArray;
+        generatePathConfigReqDTO.codeAuthor = codeAuthor;
+        generatePathConfigReqDTO.codeCompany = codeCompany;
+        generatePathConfigReqDTO.codeVersion = codeVersion;
+
         $.ajax({
             url: './generate/execute',
             type: "POST",

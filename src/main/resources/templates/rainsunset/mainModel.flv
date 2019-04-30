@@ -1,4 +1,4 @@
-package ${rootPackage}.${packModel};
+package ${rootPackage}.dal.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

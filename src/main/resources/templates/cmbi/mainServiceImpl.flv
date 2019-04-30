@@ -1,9 +1,13 @@
-package ${rootPackage}.${packServiceImpl};
+package ${rootPackage}.service.impl;
 
 import com.cmbi.base.Response;
-import ${rootPackage}.${packModel}.${tableBigCamel};
-import ${rootPackage}.${packManager}.${tableBigCamel}Manager;
-import ${rootPackage}.${packService}.${tableBigCamel}Service;
+import ${rootPackage}.manager.${tableBigCamel}Manager;
+import ${rootPackage}.service.api.${tableBigCamel}Service;
+import ${rootPackage}.service.request.${tableBigCamel}BatchDelReqDTO;
+import ${rootPackage}.service.request.${tableBigCamel}DetailReqDTO;
+import ${rootPackage}.service.request.${tableBigCamel}ListReqDTO;
+import ${rootPackage}.service.request.${tableBigCamel}ReqDTO;
+import ${rootPackage}.service.response.${tableBigCamel}ResDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,35 +30,35 @@ public class ${tableBigCamel}ServiceImpl implements ${tableBigCamel}Service {
     private ${tableBigCamel}Manager ${tableSmallCamel}Manager;
 
     @Override
-    public Response<List<${tableBigCamel}>> select${tableBigCamel}List(Map<String, Object> param){
-        Response<List<${tableBigCamel}>> response = new Response<>();
-    	List<${tableBigCamel}> res = ${tableSmallCamel}Manager.select${tableBigCamel}List(param);
+    public Response<List<${tableBigCamel}ResDTO>> select${tableBigCamel}List(${tableBigCamel}ListReqDTO ${tableSmallCamel}ListReqDTO){
+        Response<List<${tableBigCamel}ResDTO>> response = new Response<>();
+    	List<${tableBigCamel}ResDTO> res = ${tableSmallCamel}Manager.select${tableBigCamel}List(${tableSmallCamel}ListReqDTO);
     	response.setResult(res);
         return response;
     }
 
     <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
     @Override
-    public Response<${tableBigCamel}> get${tableBigCamel}Detail(${tabPrikeyType} ${tabPrikeySmallCamel}){
-        Response<${tableBigCamel}> response = new Response<>();
-        ${tableBigCamel} res = ${tableSmallCamel}Manager.get${tableBigCamel}Detail(${tabPrikeySmallCamel});
+    public Response<${tableBigCamel}ResDTO> get${tableBigCamel}Detail(${tableBigCamel}DetailReqDTO ${tableSmallCamel}DetailReqDTO){
+        Response<${tableBigCamel}ResDTO> response = new Response<>();
+        ${tableBigCamel}ResDTO res = ${tableSmallCamel}Manager.get${tableBigCamel}Detail(${tableSmallCamel}DetailReqDTO);
         response.setResult(res);
         return response;
     }
 
     @Override
-    public Response<Boolean> addOrUpdate${tableBigCamel}(${tableBigCamel} ${tableSmallCamel}){
-        Response<Boolean> response = new Response<>();
-        ${tableSmallCamel}Manager.addOrUpdate${tableBigCamel}(${tableSmallCamel});
-        response.setResult(true);
+    public Response<Integer> addOrUpdate${tableBigCamel}(${tableBigCamel}ReqDTO ${tableSmallCamel}ReqDTO){
+        Response<Integer> response = new Response<>();
+        Integer res = ${tableSmallCamel}Manager.addOrUpdate${tableBigCamel}(${tableSmallCamel}ReqDTO);
+        response.setResult(res);
         return response;
     }
 
     @Override
-    public Response<Boolean> delete${tableBigCamel}s(${tabPrikeyType}[] ${tabPrikeySmallCamel}s){
-        Response<Boolean> response = new Response<>();
-        ${tableSmallCamel}Manager.delete${tableBigCamel}s(${tabPrikeySmallCamel}s);
-        response.setResult(true);
+    public Response<Integer> delete${tableBigCamel}s(${tableBigCamel}BatchDelReqDTO ${tableSmallCamel}BatchDelReqDTO){
+        Response<Integer> response = new Response<>();
+        Integer res = ${tableSmallCamel}Manager.delete${tableBigCamel}s(${tableSmallCamel}BatchDelReqDTO);
+        response.setResult(res);
         return response;
     }
     </#if>

@@ -1,18 +1,20 @@
-package ${rootPackage}.dal.model;
+package ${rootPackage}.service.request;
 
+import com.cmbi.reward.service.request.base.BaseRequest;
 import lombok.Data;
-
+import lombok.ToString;
 import java.util.Date;
 
  /**
-  * @Description: ${tableComment} Model
+  * @Description: 查询${tableComment}列表请求体
   * @Author: ${codeAuthor}
   * @Company ${codeCompany}
   * @CreateDate: ${now}
   * @Version : ${codeVersion}
   */
 @Data
-public class ${tableBigCamel} {
+@ToString(callSuper = true)
+public class ${tableBigCamel}ListReqDTO extends BaseRequest {
     <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
 
     /** ${tabPrikeyComment} */

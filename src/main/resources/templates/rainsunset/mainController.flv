@@ -2,8 +2,8 @@ package ${rootPackage}.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.util.StringUtil;
-import ${rootPackage}.${packModel}.${tableBigCamel};
-import ${rootPackage}.${packService}.${tableBigCamel}Service;
+import ${rootPackage}.model.${tableBigCamel};
+import ${rootPackage}.service.${tableBigCamel}Service;
 import ${rootPackage}.view.ResponseResult;
 import ${rootPackage}.view.RestResultGenerator;
 import io.swagger.annotations.Api;

@@ -1,7 +1,10 @@
-package ${rootPackage}.dal.model;
+package ${rootPackage}.service.response;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.Date;
 
  /**
@@ -12,7 +15,9 @@ import java.util.Date;
   * @Version : ${codeVersion}
   */
 @Data
-public class ${tableBigCamel} {
+@AllArgsConstructor
+@NoArgsConstructor
+public class ${tableBigCamel}ResDTO implements Serializable {
     <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
 
     /** ${tabPrikeyComment} */

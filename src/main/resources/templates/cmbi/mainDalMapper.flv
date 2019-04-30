@@ -1,6 +1,6 @@
-package ${rootPackage}.${packDao};
+package ${rootPackage}.dal.mapper;
 
-import ${rootPackage}.${packModel}.${tableBigCamel};
+import ${rootPackage}.dal.model.${tableBigCamel};
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

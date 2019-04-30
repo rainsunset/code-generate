@@ -1,10 +1,13 @@
 package ${rootPackage}.service;
 
 import com.cmbi.base.Response;
-import ${rootPackage}.${packModel}.${tableBigCamel};
+import ${rootPackage}.service.request.${tableBigCamel}BatchDelReqDTO;
+import ${rootPackage}.service.request.${tableBigCamel}DetailReqDTO;
+import ${rootPackage}.service.request.${tableBigCamel}ListReqDTO;
+import ${rootPackage}.service.request.${tableBigCamel}ReqDTO;
+import ${rootPackage}.service.response.${tableBigCamel}ResDTO;
 
 import java.util.List;
-import java.util.Map;
 
  /**
   * @Description: ${tableComment} 接口
@@ -17,29 +20,29 @@ public interface ${tableBigCamel}Service {
 
     /**
      * 依据条件查找 ${tableComment} 列表
-     * @param param
+     * @param ${tableSmallCamel}ListReqDTO
      * @return
      */
-    public Response<List<${tableBigCamel}>> select${tableBigCamel}List(Map<String, Object> param);
+    public Response<List<${tableBigCamel}ResDTO>> select${tableBigCamel}List(${tableBigCamel}ListReqDTO ${tableSmallCamel}ListReqDTO);
 
     <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
     /**
      * 依据Id查找 ${tableComment} 详情
-     * @param ${tabPrikeySmallCamel}
+     * @param ${tableSmallCamel}DetailReqDTO
      * @return
      */
-    public Response<${tableBigCamel}> get${tableBigCamel}Detail(${tabPrikeyType} ${tabPrikeySmallCamel});
+    public Response<${tableBigCamel}ResDTO> get${tableBigCamel}Detail(${tableBigCamel}DetailReqDTO ${tableSmallCamel}DetailReqDTO);
 
     /**
      * 新增或更新 ${tableComment}
-     * @param ${tableSmallCamel}
+     * @param ${tableSmallCamel}ReqDTO
      */
-    public Response<Boolean> addOrUpdate${tableBigCamel}(${tableBigCamel} ${tableSmallCamel});
+    public Response<Integer> addOrUpdate${tableBigCamel}(${tableBigCamel}ReqDTO ${tableSmallCamel}ReqDTO);
 
     /**
      * 依据Id批量删除 ${tableComment} 记录
-     * @param ${tabPrikeySmallCamel}s ${tabPrikeyComment}数组
+     * @param ${tableSmallCamel}BatchDelReqDTO 待删除${tabPrikeyComment}数组
      */
-    public Response<Boolean> delete${tableBigCamel}s(${tabPrikeyType}[] ${tabPrikeySmallCamel}s);
+    public Response<Integer> delete${tableBigCamel}s(${tableBigCamel}BatchDelReqDTO ${tableSmallCamel}BatchDelReqDTO);
     </#if>
 }

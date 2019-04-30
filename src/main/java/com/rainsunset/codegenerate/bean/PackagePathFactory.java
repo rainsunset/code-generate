@@ -2,6 +2,8 @@ package com.rainsunset.codegenerate.bean;
 
 import com.rainsunset.codegenerate.common.enums.TemplatesTypeEnum;
 
+import java.util.List;
+
 /**
  * @ClassName PackagePathFactory
  * @Description: 代码分层包相对路径
@@ -21,20 +23,37 @@ public class PackagePathFactory {
 	 * @return the package path bo
 	 * @author : ligangwei / 2019-04-11
 	 */
-	public static PackagePathBO getPackagePath(String templateType) {
+	public static PackageGenerateInfoBO getPackagePath(String templateType) {
 		if (TemplatesTypeEnum.CMBI.getTemplateType().equals(templateType)) {
-			PackagePathBO packagePathBO = new PackagePathBO("dal.model", "service.request",
-					"service.response","dal.mapper", "mapper","service.api",
-					"service.impl","manager", "controller","dal",
-					"service","","", "", "");
-			return packagePathBO;
+			PackageGenerateInfoBO packageGenerateInfoBO = new PackageGenerateInfoBO();
+			packageGenerateInfoBO.addpackModel("dal.model", ".java", "mainDalModel.flv");
+			packageGenerateInfoBO.addpackDao("dal.mapper", "Mapper.java", "mainDalMapper.flv");
+			packageGenerateInfoBO.addpackMapper("mapper", "Mapper.xml", "mainMapper.flv");
+			packageGenerateInfoBO.addpackService("service.api", "Service.java", "mainServiceApi.flv");
+			packageGenerateInfoBO.addpackService("service.impl", "ServiceImpl.java", "mainServiceImpl.flv");
+			packageGenerateInfoBO.addpackService("service.request", "BatchDelReqDTO.java", "mainServiceBatchDelReqDTO.flv");
+			packageGenerateInfoBO.addpackService("service.request", "DetailReqDTO.java", "mainServiceDetailReqDTO.flv");
+			packageGenerateInfoBO.addpackService("service.request", "ListReqDTO.java", "mainServiceListReqDTO.flv");
+			packageGenerateInfoBO.addpackService("service.request", "ReqDTO.java", "mainServiceReqDTO.flv");
+			packageGenerateInfoBO.addpackService("service.response", "ResDTO.java", "mainServiceResDTO.flv");
+			packageGenerateInfoBO.addpackService("manager", "Manager.java", "mainManager.flv");
+			packageGenerateInfoBO.addpackController("controller", "Controller.java", "mainController.flv");
+			packageGenerateInfoBO.addpackTest("dal", "DaoTest.java", "testDal.flv");
+			packageGenerateInfoBO.addpackTest("service", "ServiceTest.java", "testService.flv");
+			return packageGenerateInfoBO;
 		} else{
 //			默认模板为 TemplatesTypeEnum.RAINSUNSET
-			PackagePathBO packagePathBO = new PackagePathBO("model","","", "dal", "mapper",
-					"service", "service.impl","", "controller",
-					"dal", "service",
-					"","", "", "");
-			return packagePathBO;
+			PackageGenerateInfoBO packageGenerateInfoBO = new PackageGenerateInfoBO();
+			packageGenerateInfoBO.addpackModel("model", ".java", "mainModel.flv");
+			packageGenerateInfoBO.addpackDao("dal", "Mapper.java", "mainDal.flv");
+			packageGenerateInfoBO.addpackMapper("mapper", "Mapper.xml", "mainMapper.flv");
+			packageGenerateInfoBO.addpackService("service", "Service.java", "mainService.flv");
+			packageGenerateInfoBO.addpackService("service.impl", "ServiceImpl.java", "mainServiceImpl.flv");
+			packageGenerateInfoBO.addpackController("controller", "Controller.java", "mainController.flv");
+			packageGenerateInfoBO.addpackTest("dal", "DaoTest.java", "testDal.flv");
+			packageGenerateInfoBO.addpackTest("service", "ServiceTest.java", "testService.flv");
+			return packageGenerateInfoBO;
 		}
 	}
+
 }
