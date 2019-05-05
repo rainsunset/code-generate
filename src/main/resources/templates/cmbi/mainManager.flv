@@ -1,15 +1,23 @@
 package ${rootPackage}.manager;
 
-import com.cmbi.${moduleName}}.common.enums.ErrorCode;
-import com.cmbi.${moduleName}}.common.exception.ServiceException;
+import com.cmbi.${moduleName}.common.enums.ErrorCode;
+import com.cmbi.${moduleName}.common.exception.ServiceException;
 import ${rootPackage}.dal.model.${tableBigCamel};
 import ${rootPackage}.dal.mapper.${tableBigCamel}Mapper;
+import ${rootPackage}.service.request.${tableBigCamel}BatchDelReqDTO;
+import ${rootPackage}.service.request.${tableBigCamel}DetailReqDTO;
+import ${rootPackage}.service.request.${tableBigCamel}ListReqDTO;
+import ${rootPackage}.service.request.${tableBigCamel}ReqDTO;
+import ${rootPackage}.service.response.${tableBigCamel}ResDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
+import java.util.Date;
 
  /**
   * @Description: ${tableComment} 业务实现
@@ -18,7 +26,7 @@ import java.util.Map;
   * @CreateDate: ${now}
   * @Version : ${codeVersion}
   */
-@Service
+@Component
 public class ${tableBigCamel}Manager{
 
     @Autowired
@@ -26,51 +34,113 @@ public class ${tableBigCamel}Manager{
 
     /**
      * 依据条件查找 ${tableComment} 列表
-     * @param param
+     * @param ${tableSmallCamel}ListReqDTO
      * @return
      */
-    public List<${tableBigCamel}> select${tableBigCamel}List(Map<String, Object> param){
-        return ${tableSmallCamel}Mapper.select${tableBigCamel}List(param);
+    public List<${tableBigCamel}ResDTO> select${tableBigCamel}List(${tableBigCamel}ListReqDTO ${tableSmallCamel}ListReqDTO){
+        <#list columList as map>
+        ${map.columnType} ${map.columnSmallCamel} = ${tableSmallCamel}ListReqDTO.get${map.columnBigCamel}();
+        </#list>
+        List<${tableBigCamel}> ${tableSmallCamel}List = ${tableSmallCamel}Mapper.select${tableBigCamel}List(
+        <#list columList?chunk(4) as row>
+        <#list row as map>${map.columnSmallCamel}<#if map_has_next>, </#if></#list><#if row_has_next>, </#if>
+        </#list>
+        );
+        if (CollectionUtils.isEmpty(${tableSmallCamel}List)) {
+            return null;
+        }
+        List<${tableBigCamel}ResDTO> ${tableSmallCamel}ResDTOList = new LinkedList<${tableBigCamel}ResDTO>();
+        for (int i = 0; i < ${tableSmallCamel}List.size(); i++) {
+            ${tableBigCamel}ResDTO ${tableSmallCamel}ResDTO = ${tableSmallCamel}DO2ResDTO(${tableSmallCamel}List.get(i));
+            if (null == ${tableSmallCamel}ResDTO) {
+                continue;
+            }
+            ${tableSmallCamel}ResDTOList.add(${tableSmallCamel}ResDTO);
+        }
+        return ${tableSmallCamel}ResDTOList;
     }
 
     <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
     /**
      * 依据Id查找 ${tableComment} 详情
-     * @param ${tabPrikeySmallCamel}
+     * @param ${tableSmallCamel}DetailReqDTO
      * @return
      */
-    public ${tableBigCamel} get${tableBigCamel}Detail(${tabPrikeyType} ${tabPrikeySmallCamel}){
+    public ${tableBigCamel}ResDTO get${tableBigCamel}Detail(${tableBigCamel}DetailReqDTO ${tableSmallCamel}DetailReqDTO){
+        ${tabPrikeyType} ${tabPrikeySmallCamel}= ${tableSmallCamel}DetailReqDTO.get${tabPrikeyBigCamel}();
+        if (null == ${tabPrikeySmallCamel}) {
+            throw new ServiceException(ErrorCode.REWD_415001);
+        }
         ${tableBigCamel} ${tableSmallCamel} = ${tableSmallCamel}Mapper.get${tableBigCamel}Detail(${tabPrikeySmallCamel});
-        return ${tableSmallCamel};
+        ${tableBigCamel}ResDTO ${tableSmallCamel}ResDTO = ${tableSmallCamel}DO2ResDTO(${tableSmallCamel});
+        return ${tableSmallCamel}ResDTO;
     }
     </#if>
 
     <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
     /**
      * 新增或更新 ${tableComment} Id不为空时更新
-     * @param ${tableSmallCamel}
+     * @param ${tableSmallCamel}ReqDTO
      */
-    public void addOrUpdate${tableBigCamel}(${tableBigCamel} ${tableSmallCamel}){
-        // 检查参数
+    public Integer addOrUpdate${tableBigCamel}(${tableBigCamel}ReqDTO ${tableSmallCamel}ReqDTO){
+        ${tableBigCamel} ${tableSmallCamel} = ${tableSmallCamel}ReqDTO2DO(${tableSmallCamel}ReqDTO);
         if (null == ${tableSmallCamel}){
-            throw new ServiceException(ErrorCode.ERROR_CODE_415001.getCode(), ErrorCode.ERROR_CODE_415001.getDesc());
+            throw new ServiceException(ErrorCode.REWD_415001);
         }
+        // 检查参数
         if(null == ${tableSmallCamel}.get${tabPrikeyBigCamel}()){
             ${tableSmallCamel}Mapper.fullInsert${tableBigCamel}(${tableSmallCamel});
         } else {
             ${tableSmallCamel}Mapper.update${tableBigCamel}(${tableSmallCamel});
         }
+        return ${tableSmallCamel}.get${tabPrikeyBigCamel}();
     }
     </#if>
 
     <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
     /**
      * 依据Id批量删除 ${tableComment} 记录
-     * @param ${tabPrikeySmallCamel}s ${tabPrikeyComment}数组
+     * @param ${tableSmallCamel}BatchDelReqDTO ${tabPrikeyComment}待删除id数组
      */
-    public void delete${tableBigCamel}s(${tabPrikeyType}[] ${tabPrikeySmallCamel}s){
-        ${tableSmallCamel}Mapper.delete${tableBigCamel}s(${tabPrikeySmallCamel}s);
+    public Integer delete${tableBigCamel}s(${tableBigCamel}BatchDelReqDTO ${tableSmallCamel}BatchDelReqDTO){
+        ${tabPrikeyType}[] ${tabPrikeySmallCamel}s = ${tableSmallCamel}BatchDelReqDTO.get${tabPrikeyBigCamel}s();
+        if (null == ${tabPrikeySmallCamel}s || 0 == ${tabPrikeySmallCamel}s.length) {
+             throw new ServiceException(ErrorCode.REWD_415001);
+         }
+        String updatedBy = ${tableSmallCamel}BatchDelReqDTO.getUpdatedBy();
+        Integer rows = ${tableSmallCamel}Mapper.delete${tableBigCamel}s(${tabPrikeySmallCamel}s,updatedBy);
+        return rows;
     }
     </#if>
+
+     /**
+     * 对象转换 ${tableBigCamel}  DO  -> ResDTO
+     *
+     * @param ${tableSmallCamel}
+     * @return
+     */
+    private ${tableBigCamel}ResDTO ${tableSmallCamel}DO2ResDTO(${tableBigCamel} ${tableSmallCamel}){
+        ${tableBigCamel}ResDTO ${tableSmallCamel}ResDTO = new ${tableBigCamel}ResDTO(
+        <#if tabPrikeySmallCamel?? && tabPrikeySmallCamel != "">${tableSmallCamel}.get${tabPrikeyBigCamel}(), </#if>
+        <#list columList?chunk(4) as row>
+            <#list row as map>${tableSmallCamel}.get${map.columnBigCamel}()<#if map_has_next>, </#if></#list><#if row_has_next>, </#if>
+        </#list>
+        );
+        return ${tableSmallCamel}ResDTO;
+    }
+
+    /**
+     * 对象转换 ${tableBigCamel}  ReqDTO  -> DO
+     *
+     * @param ${tableSmallCamel}ReqDTO
+     * @return
+     */
+    private ${tableBigCamel} ${tableSmallCamel}ReqDTO2DO(${tableBigCamel}ReqDTO ${tableSmallCamel}ReqDTO){
+        ${tableBigCamel} ${tableSmallCamel} = new ${tableBigCamel}();
+        <#list columList as map>
+        ${tableSmallCamel}.set${map.columnBigCamel}(${tableSmallCamel}ReqDTO.get${map.columnBigCamel}());
+        </#list>
+        return ${tableSmallCamel};
+    }
 
 }

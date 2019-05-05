@@ -38,8 +38,8 @@ public class PackagePathFactory {
 			packageGenerateInfoBO.addpackService("service.response", "ResDTO.java", "mainServiceResDTO.flv");
 			packageGenerateInfoBO.addpackService("manager", "Manager.java", "mainManager.flv");
 			packageGenerateInfoBO.addpackController("controller", "Controller.java", "mainController.flv");
-			packageGenerateInfoBO.addpackTest("dal", "DaoTest.java", "testDal.flv");
-			packageGenerateInfoBO.addpackTest("service", "ServiceTest.java", "testService.flv");
+			packageGenerateInfoBO.addpackTest("test.dal", "DaoTest.java", "testDal.flv");
+			packageGenerateInfoBO.addpackTest("test.service", "ServiceTest.java", "testService.flv");
 			return packageGenerateInfoBO;
 		} else{
 //			默认模板为 TemplatesTypeEnum.RAINSUNSET
@@ -50,8 +50,8 @@ public class PackagePathFactory {
 			packageGenerateInfoBO.addpackService("service", "Service.java", "mainService.flv");
 			packageGenerateInfoBO.addpackService("service.impl", "ServiceImpl.java", "mainServiceImpl.flv");
 			packageGenerateInfoBO.addpackController("controller", "Controller.java", "mainController.flv");
-			packageGenerateInfoBO.addpackTest("dal", "DaoTest.java", "testDal.flv");
-			packageGenerateInfoBO.addpackTest("service", "ServiceTest.java", "testService.flv");
+			packageGenerateInfoBO.addpackTest("test.dal", "DaoTest.java", "testDal.flv");
+			packageGenerateInfoBO.addpackTest("test.service", "ServiceTest.java", "testService.flv");
 			return packageGenerateInfoBO;
 		}
 	}
