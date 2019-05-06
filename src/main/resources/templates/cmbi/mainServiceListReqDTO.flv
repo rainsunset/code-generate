@@ -1,6 +1,6 @@
 package ${rootPackage}.service.request;
 
-import com.cmbi.reward.service.request.base.BaseRequest;
+import com.cmbi.${moduleName}.service.request.base.BaseRequest;
 import lombok.Data;
 import lombok.ToString;
 import java.util.Date;

@@ -99,7 +99,8 @@ public class CodeCreator {
         // main-resources-mapper
         if (filePathConfigReqDTO.isGenerateDao() && (!CollectionUtils.isEmpty(packageGenerateInfoBO.getPackMapper()))) {
             List<FileGererateInfoBO> packMapper = packageGenerateInfoBO.getPackMapper();
-            creatModelCode(packMapper, filePathModule, tableBigCamel, templatesPath, demoMap);
+            // mapper 文件名小写字母开头
+            creatModelCode(packMapper, filePathModule, tableSmallCamel, templatesPath, demoMap);
         }
 
         // main-java-package-service
