@@ -237,10 +237,10 @@ public class TableInfoBO {
 	private static Map<String,String> tabPrikeyTypeTurn(String keyType){
 		keyType = keyType.toLowerCase();
 		String keyTypeFullName = "java.lang.String";
-		if (keyType.indexOf("bigint") != -1){
+		if (keyType.indexOf("bigint") != -1) {
 			keyType = "Long";
 			keyTypeFullName = "java.lang.Long";
-		} else if (keyType.indexOf("int") != -1){
+		} else if (keyType.indexOf("int") != -1) {
 			keyType = "Integer";
 			keyTypeFullName = "java.lang.Integer";
 		} else if (keyType.indexOf("double") != -1) {
@@ -269,7 +269,9 @@ public class TableInfoBO {
 	private static String columnTypeTurn(String columnType){
 		columnType = columnType.toLowerCase();
 		String columJavaType = "String";
-		if (columnType.indexOf("bigint") != -1){
+		if (columnType.indexOf("tinyint(1)") != -1) {
+			columJavaType = "Boolean";
+		} else if (columnType.indexOf("bigint") != -1){
 			columJavaType = "Long";
 		} else if (columnType.indexOf("int") != -1){
 			columJavaType = "Integer";
