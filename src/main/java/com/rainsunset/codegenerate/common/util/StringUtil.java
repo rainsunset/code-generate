@@ -156,7 +156,7 @@ public class StringUtil {
 		String UNDERLINE = "_";
 		String formateName = null;
 		// 横杠也算分隔符
-		tname.replace("-", UNDERLINE);
+		tname = tname.replace("-", UNDERLINE);
 		// 若第二个字符为下划线则支取第第二个字符之后的部分
 		if (tname.substring(1, 2).equals(UNDERLINE)) {
 			formateName = tname.substring(2);

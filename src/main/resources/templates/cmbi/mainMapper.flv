@@ -39,7 +39,7 @@
     </#if>
 
     <insert id="add${tableBigCamel}" parameterType="${rootPackage}.dal.model.${tableBigCamel}"
-        useGeneratedKeys="true" keyProperty="${map.tabPrikeySmallCamel}">
+        <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>useGeneratedKeys="true" keyProperty="${tabPrikeySmallCamel}"</#if>>
         INSERT INTO ${tableName}
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "") && (!tabPrikeyIsautoIncrement)>
