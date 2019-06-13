@@ -1,72 +1,107 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="${rootPackage}.dal.${tableBigCamel}Mapper">
+<mapper namespace="${rootPackage}.dal.mapper.${tableBigCamel}Mapper">
 
-    <insert id="add${tableBigCamel}" parameterType="${rootPackage}.model.${tableBigCamel}">
-        INSERT INTO ${tableName}
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            ${tabPrikey},
-            <#list columList as map>
-                <if test="${map.columnSmallCamel} != null">
-                    ${map.column},
-                </if>
-            </#list>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            ${u0023}{${tabPrikeySmallCamel}},
-            <#list columList as map>
-                <if test="${map.columnSmallCamel} != null">
-                    ${u0023}{${map.columnSmallCamel}},
-                </if>
-            </#list>
-        </trim>
-    </insert>
-
-    <update id="update${tableBigCamel}ById" parameterType="${rootPackage}.model.${tableBigCamel}">
-        update ${tableName}
-        <trim prefix="set" suffixOverrides=",">
-            <#list columList as map>
-                <if test="${map.columnSmallCamel} != null">
-                    ${map.column} =${u0023}{${map.columnSmallCamel}},
-                </if>
-            </#list>
-        </trim>
-        where ${tabPrikey} = ${u0023}{${tabPrikeySmallCamel}}
-    </update>
-
-    <select id="select${tableBigCamel}List" parameterType="java.util.Map"
-            resultType="${rootPackage}.model.${tableBigCamel}">
-        select
-        <#list columList as map>
-            ${map.column} ${map.columnSmallCamel},
+    <select id="select${tableBigCamel}List" resultType="${rootPackage}.model.${tableBigCamel}">
+        select <#if tabPrikeySmallCamel?? && tabPrikeySmallCamel != "">`${tabPrikey}` `${tabPrikeySmallCamel}`, </#if>
+        <#list columList?chunk(4) as row>
+        <#list row as map>`${map.column}` `${map.columnSmallCamel}`<#if map_has_next>, </#if></#list><#if row_has_next>, </#if>
         </#list>
-        ${tabPrikey} ${tabPrikeySmallCamel}
         from ${tableName}
-        WHERE
-        1=1
-        <if test="${tabPrikeySmallCamel} != null">
-            and ${tabPrikey} = ${u0023}{${tabPrikeySmallCamel}}
-        </if>
+        WHERE `status` = 'VALID'
         <#list columList as map>
-        <#switch  map.columnType>
+        <#switch map.columnType>
         <#case "String">
-        <if test="${map.columnSmallCamel} != null">
-            and ${map.column} like ${u0023}{${map.columnSmallCamel}}
+        <if test="${map.columnSmallCamel} != null and ${map.columnSmallCamel} != ''">
+            and `${map.column}` = ${u0023}{${map.columnSmallCamel}}
         </if>
         <#break>
         <#default>
         <if test="${map.columnSmallCamel} != null">
-            and ${map.column} = ${u0023}{${map.columnSmallCamel}}
+            and `${map.column}` = ${u0023}{${map.columnSmallCamel}}
         </if>
         </#switch>
         </#list>
         ORDER BY ${tabPrikey} ASC
     </select>
 
-    <delete id="del${tableBigCamel}ById" parameterType="${tabPrikeyTypeFullName}">
-        DELETE FROM  ${tableName}
-        where
-        ${tabPrikey} = ${u0023}{${tabPrikeySmallCamel}}
-    </delete>
+    <#if tabPrikeySmallCamel?? && tabPrikeySmallCamel != "">
+    <select id="get${tableBigCamel}Detail" parameterType="${tabPrikeyTypeFullName}"
+            resultType="${rootPackage}.model.${tableBigCamel}">
+        select
+        `${tabPrikey}` `${tabPrikeySmallCamel}`,
+        <#list columList?chunk(4) as row>
+        <#list row as map>`${map.column}` `${map.columnSmallCamel}`<#if map_has_next>, </#if></#list><#if row_has_next>, </#if>
+        </#list>
+        from ${tableName}
+        WHERE ${tabPrikey} = ${u0023}{${tabPrikeySmallCamel}}
+    </select>
+    </#if>
 
+    <insert id="add${tableBigCamel}" parameterType="${rootPackage}.model.${tableBigCamel}"
+        useGeneratedKeys="true" keyProperty="${map.tabPrikeySmallCamel}">
+        INSERT INTO ${tableName}
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "") && (!tabPrikeyIsautoIncrement)>
+            <if test="${tabPrikeySmallCamel} != null}">
+                `${tabPrikey}`,
+            </if>
+            </#if>
+            <#list columList as map>
+            <if test="${map.columnSmallCamel} != null">
+                `${map.column}`,
+            </if>
+            </#list>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "") && (!tabPrikeyIsautoIncrement)>
+            <if test="${tabPrikeySmallCamel} != null}">
+                ${u0023}{${tabPrikeySmallCamel}},
+            </if>
+            </#if>
+            <#list columList as map>
+            <if test="${map.columnSmallCamel} != null">
+                ${u0023}{${map.columnSmallCamel}},
+            </if>
+            </#list>
+        </trim>
+    </insert>
+
+    <insert id="fullInsert${tableBigCamel}" parameterType="${rootPackage}.model.${tableBigCamel}"
+        useGeneratedKeys="true" keyProperty="${tabPrikeySmallCamel}">
+        INSERT INTO ${tableName} ( <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "") && (!tabPrikeyIsautoIncrement)>${tabPrikey}, </#if>
+            <#list columList?chunk(4) as row>
+            <#list row as map>`${map.column}`<#if map_has_next>, </#if></#list><#if row_has_next>, </#if>
+            </#list>
+        ) VALUES ( <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "") && (!tabPrikeyIsautoIncrement)>${u0023}{${tabPrikeySmallCamel}},</#if>
+            <#list columList?chunk(4) as row>
+            <#list row as map>${u0023}{${map.columnSmallCamel}}<#if map_has_next>, </#if></#list><#if row_has_next>, </#if>
+            </#list>
+        )
+    </insert>
+
+    <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
+    <update id="update${tableBigCamel}" parameterType="${rootPackage}.model.${tableBigCamel}">
+        update ${tableName}
+        <trim prefix="set" suffixOverrides=",">
+            <#list columList as map>
+                <if test="${map.columnSmallCamel} != null">
+                    `${map.column}` =${u0023}{${map.columnSmallCamel}},
+                </if>
+            </#list>
+        </trim>
+        where ${tabPrikey} = ${u0023}{${tabPrikeySmallCamel}}
+    </update>
+    </#if>
+
+    <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
+    <update id="delete${tableBigCamel}s">
+        update  ${tableName}
+        set `status` = 'UNVALID', updated_by = ${u0023}{updatedBy}
+        where ${tabPrikey} IN
+        <foreach collection="${tabPrikeySmallCamel}s" item="${tabPrikeySmallCamel}" open="(" close=")" separator=",">
+            ${u0023}{${tabPrikeySmallCamel}}
+        </foreach>
+    </update>
+    </#if>
 </mapper>

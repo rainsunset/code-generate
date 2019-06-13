@@ -1,13 +1,15 @@
 package ${rootPackage}.service;
 
-import com.github.pagehelper.PageInfo;
-import ${rootPackage}.dal.model.${tableBigCamel};
+import ${rootPackage}.service.request.${tableBigCamel}BatchDelReqDTO;
+import ${rootPackage}.service.request.${tableBigCamel}DetailReqDTO;
+import ${rootPackage}.service.request.${tableBigCamel}ListReqDTO;
+import ${rootPackage}.service.request.${tableBigCamel}ReqDTO;
+import ${rootPackage}.service.response.${tableBigCamel}ResDTO;
 
 import java.util.List;
-import java.util.Map;
 
  /**
-  * @Description: ${tableComment} Service
+  * @Description: ${tableComment} 接口
   * @Author: ${codeAuthor}
   * @Company ${codeCompany}
   * @CreateDate: ${now}
@@ -16,43 +18,30 @@ import java.util.Map;
 public interface ${tableBigCamel}Service {
 
     /**
-     * 添加 ${tableComment}
-     * @param ${tableSmallCamel}
-     */
-    public void  add${tableBigCamel}(${tableBigCamel} ${tableSmallCamel});
-
-    /**
-     * 依据主键更新 ${tableComment}
-     * @param ${tableSmallCamel}
-     */
-    public void  update${tableBigCamel}ById(${tableBigCamel} ${tableSmallCamel});
-
-    /**
      * 依据条件查找 ${tableComment} 列表
-     * @param param
+     * @param ${tableSmallCamel}ListReqDTO
      * @return
      */
-    public List<${tableBigCamel}> select${tableBigCamel}List(Map<String, Object> param);
+    public List<${tableBigCamel}ResDTO> select${tableBigCamel}List(${tableBigCamel}ListReqDTO ${tableSmallCamel}ListReqDTO);
 
-    /**
-     * 依据条件查找分页 ${tableComment} 列表
-     * @param param
-     * @param pageNo
-     * @param pageSize
-     * @return
-     */
-    public PageInfo<${tableBigCamel}> get${tableBigCamel}PageTurn(Map<String, Object> param, int pageNo, int pageSize);
-
+    <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
     /**
      * 依据Id查找 ${tableComment} 详情
-     * @param ${tabPrikeySmallCamel}
+     * @param ${tableSmallCamel}DetailReqDTO
      * @return
      */
-    public ${tableBigCamel} get${tableBigCamel}ById(${tabPrikeyType} ${tabPrikeySmallCamel});
+    public ${tableBigCamel}ResDTO get${tableBigCamel}Detail(${tableBigCamel}DetailReqDTO ${tableSmallCamel}DetailReqDTO);
 
     /**
-     * 依据Id删除 ${tableComment} 记录
-     * @param ${tabPrikeySmallCamel}
+     * 新增或更新 ${tableComment}
+     * @param ${tableSmallCamel}ReqDTO
      */
-    public void del${tableBigCamel}ById(${tabPrikeyType} ${tabPrikeySmallCamel});
+    public Integer addOrUpdate${tableBigCamel}(${tableBigCamel}ReqDTO ${tableSmallCamel}ReqDTO);
+
+    /**
+     * 依据Id批量删除 ${tableComment} 记录
+     * @param ${tableSmallCamel}BatchDelReqDTO 待删除${tabPrikeyComment}数组
+     */
+    public Integer delete${tableBigCamel}s(${tableBigCamel}BatchDelReqDTO ${tableSmallCamel}BatchDelReqDTO);
+    </#if>
 }

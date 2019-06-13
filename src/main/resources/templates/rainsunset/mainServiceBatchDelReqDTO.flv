@@ -1,0 +1,33 @@
+package ${rootPackage}.service.request;
+
+import com.cmbi.${moduleName}.service.request.base.BaseRequest;
+import lombok.Data;
+import lombok.ToString;
+import org.hibernate.validator.constraints.NotBlank;
+
+import javax.validation.constraints.NotNull;
+ /**
+  * @Description: 批量删除${tableComment}请求体
+  * @Author: ${codeAuthor}
+  * @Company ${codeCompany}
+  * @CreateDate: ${now}
+  * @Version : ${codeVersion}
+  */
+@Data
+@ToString(callSuper = true)
+public class ${tableBigCamel}BatchDelReqDTO extends BaseRequest {
+    <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
+
+    /** 待删除${tabPrikeyComment}数组 */
+    @NotNull(message = "待删除${tabPrikeyComment}数组不能为空")
+    private ${tabPrikeyType}[]  ${tabPrikeySmallCamel}s;
+    </#if>
+
+    /** 更新人 必传 */
+    @NotBlank(message = "更新人不能为空")
+    private String updatedBy;
+
+}
+
+
+

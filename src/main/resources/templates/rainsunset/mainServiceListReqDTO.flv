@@ -1,27 +1,28 @@
-package ${rootPackage}.model;
+package ${rootPackage}.service.request;
 
+import com.cmbi.${moduleName}.service.request.base.BaseRequest;
 import lombok.Data;
-
+import lombok.ToString;
 import java.util.Date;
 
  /**
-  * @Description: ${tableComment} Model
+  * @Description: 查询${tableComment}列表请求体
   * @Author: ${codeAuthor}
   * @Company ${codeCompany}
   * @CreateDate: ${now}
   * @Version : ${codeVersion}
   */
 @Data
-@ApiModel(description = "${tableComment}")
-public class ${tableBigCamel} {
+@ToString(callSuper = true)
+public class ${tableBigCamel}ListReqDTO extends BaseRequest {
     <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
 
-    @ApiModelProperty(value = "${tabPrikeyComment}")
+    /** ${tabPrikeyComment} */
     private ${tabPrikeyType}  ${tabPrikeySmallCamel};
     </#if>
     <#list columList as map>
 
-    @ApiModelProperty(value = "${map.columnComment}")
+    /** ${map.columnComment} */
     private ${map.columnType} ${map.columnSmallCamel};
     </#list>
 

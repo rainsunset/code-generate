@@ -26,10 +26,10 @@ public class PackagePathFactory {
 	public static PackageGenerateInfoBO getPackagePath(String templateType) {
 		if (TemplatesTypeEnum.CMBI.getTemplateType().equals(templateType)) {
 			PackageGenerateInfoBO packageGenerateInfoBO = new PackageGenerateInfoBO();
-			packageGenerateInfoBO.addpackModel("dal.model", ".java", "mainDalModel.flv");
-			packageGenerateInfoBO.addpackDao("dal.mapper", "Mapper.java", "mainDalMapper.flv");
+			packageGenerateInfoBO.addpackModel("dal.model", ".java", "mainModel.flv");
+			packageGenerateInfoBO.addpackDao("dal.mapper", "Mapper.java", "mainDal.flv");
 			packageGenerateInfoBO.addpackMapper("mapper", "Mapper.xml", "mainMapper.flv");
-			packageGenerateInfoBO.addpackService("service.api", "Service.java", "mainServiceApi.flv");
+			packageGenerateInfoBO.addpackService("service.api", "Service.java", "mainService.flv");
 			packageGenerateInfoBO.addpackService("service.impl", "ServiceImpl.java", "mainServiceImpl.flv");
 			packageGenerateInfoBO.addpackService("service.request", "BatchDelReqDTO.java", "mainServiceBatchDelReqDTO.flv");
 			packageGenerateInfoBO.addpackService("service.request", "DetailReqDTO.java", "mainServiceDetailReqDTO.flv");
@@ -49,9 +49,12 @@ public class PackagePathFactory {
 			packageGenerateInfoBO.addpackMapper("mapper", "Mapper.xml", "mainMapper.flv");
 			packageGenerateInfoBO.addpackService("service", "Service.java", "mainService.flv");
 			packageGenerateInfoBO.addpackService("service.impl", "ServiceImpl.java", "mainServiceImpl.flv");
+			packageGenerateInfoBO.addpackService("service.request", "BatchDelReqDTO.java", "mainServiceBatchDelReqDTO.flv");
+			packageGenerateInfoBO.addpackService("service.request", "DetailReqDTO.java", "mainServiceDetailReqDTO.flv");
+			packageGenerateInfoBO.addpackService("service.request", "ListReqDTO.java", "mainServiceListReqDTO.flv");
+			packageGenerateInfoBO.addpackService("service.request", "ReqDTO.java", "mainServiceReqDTO.flv");
+			packageGenerateInfoBO.addpackService("service.response", "ResDTO.java", "mainServiceResDTO.flv");
 			packageGenerateInfoBO.addpackController("controller", "Controller.java", "mainController.flv");
-			packageGenerateInfoBO.addpackTest("test.dal", "DaoTest.java", "testDal.flv");
-			packageGenerateInfoBO.addpackTest("test.service", "ServiceTest.java", "testService.flv");
 			return packageGenerateInfoBO;
 		}
 	}

@@ -1,7 +1,10 @@
-package ${rootPackage}.model;
+package ${rootPackage}.service.response;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.Date;
 
  /**
@@ -12,16 +15,17 @@ import java.util.Date;
   * @Version : ${codeVersion}
   */
 @Data
-@ApiModel(description = "${tableComment}")
-public class ${tableBigCamel} {
+@AllArgsConstructor
+@NoArgsConstructor
+public class ${tableBigCamel}ResDTO implements Serializable {
     <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
 
-    @ApiModelProperty(value = "${tabPrikeyComment}")
+    /** ${tabPrikeyComment} */
     private ${tabPrikeyType}  ${tabPrikeySmallCamel};
     </#if>
     <#list columList as map>
 
-    @ApiModelProperty(value = "${map.columnComment}")
+    /** ${map.columnComment} */
     private ${map.columnType} ${map.columnSmallCamel};
     </#list>
 
