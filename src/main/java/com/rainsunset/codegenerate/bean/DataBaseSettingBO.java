@@ -149,7 +149,7 @@ public class DataBaseSettingBO {
             driver = Driver.class.getName();
             testSql = "select 1";
             showTable = " show tables ";
-            showTablColumn = "SHOW TABLE STATUS FROM "+ dbName;
+            showTablColumn = "SHOW TABLE STATUS FROM `"+ dbName + "`";
             url = StringUtil.conlitionStr("jdbc:mysql://", address, ":", port, "/", dbName);
             return;
         }
@@ -178,7 +178,7 @@ public class DataBaseSettingBO {
     public static String getTablColumnSql(String dbType ,String tname) {
         String tablColumnSql = "";
         if (dbType.equals("MySql")) {
-            tablColumnSql = "SHOW FULL COLUMNS FROM "+ tname;
+            tablColumnSql = "SHOW FULL COLUMNS FROM `"+ tname + "`";
         }
         if (dbType.equals("Oracle")) {
             tablColumnSql = "";
