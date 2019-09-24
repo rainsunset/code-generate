@@ -24,7 +24,6 @@ import java.util.Map;
   * @CreateDate: ${now}
   * @Version : ${codeVersion}
   */
-@CrossOrigin
 @RestController
 @RequestMapping("/${moduleName}/${tableSmallCamel}")
 public class ${tableBigCamel}Controller{
