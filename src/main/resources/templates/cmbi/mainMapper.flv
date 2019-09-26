@@ -5,7 +5,7 @@
     <select id="select${tableBigCamel}List" resultType="${rootPackage}.dal.model.${tableBigCamel}">
         select <#if tabPrikeySmallCamel?? && tabPrikeySmallCamel != "">`${tabPrikey}` `${tabPrikeySmallCamel}`, </#if>
         <#list columList?chunk(4) as row>
-        <#list row as map>`${map.column}` `${map.columnSmallCamel}`<#if map_has_next>, </#if></#list><#if row_has_next>, </#if>
+        <#list row as map>`${map.column}` `${map.columnSmallCamel}`<#if map_has_next>, </#if></#list><#if row_has_next>,</#if>
         </#list>
         from ${tableName}
         WHERE `status` = 'VALID'
@@ -67,7 +67,7 @@
 
     <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
     <update id="delete${tableBigCamel}s">
-        update  ${tableName}
+        update ${tableName}
         set `status` = 'UNVALID', updated_by = ${u0023}{updatedBy}
         where ${tabPrikey} IN
         <foreach collection="${tabPrikeySmallCamel}s" item="${tabPrikeySmallCamel}" open="(" close=")" separator=",">

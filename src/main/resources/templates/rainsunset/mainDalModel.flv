@@ -6,20 +6,20 @@ import lombok.Data;
 
 import java.util.Date;
 
- /**
-  * @Description: ${tableComment} Model
-  * @Author: ${codeAuthor}
-  * @Company ${codeCompany}
-  * @CreateDate: ${now}
-  * @Version : ${codeVersion}
-  */
+/**
+ * @Description: ${tableComment} Model
+ * @Author: ${codeAuthor}
+ * @Company ${codeCompany}
+ * @CreateDate: ${now}
+ * @Version : ${codeVersion}
+ */
 @Data
 @ApiModel(description = "${tableComment}")
 public class ${tableBigCamel} {
     <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
 
     @ApiModelProperty(value = "${tabPrikeyComment}")
-    private ${tabPrikeyType}  ${tabPrikeySmallCamel};
+    private ${tabPrikeyType} ${tabPrikeySmallCamel};
     </#if>
     <#list columList as map>
 

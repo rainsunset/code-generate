@@ -8,18 +8,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Date;
 
- /**
-  * @Description: ${tableComment} Mapper
-  * @Author: ${codeAuthor}
-  * @Company ${codeCompany}
-  * @CreateDate: ${now}
-  * @Version : ${codeVersion}
-  */
- @Repository
+/**
+ * @Description: ${tableComment} Mapper
+ * @Author: ${codeAuthor}
+ * @Company ${codeCompany}
+ * @CreateDate: ${now}
+ * @Version : ${codeVersion}
+ */
+@Repository
 public interface ${tableBigCamel}Mapper {
 
     /**
      * 依据条件查找 ${tableComment} 列表
+     *
      <#list columList as map>
      * @param ${map.columnSmallCamel}
      </#list>
@@ -34,6 +35,7 @@ public interface ${tableBigCamel}Mapper {
     <#if tabPrikeySmallCamel?? && tabPrikeySmallCamel != "">
     /**
      * 依据Id查找 ${tableComment} 详情
+     *
      * @param ${tabPrikeySmallCamel}
      * @return
      */
@@ -42,25 +44,28 @@ public interface ${tableBigCamel}Mapper {
 
     /**
      * 全量插入 ${tableComment}
+     *
      * @param ${tableSmallCamel}
      */
-    public Integer  fullInsert${tableBigCamel}(${tableBigCamel} ${tableSmallCamel});
+    public Integer fullInsert${tableBigCamel}(${tableBigCamel} ${tableSmallCamel});
 
     <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
     /**
      * 依据主键更新 ${tableComment}
+     *
      * @param ${tableSmallCamel}
      */
-    public Integer  update${tableBigCamel}(${tableBigCamel} ${tableSmallCamel});
+    public Integer update${tableBigCamel}(${tableBigCamel} ${tableSmallCamel});
     </#if>
 
     <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
     /**
      * 依据主键删除 ${tableComment} 记录
+     *
      * @param ${tabPrikeySmallCamel}s
      * @param updatedBy
      */
-    public Integer  delete${tableBigCamel}s(@Param("${tabPrikeySmallCamel}s") ${tabPrikeyType}[] ${tabPrikeySmallCamel}s,
+    public Integer delete${tableBigCamel}s(@Param("${tabPrikeySmallCamel}s") ${tabPrikeyType}[] ${tabPrikeySmallCamel}s,
                                             @Param("updatedBy") String updatedBy);
     </#if>
 }
