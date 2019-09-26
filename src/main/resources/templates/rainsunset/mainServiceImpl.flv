@@ -2,7 +2,7 @@ package ${rootPackage}.service.impl;
 
 import com.cmbi.${moduleName}.common.enums.ErrorCode;
 import com.cmbi.${moduleName}.common.exception.ServiceException;
-import ${rootPackage}.model.${tableBigCamel};
+import ${rootPackage}.dal.model.${tableBigCamel};
 import ${rootPackage}.dal.mapper.${tableBigCamel}Mapper;
 import ${rootPackage}.service.api.${tableBigCamel}Service;
 import ${rootPackage}.service.request.${tableBigCamel}BatchDelReqDTO;

@@ -41,12 +41,6 @@ public interface ${tableBigCamel}Mapper {
     </#if>
 
     /**
-     * 添加 ${tableComment}
-     * @param ${tableSmallCamel}
-     */
-    public Integer  add${tableBigCamel}(${tableBigCamel} ${tableSmallCamel});
-
-    /**
      * 全量插入 ${tableComment}
      * @param ${tableSmallCamel}
      */

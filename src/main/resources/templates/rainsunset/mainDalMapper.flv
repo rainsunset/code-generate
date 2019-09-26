@@ -1,6 +1,6 @@
 package ${rootPackage}.dal.mapper;
 
-import ${rootPackage}.model.${tableBigCamel};
+import ${rootPackage}.dal.model.${tableBigCamel};
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -39,12 +39,6 @@ public interface ${tableBigCamel}Mapper {
      */
     public ${tableBigCamel} get${tableBigCamel}Detail(@Param("${tabPrikeySmallCamel}")${tabPrikeyType} ${tabPrikeySmallCamel});
     </#if>
-
-    /**
-     * 添加 ${tableComment}
-     * @param ${tableSmallCamel}
-     */
-    public Integer  add${tableBigCamel}(${tableBigCamel} ${tableSmallCamel});
 
     /**
      * 全量插入 ${tableComment}

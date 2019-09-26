@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="${rootPackage}.dal.mapper.${tableBigCamel}Mapper">
 
-    <select id="select${tableBigCamel}List" resultType="${rootPackage}.model.${tableBigCamel}">
+    <select id="select${tableBigCamel}List" resultType="${rootPackage}.dal.model.${tableBigCamel}">
         select <#if tabPrikeySmallCamel?? && tabPrikeySmallCamel != "">`${tabPrikey}` `${tabPrikeySmallCamel}`, </#if>
         <#list columList?chunk(4) as row>
         <#list row as map>`${map.column}` `${map.columnSmallCamel}`<#if map_has_next>, </#if></#list><#if row_has_next>, </#if>
@@ -27,7 +27,7 @@
 
     <#if tabPrikeySmallCamel?? && tabPrikeySmallCamel != "">
     <select id="get${tableBigCamel}Detail" parameterType="${tabPrikeyTypeFullName}"
-            resultType="${rootPackage}.model.${tableBigCamel}">
+            resultType="${rootPackage}.dal.model.${tableBigCamel}">
         select
         `${tabPrikey}` `${tabPrikeySmallCamel}`,
         <#list columList?chunk(4) as row>
@@ -38,36 +38,7 @@
     </select>
     </#if>
 
-    <insert id="add${tableBigCamel}" parameterType="${rootPackage}.model.${tableBigCamel}"
-        useGeneratedKeys="true" keyProperty="${map.tabPrikeySmallCamel}">
-        INSERT INTO ${tableName}
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "") && (!tabPrikeyIsautoIncrement)>
-            <if test="${tabPrikeySmallCamel} != null}">
-                `${tabPrikey}`,
-            </if>
-            </#if>
-            <#list columList as map>
-            <if test="${map.columnSmallCamel} != null">
-                `${map.column}`,
-            </if>
-            </#list>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "") && (!tabPrikeyIsautoIncrement)>
-            <if test="${tabPrikeySmallCamel} != null}">
-                ${u0023}{${tabPrikeySmallCamel}},
-            </if>
-            </#if>
-            <#list columList as map>
-            <if test="${map.columnSmallCamel} != null">
-                ${u0023}{${map.columnSmallCamel}},
-            </if>
-            </#list>
-        </trim>
-    </insert>
-
-    <insert id="fullInsert${tableBigCamel}" parameterType="${rootPackage}.model.${tableBigCamel}"
+    <insert id="fullInsert${tableBigCamel}" parameterType="${rootPackage}.dal.model.${tableBigCamel}"
         useGeneratedKeys="true" keyProperty="${tabPrikeySmallCamel}">
         INSERT INTO ${tableName} ( <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "") && (!tabPrikeyIsautoIncrement)>${tabPrikey}, </#if>
             <#list columList?chunk(4) as row>
@@ -81,7 +52,7 @@
     </insert>
 
     <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
-    <update id="update${tableBigCamel}" parameterType="${rootPackage}.model.${tableBigCamel}">
+    <update id="update${tableBigCamel}" parameterType="${rootPackage}.dal.model.${tableBigCamel}">
         update ${tableName}
         <trim prefix="set" suffixOverrides=",">
             <#list columList as map>

@@ -44,8 +44,8 @@ public class PackagePathFactory {
 		} else{
 //			默认模板为 TemplatesTypeEnum.RAINSUNSET
 			PackageGenerateInfoBO packageGenerateInfoBO = new PackageGenerateInfoBO();
-			packageGenerateInfoBO.addpackModel("model", ".java", "mainModel.flv");
-			packageGenerateInfoBO.addpackDao("dal", "Mapper.java", "mainDal.flv");
+			packageGenerateInfoBO.addpackModel("dal.model", ".java", "mainDalModel.flv");
+			packageGenerateInfoBO.addpackDao("dal.mapper", "Mapper.java", "mainDalMapper.flv");
 			packageGenerateInfoBO.addpackMapper("mapper", "Mapper.xml", "mainMapper.flv");
 			packageGenerateInfoBO.addpackService("service", "Service.java", "mainService.flv");
 			packageGenerateInfoBO.addpackService("service.impl", "ServiceImpl.java", "mainServiceImpl.flv");

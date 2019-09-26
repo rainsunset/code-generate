@@ -38,35 +38,6 @@
     </select>
     </#if>
 
-    <insert id="add${tableBigCamel}" parameterType="${rootPackage}.dal.model.${tableBigCamel}"
-        <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>useGeneratedKeys="true" keyProperty="${tabPrikeySmallCamel}"</#if>>
-        INSERT INTO ${tableName}
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "") && (!tabPrikeyIsautoIncrement)>
-            <if test="${tabPrikeySmallCamel} != null}">
-                `${tabPrikey}`,
-            </if>
-            </#if>
-            <#list columList as map>
-            <if test="${map.columnSmallCamel} != null">
-                `${map.column}`,
-            </if>
-            </#list>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "") && (!tabPrikeyIsautoIncrement)>
-            <if test="${tabPrikeySmallCamel} != null}">
-                ${u0023}{${tabPrikeySmallCamel}},
-            </if>
-            </#if>
-            <#list columList as map>
-            <if test="${map.columnSmallCamel} != null">
-                ${u0023}{${map.columnSmallCamel}},
-            </if>
-            </#list>
-        </trim>
-    </insert>
-
     <insert id="fullInsert${tableBigCamel}" parameterType="${rootPackage}.dal.model.${tableBigCamel}"
         useGeneratedKeys="true" keyProperty="${tabPrikeySmallCamel}">
         INSERT INTO ${tableName} ( <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "") && (!tabPrikeyIsautoIncrement)>${tabPrikey}, </#if>
