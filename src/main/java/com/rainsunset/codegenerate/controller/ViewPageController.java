@@ -4,7 +4,6 @@ import com.rainsunset.codegenerate.common.constants.Constants;
 import com.rainsunset.codegenerate.common.enums.TemplatesTypeEnum;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @Company rainsunset
  * @CreateDate: 2019/4/14 15:02
  */
-@CrossOrigin
 @Controller
 public class ViewPageController {
 
