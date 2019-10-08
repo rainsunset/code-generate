@@ -13,6 +13,7 @@ import ${rootPackage}.service.response.${tableBigCamel}ResDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import com.rainsunset.common.bean.ResponseResult;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -35,7 +36,7 @@ public class ${tableBigCamel}ServiceImpl implements ${tableBigCamel}Service {
     private ${tableBigCamel}Mapper ${tableSmallCamel}Mapper;
 
     @Override
-    public List<${tableBigCamel}ResDTO> select${tableBigCamel}List(${tableBigCamel}ListReqDTO ${tableSmallCamel}ListReqDTO){
+    public ResponseResult<List<${tableBigCamel}ResDTO>> select${tableBigCamel}List(${tableBigCamel}ListReqDTO ${tableSmallCamel}ListReqDTO){
         <#list columList as map>
         ${map.columnType} ${map.columnSmallCamel} = ${tableSmallCamel}ListReqDTO.get${map.columnBigCamel}();
         </#list>
@@ -60,7 +61,7 @@ public class ${tableBigCamel}ServiceImpl implements ${tableBigCamel}Service {
 
     <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
     @Override
-    public ${tableBigCamel}ResDTO get${tableBigCamel}Detail(${tableBigCamel}DetailReqDTO ${tableSmallCamel}DetailReqDTO){
+    public ResponseResult<${tableBigCamel}ResDTO> get${tableBigCamel}Detail(${tableBigCamel}DetailReqDTO ${tableSmallCamel}DetailReqDTO){
         ${tabPrikeyType} ${tabPrikeySmallCamel}= ${tableSmallCamel}DetailReqDTO.get${tabPrikeyBigCamel}();
         if (null == ${tabPrikeySmallCamel}) {
             throw new ServiceException(ErrorCode.REWD_415001);
@@ -71,7 +72,7 @@ public class ${tableBigCamel}ServiceImpl implements ${tableBigCamel}Service {
     }
 
     @Override
-    public Integer addOrUpdate${tableBigCamel}(${tableBigCamel}ReqDTO ${tableSmallCamel}ReqDTO){
+    public ResponseResult<Integer> addOrUpdate${tableBigCamel}(${tableBigCamel}ReqDTO ${tableSmallCamel}ReqDTO){
         ${tableBigCamel} ${tableSmallCamel} = ${tableSmallCamel}ReqDTO2DO(${tableSmallCamel}ReqDTO);
         if (null == ${tableSmallCamel}){
             throw new ServiceException(ErrorCode.REWD_415001);
@@ -86,7 +87,7 @@ public class ${tableBigCamel}ServiceImpl implements ${tableBigCamel}Service {
     }
 
     @Override
-    public Integer delete${tableBigCamel}s(${tableBigCamel}BatchDelReqDTO ${tableSmallCamel}BatchDelReqDTO){
+    public ResponseResult<Integer> delete${tableBigCamel}s(${tableBigCamel}BatchDelReqDTO ${tableSmallCamel}BatchDelReqDTO){
         ${tabPrikeyType}[] ${tabPrikeySmallCamel}s = ${tableSmallCamel}BatchDelReqDTO.get${tabPrikeyBigCamel}s();
         if (null == ${tabPrikeySmallCamel}s || 0 == ${tabPrikeySmallCamel}s.length) {
              throw new ServiceException(ErrorCode.REWD_415001);

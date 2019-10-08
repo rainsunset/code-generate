@@ -1,6 +1,6 @@
 package ${rootPackage}.controller;
 
-import com.cmbi.base.Response;
+import com.rainsunset.common.bean.ResponseResult;
 import ${rootPackage}.service.api.${tableBigCamel}Service;
 import ${rootPackage}.service.request.${tableBigCamel}BatchDelReqDTO;
 import ${rootPackage}.service.request.${tableBigCamel}DetailReqDTO;
@@ -40,10 +40,8 @@ public class ${tableBigCamel}Controller{
      */
     @ApiOperation("依据条件查找 ${tableComment} 列表")
     @RequestMapping(value = "/findList", method = RequestMethod.POST)
-    public Response<List<${tableBigCamel}ResDTO>> findList(@RequestBody ${tableBigCamel}ListReqDTO ${tableSmallCamel}ListReqDTO) {
-        Response<List<${tableBigCamel}ResDTO>> response = new Response<>();
-        List<${tableBigCamel}ResDTO> res = ${tableSmallCamel}Service.select${tableBigCamel}List(${tableSmallCamel}ListReqDTO);
-        response.setResult(res);
+    public ResponseResult<List<${tableBigCamel}ResDTO>> findList(@RequestBody ${tableBigCamel}ListReqDTO ${tableSmallCamel}ListReqDTO) {
+        ResponseResult<List<${tableBigCamel}ResDTO>> response = ${tableSmallCamel}Service.select${tableBigCamel}List(${tableSmallCamel}ListReqDTO);
         return response;
     }
 
@@ -56,10 +54,8 @@ public class ${tableBigCamel}Controller{
      */
     @ApiOperation("依据Id查询 ${tableComment} 详情")
     @RequestMapping(value = "/getDetail", method = RequestMethod.POST)
-    public Response<${tableBigCamel}ResDTO> get${tableBigCamel}Detail(@RequestBody ${tableBigCamel}DetailReqDTO ${tableSmallCamel}DetailReqDTO) {
-        Response<${tableBigCamel}ResDTO> response = new Response<>();
-        ${tableBigCamel}ResDTO res = ${tableSmallCamel}Service.get${tableBigCamel}Detail(${tableSmallCamel}DetailReqDTO);
-        response.setResult(res);
+    public ResponseResult<${tableBigCamel}ResDTO> get${tableBigCamel}Detail(@RequestBody ${tableBigCamel}DetailReqDTO ${tableSmallCamel}DetailReqDTO) {
+        ResponseResult<${tableBigCamel}ResDTO> response = ${tableSmallCamel}Service.get${tableBigCamel}Detail(${tableSmallCamel}DetailReqDTO);
         return response;
     }
 
@@ -71,10 +67,8 @@ public class ${tableBigCamel}Controller{
      */
     @ApiOperation("新增或更新 ${tableComment}")
     @RequestMapping(value = "/addOrUpdate", method = RequestMethod.POST)
-    public Response<Integer> addOrUpdate(@RequestBody ${tableBigCamel}ReqDTO ${tableSmallCamel}ReqDTO) {
-        Response<Integer> response = new Response<>();
-        Integer res = ${tableSmallCamel}Service.addOrUpdate${tableBigCamel}(${tableSmallCamel}ReqDTO);
-        response.setResult(res);
+    public ResponseResult<Integer> addOrUpdate(@RequestBody ${tableBigCamel}ReqDTO ${tableSmallCamel}ReqDTO) {
+        ResponseResult<Integer> response = ${tableSmallCamel}Service.addOrUpdate${tableBigCamel}(${tableSmallCamel}ReqDTO);
         return response;
     }
 
@@ -86,10 +80,8 @@ public class ${tableBigCamel}Controller{
      */
     @ApiOperation("依据Id批量删除 ${tableComment}")
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public Response<Integer> delete(@RequestBody ${tableBigCamel}BatchDelReqDTO ${tableSmallCamel}BatchDelReqDTO) {
-        Response<Integer> response = new Response<>();
-        Integer res = ${tableSmallCamel}Service.delete${tableBigCamel}s(${tableSmallCamel}BatchDelReqDTO);
-        response.setResult(res);
+    public ResponseResult<Integer> delete(@RequestBody ${tableBigCamel}BatchDelReqDTO ${tableSmallCamel}BatchDelReqDTO) {
+        ResponseResult<Integer> response = ${tableSmallCamel}Service.delete${tableBigCamel}s(${tableSmallCamel}BatchDelReqDTO);
         return response;
     }
     </#if>

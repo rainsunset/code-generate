@@ -5,6 +5,7 @@ import ${rootPackage}.service.request.${tableBigCamel}DetailReqDTO;
 import ${rootPackage}.service.request.${tableBigCamel}ListReqDTO;
 import ${rootPackage}.service.request.${tableBigCamel}ReqDTO;
 import ${rootPackage}.service.response.${tableBigCamel}ResDTO;
+import com.rainsunset.common.bean.ResponseResult;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ public interface ${tableBigCamel}Service {
      * @param ${tableSmallCamel}ListReqDTO
      * @return
      */
-    public List<${tableBigCamel}ResDTO> select${tableBigCamel}List(${tableBigCamel}ListReqDTO ${tableSmallCamel}ListReqDTO);
+    public ResponseResult<List<${tableBigCamel}ResDTO>> select${tableBigCamel}List(${tableBigCamel}ListReqDTO ${tableSmallCamel}ListReqDTO);
 
     <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
     /**
@@ -30,18 +31,18 @@ public interface ${tableBigCamel}Service {
      * @param ${tableSmallCamel}DetailReqDTO
      * @return
      */
-    public ${tableBigCamel}ResDTO get${tableBigCamel}Detail(${tableBigCamel}DetailReqDTO ${tableSmallCamel}DetailReqDTO);
+    public ResponseResult<${tableBigCamel}ResDTO> get${tableBigCamel}Detail(${tableBigCamel}DetailReqDTO ${tableSmallCamel}DetailReqDTO);
 
     /**
      * 新增或更新 ${tableComment}
      * @param ${tableSmallCamel}ReqDTO
      */
-    public Integer addOrUpdate${tableBigCamel}(${tableBigCamel}ReqDTO ${tableSmallCamel}ReqDTO);
+    public ResponseResult<Integer> addOrUpdate${tableBigCamel}(${tableBigCamel}ReqDTO ${tableSmallCamel}ReqDTO);
 
     /**
      * 依据Id批量删除 ${tableComment} 记录
      * @param ${tableSmallCamel}BatchDelReqDTO 待删除${tabPrikeyComment}数组
      */
-    public Integer delete${tableBigCamel}s(${tableBigCamel}BatchDelReqDTO ${tableSmallCamel}BatchDelReqDTO);
+    public ResponseResult<Integer> delete${tableBigCamel}s(${tableBigCamel}BatchDelReqDTO ${tableSmallCamel}BatchDelReqDTO);
     </#if>
 }
