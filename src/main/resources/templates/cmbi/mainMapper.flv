@@ -2,11 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="${rootPackage}.dal.mapper.${tableBigCamel}Mapper">
 
-    <select id="select${tableBigCamel}List" resultType="${rootPackage}.dal.model.${tableBigCamel}">
-        select <#if tabPrikeySmallCamel?? && tabPrikeySmallCamel != "">`${tabPrikey}` `${tabPrikeySmallCamel}`, </#if>
+    <sql id="${tableSmallCamel}">
+        <#if tabPrikeySmallCamel?? && tabPrikeySmallCamel != "">`${tabPrikey}` `${tabPrikeySmallCamel}`, </#if>
         <#list columList?chunk(4) as row>
         <#list row as map>`${map.column}` `${map.columnSmallCamel}`<#if map_has_next>, </#if></#list><#if row_has_next>,</#if>
         </#list>
+    </sql>
+
+    <select id="select${tableBigCamel}List" resultType="${rootPackage}.dal.model.${tableBigCamel}">
+        select
+        <include refid="${tableSmallCamel}"/>
         from ${tableName}
         WHERE `status` = 'VALID'
         <#list columList as map>
@@ -29,10 +34,7 @@
     <select id="get${tableBigCamel}Detail" parameterType="${tabPrikeyTypeFullName}"
             resultType="${rootPackage}.dal.model.${tableBigCamel}">
         select
-        `${tabPrikey}` `${tabPrikeySmallCamel}`,
-        <#list columList?chunk(4) as row>
-        <#list row as map>`${map.column}` `${map.columnSmallCamel}`<#if map_has_next>, </#if></#list><#if row_has_next>, </#if>
-        </#list>
+        <include refid="${tableSmallCamel}"/>
         from ${tableName}
         WHERE ${tabPrikey} = ${u0023}{${tabPrikeySmallCamel}}
     </select>
