@@ -70,7 +70,7 @@
     <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
     <update id="delete${tableBigCamel}s">
         update ${tableName}
-        set `status` = 'UNVALID', updated_by = ${u0023}{updatedBy}
+        set `status` = 'INVALID', updated_by = ${u0023}{updatedBy}
         where ${tabPrikey} IN
         <foreach collection="${tabPrikeySmallCamel}s" item="${tabPrikeySmallCamel}" open="(" close=")" separator=",">
             ${u0023}{${tabPrikeySmallCamel}}
