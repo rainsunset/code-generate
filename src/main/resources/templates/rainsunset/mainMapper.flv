@@ -59,7 +59,7 @@
         <trim prefix="set" suffixOverrides=",">
             <#list columList as map>
                 <if test="${map.columnSmallCamel} != null">
-                    `${map.column}` =${u0023}{${map.columnSmallCamel}},
+                    `${map.column}` = ${u0023}{${map.columnSmallCamel}},
                 </if>
             </#list>
         </trim>
