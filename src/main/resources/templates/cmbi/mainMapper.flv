@@ -10,20 +10,20 @@
     </sql>
 
     <select id="select${tableBigCamel}List" resultType="${rootPackage}.dal.model.${tableBigCamel}">
-        select
+        SELECT
         <include refid="${tableSmallCamel}"/>
-        from ${tableName}
+        FROM ${tableName}
         WHERE `status` = 'VALID'
         <#list columList as map>
         <#switch map.columnType>
         <#case "String">
         <if test="${map.columnSmallCamel} != null and ${map.columnSmallCamel} != ''">
-            and `${map.column}` = ${u0023}{${map.columnSmallCamel}}
+            AND `${map.column}` = ${u0023}{${map.columnSmallCamel}}
         </if>
         <#break>
         <#default>
         <if test="${map.columnSmallCamel} != null">
-            and `${map.column}` = ${u0023}{${map.columnSmallCamel}}
+            AND `${map.column}` = ${u0023}{${map.columnSmallCamel}}
         </if>
         </#switch>
         </#list>
@@ -33,9 +33,9 @@
     <#if tabPrikeySmallCamel?? && tabPrikeySmallCamel != "">
     <select id="get${tableBigCamel}Detail" parameterType="${tabPrikeyTypeFullName}"
             resultType="${rootPackage}.dal.model.${tableBigCamel}">
-        select
+        SELECT
         <include refid="${tableSmallCamel}"/>
-        from ${tableName}
+        FROM ${tableName}
         WHERE ${tabPrikey} = ${u0023}{${tabPrikeySmallCamel}}
     </select>
     </#if>
@@ -55,23 +55,23 @@
 
     <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
     <update id="update${tableBigCamel}" parameterType="${rootPackage}.dal.model.${tableBigCamel}">
-        update ${tableName}
-        <trim prefix="set" suffixOverrides=",">
+        UPDATE ${tableName}
+        <trim prefix="SET" suffixOverrides=",">
             <#list columList as map>
                 <if test="${map.columnSmallCamel} != null">
                     `${map.column}` = ${u0023}{${map.columnSmallCamel}},
                 </if>
             </#list>
         </trim>
-        where ${tabPrikey} = ${u0023}{${tabPrikeySmallCamel}}
+        WHERE ${tabPrikey} = ${u0023}{${tabPrikeySmallCamel}}
     </update>
     </#if>
 
     <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
     <update id="delete${tableBigCamel}s">
-        update ${tableName}
-        set `status` = 'INVALID', updated_by = ${u0023}{updatedBy}
-        where ${tabPrikey} IN
+        UPDATE ${tableName}
+        SET `status` = 'INVALID', updated_by = ${u0023}{updatedBy}
+        WHERE ${tabPrikey} IN
         <foreach collection="${tabPrikeySmallCamel}s" item="${tabPrikeySmallCamel}" open="(" close=")" separator=",">
             ${u0023}{${tabPrikeySmallCamel}}
         </foreach>
