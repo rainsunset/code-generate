@@ -17,19 +17,38 @@ import javax.validation.ConstraintViolation;
 import java.util.Set;
 
 /**
- * 切面
- * 日志、异常统一处理
- * Created by 黄少彬 on 2018/10/10.
+ *
+ * @version : 1.0
+ * @description: 日志、异常统一处理
+ * @author: ligangwei
+ * @company rainsunset
+ * @date: 2020 -02-15
  */
 @Aspect
 @Component
 public class ServiceAspect {
+    /**
+     * Local validator factory bean
+     */
     @Autowired
     private LocalValidatorFactoryBean localValidatorFactoryBean;
+    /**
+     * ERROR_MSG
+     */
     private static final String ERROR_MSG = "call [{}] [{}] [{}ms] [{}] [{}] RESPONSE:Result{} Cause:{}";
 
+    /**
+     * Log
+     */
     private final Logger log = LoggerFactory.getLogger(getClass());
 
+    /**
+     * Service access response result.
+     *
+     * @param joinPoint the join point
+     * @return the response result
+     * @author : ligangwei / 2020-02-15
+     */
     @Around("execution(public * com.rainsunset.codegenerate.controller.CodegenerateController.*(..))")
     public ResponseResult serviceAccess(ProceedingJoinPoint joinPoint) {
         //计时
@@ -70,26 +89,14 @@ public class ServiceAspect {
         return response;
     }
 
-//    /**
-//     * 初始化日志ID
-//     * @param args 入参
-//     */
-//    private String initMDC(Object[] args) {
-//        if (args.length > 0) {
-//            Object argObject = args[0];
-//            if (argObject instanceof BaseRequest) {
-//                String traceLogId = ((BaseRequest) argObject).getTraceLogId();
-//                MDC.put(Constants.TRACE_LOG_ID, traceLogId);
-//                return traceLogId;
-//            }
-//        }
-//        return null;
-//    }
-
     /**
      * 参数校验
+     *
+     * @param <T>    the type parameter
      * @param object 校验对象
+     * @param groups the groups
      * @throws GlobalErrorInfoException
+     * @author : ligangwei / 2020-02-15
      */
     private <T> void validate(T object, Class<?>... groups) {
         Set<ConstraintViolation<T>> constraintViolations = localValidatorFactoryBean.validate(
@@ -104,7 +111,8 @@ public class ServiceAspect {
      * 获取耗时
      *
      * @param startTime 开始时间
-     * @return 耗时(单位毫秒)
+     * @return 耗时(单位毫秒) long
+     * @author : ligangwei / 2020-02-15
      */
     private long getTime(long startTime) {
         return System.currentTimeMillis() - startTime;

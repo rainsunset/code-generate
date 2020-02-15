@@ -13,13 +13,15 @@ import java.util.List;
 public class Constants {
 
 	// region 构建能解析的数据库常量
-	public static final String DB_TYPT_MYSQL = "MySql";
+	public static final String DB_TYPT_MYSQL5 = "MySql5";
+	public static final String DB_TYPT_MYSQL8 = "MySql8";
 	public static final String DB_TYPT_SQLSERVER = "SqlServer";
 	public static final String DB_TYPT_ORACLE = "Oracle";
 
 	static List<String> initProvideDbType(){
 		List<String> provideDbType = new ArrayList<>();
-		provideDbType.add(DB_TYPT_MYSQL);
+		provideDbType.add(DB_TYPT_MYSQL5);
+		provideDbType.add(DB_TYPT_MYSQL8);
 		provideDbType.add(DB_TYPT_SQLSERVER);
 		provideDbType.add(DB_TYPT_ORACLE);
 		return provideDbType;

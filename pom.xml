@@ -28,7 +28,7 @@
 		<freemarker-version>2.3.28</freemarker-version>
 		<mssql-jdbc-version>7.0.0.jre8</mssql-jdbc-version>
 		<ojdbc6-version>11.2.0.3</ojdbc6-version>
-		<mysql-connector>5.1.38</mysql-connector>
+		<mysql-connector>8.0.19</mysql-connector>
 	</properties>
 
 	<dependencies>

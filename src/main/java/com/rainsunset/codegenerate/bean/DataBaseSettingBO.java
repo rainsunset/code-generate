@@ -145,12 +145,20 @@ public class DataBaseSettingBO {
      * @author : ligangwei / 2019-04-10
      */
     private void processDriver() {
-        if (dbType.equals("MySql")) {
+        if (dbType.equals("MySql5")) {
             driver = Driver.class.getName();
             testSql = "select 1";
             showTable = " show tables ";
             showTablColumn = "SHOW TABLE STATUS FROM `"+ dbName + "`";
             url = StringUtil.conlitionStr("jdbc:mysql://", address, ":", port, "/", dbName);
+            return;
+        }
+        if (dbType.equals("MySql8")) {
+            driver = com.mysql.cj.jdbc.Driver.class.getName();
+            testSql = "select 1";
+            showTable = " show tables ";
+            showTablColumn = "SHOW TABLE STATUS FROM `"+ dbName + "`";
+            url = StringUtil.conlitionStr("jdbc:mysql://", address, ":", port, "/", dbName,"?useSSL=false&serverTimezone=Asia/Shanghai");
             return;
         }
         if (dbType.equals("Oracle")) {
@@ -177,7 +185,7 @@ public class DataBaseSettingBO {
     //查询表字段说明
     public static String getTablColumnSql(String dbType ,String tname) {
         String tablColumnSql = "";
-        if (dbType.equals("MySql")) {
+        if (dbType.equals("MySql5") || dbType.equals("MySql8")) {
             tablColumnSql = "SHOW FULL COLUMNS FROM `"+ tname + "`";
         }
         if (dbType.equals("Oracle")) {
