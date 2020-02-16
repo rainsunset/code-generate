@@ -62,8 +62,6 @@ public class ServiceAspect {
         Object[] args = joinPoint.getArgs();
 
         if (args != null) {
-            //初始化日志ID
-//            initMDC(args);
             Object argObject = args[0];
             log.info("call [{}] [{}] PARAMETER:[{}]", clazzName, methodName, argObject);
             try {
