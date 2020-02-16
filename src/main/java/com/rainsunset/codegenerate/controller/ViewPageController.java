@@ -1,6 +1,6 @@
 package com.rainsunset.codegenerate.controller;
 
-import com.rainsunset.codegenerate.common.constants.Constants;
+import com.rainsunset.codegenerate.common.enums.ProvideDbTypeEnum;
 import com.rainsunset.codegenerate.common.enums.TemplatesTypeEnum;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +20,7 @@ public class ViewPageController {
 	@RequestMapping(value = "/",method = RequestMethod.GET)
 	public String indexHtml(Model model) {
 		model.addAttribute("templatesType", TemplatesTypeEnum.getTemplateTypes());
-		model.addAttribute("provideDbType", Constants.PROVIDE_DB_TYPE);
+		model.addAttribute("provideDbType", ProvideDbTypeEnum.initProvideDbType());
 		return "index";
 	}
 

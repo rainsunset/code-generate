@@ -1,4 +1,4 @@
-package com.rainsunset.codegenerate.common.aop;
+package com.rainsunset.codegenerate.service.aop;
 
 import com.rainsunset.codegenerate.common.bean.GlobalErrorInfoEnum;
 import com.rainsunset.codegenerate.common.bean.GlobalErrorInfoException;

@@ -2,6 +2,7 @@ package com.rainsunset.codegenerate.bean;
 
 import com.microsoft.sqlserver.jdbc.SQLServerDriver;
 import com.mysql.jdbc.Driver;
+import com.rainsunset.codegenerate.common.enums.ProvideDbTypeEnum;
 import com.rainsunset.codegenerate.common.util.StringUtil;
 import oracle.jdbc.driver.OracleDriver;
 
@@ -145,7 +146,7 @@ public class DataBaseSettingBO {
      * @author : ligangwei / 2019-04-10
      */
     private void processDriver() {
-        if (dbType.equals("MySql5")) {
+        if (dbType.equals(ProvideDbTypeEnum.DB_TYPT_MYSQL5.getCode())) {
             driver = Driver.class.getName();
             testSql = "select 1";
             showTable = " show tables ";
@@ -154,7 +155,7 @@ public class DataBaseSettingBO {
                     "?useUnicode=true&characterEncoding=utf8");
             return;
         }
-        if (dbType.equals("MySql8")) {
+        if (dbType.equals(ProvideDbTypeEnum.DB_TYPT_MYSQL8.getCode())) {
             driver = com.mysql.cj.jdbc.Driver.class.getName();
             testSql = "select 1";
             showTable = " show tables ";
@@ -163,7 +164,7 @@ public class DataBaseSettingBO {
                     "?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai");
             return;
         }
-        if (dbType.equals("Oracle")) {
+        if (dbType.equals(ProvideDbTypeEnum.DB_TYPT_ORACLE.getCode())) {
             driver = OracleDriver.class.getName();
             testSql = "select 1 from dual";
             showTable = "SELECT TABLE_NAME as Tables_in_" + dbName + " FROM user_tab_comments "
@@ -171,7 +172,7 @@ public class DataBaseSettingBO {
             url = StringUtil.conlitionStr("jdbc:oracle:thin:@", address, ":", port, "/", dbName);
             return;
         }
-        if (dbType.equals("MSSqlServer")) {
+        if (dbType.equals(ProvideDbTypeEnum.DB_TYPT_SQLSERVER.getCode())) {
             driver = SQLServerDriver.class.getName();
             testSql = "select 1";
             showTable = " SELECT Name as Tables_in_" + dbName + " FROM SysObjects Where XType='U' ORDER BY Name";
@@ -187,13 +188,14 @@ public class DataBaseSettingBO {
     //查询表字段说明
     public static String getTablColumnSql(String dbType ,String tname) {
         String tablColumnSql = "";
-        if (dbType.equals("MySql5") || dbType.equals("MySql8")) {
+        if (dbType.equals(ProvideDbTypeEnum.DB_TYPT_MYSQL5.getCode()) ||
+                dbType.equals(ProvideDbTypeEnum.DB_TYPT_MYSQL8.getCode())) {
             tablColumnSql = "SHOW FULL COLUMNS FROM `"+ tname + "`";
         }
-        if (dbType.equals("Oracle")) {
+        if (dbType.equals(ProvideDbTypeEnum.DB_TYPT_ORACLE.getCode())) {
             tablColumnSql = "";
         }
-        if (dbType.equals("MSSqlServer")) {
+        if (dbType.equals(ProvideDbTypeEnum.DB_TYPT_SQLSERVER.getCode())) {
             tablColumnSql = "SELECT colu.name 'Field' ,d.name 'Type' ,col.length AS 'Length' ,d.collation_name 'Collation' " +
                     ",CASE WHEN colu.is_nullable =0 THEN 'No' ELSE 'YES' END 'Null'  " +
                     ",CASE WHEN EXISTS ( SELECT 1 FROM dbo.sysindexes si  " +
