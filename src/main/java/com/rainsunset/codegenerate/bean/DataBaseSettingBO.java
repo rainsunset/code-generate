@@ -150,7 +150,8 @@ public class DataBaseSettingBO {
             testSql = "select 1";
             showTable = " show tables ";
             showTablColumn = "SHOW TABLE STATUS FROM `"+ dbName + "`";
-            url = StringUtil.conlitionStr("jdbc:mysql://", address, ":", port, "/", dbName);
+            url = StringUtil.conlitionStr("jdbc:mysql://", address, ":", port, "/", dbName,
+                    "?useUnicode=true&characterEncoding=utf8");
             return;
         }
         if (dbType.equals("MySql8")) {
@@ -158,7 +159,8 @@ public class DataBaseSettingBO {
             testSql = "select 1";
             showTable = " show tables ";
             showTablColumn = "SHOW TABLE STATUS FROM `"+ dbName + "`";
-            url = StringUtil.conlitionStr("jdbc:mysql://", address, ":", port, "/", dbName,"?useSSL=false&serverTimezone=Asia/Shanghai");
+            url = StringUtil.conlitionStr("jdbc:mysql://", address, ":", port, "/", dbName,
+                    "?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai");
             return;
         }
         if (dbType.equals("Oracle")) {
