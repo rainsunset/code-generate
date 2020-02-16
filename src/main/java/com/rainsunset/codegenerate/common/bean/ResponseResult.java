@@ -60,4 +60,14 @@ public class ResponseResult<T> {
     public void setErrorcode(String errorcode) {
         this.errorcode = errorcode;
     }
+
+    @Override
+    public String toString() {
+        return "ResponseResult{" +
+                "success=" + success +
+                ", message='" + message + '\'' +
+                ", data=" + data +
+                ", errorcode='" + errorcode + '\'' +
+                '}';
+    }
 }
