@@ -1,11 +1,11 @@
 package ${rootPackage}.service;
 
+import com.rainsunset.common.bean.ResponseResult;
 import ${rootPackage}.service.request.${tableBigCamel}BatchDelReqDTO;
 import ${rootPackage}.service.request.${tableBigCamel}DetailReqDTO;
 import ${rootPackage}.service.request.${tableBigCamel}ListReqDTO;
 import ${rootPackage}.service.request.${tableBigCamel}ReqDTO;
 import ${rootPackage}.service.response.${tableBigCamel}ResDTO;
-import com.rainsunset.common.bean.ResponseResult;
 
 import java.util.List;
 

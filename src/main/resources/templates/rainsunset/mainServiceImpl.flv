@@ -1,7 +1,9 @@
 package ${rootPackage}.service.impl;
 
-import com.cmbi.${moduleName}.common.enums.ErrorCode;
-import com.cmbi.${moduleName}.common.exception.ServiceException;
+import com.rainsunset.common.bean.ResponseResult;
+import com.rainsunset.common.bean.RestResultGenerator;
+import ${rootPackage}.common.enums.ErrorCode;
+import ${rootPackage}.common.exception.ServiceException;
 import ${rootPackage}.dal.model.${tableBigCamel};
 import ${rootPackage}.dal.mapper.${tableBigCamel}Mapper;
 import ${rootPackage}.service.api.${tableBigCamel}Service;
@@ -13,7 +15,6 @@ import ${rootPackage}.service.response.${tableBigCamel}ResDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
-import com.rainsunset.common.bean.ResponseResult;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -56,7 +57,7 @@ public class ${tableBigCamel}ServiceImpl implements ${tableBigCamel}Service {
             }
             ${tableSmallCamel}ResDTOList.add(${tableSmallCamel}ResDTO);
         }
-        return ${tableSmallCamel}ResDTOList;
+        return RestResultGenerator.genResult(${tableSmallCamel}ResDTOList);
     }
 
     <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
@@ -68,7 +69,7 @@ public class ${tableBigCamel}ServiceImpl implements ${tableBigCamel}Service {
         }
         ${tableBigCamel} ${tableSmallCamel} = ${tableSmallCamel}Mapper.get${tableBigCamel}Detail(${tabPrikeySmallCamel});
         ${tableBigCamel}ResDTO ${tableSmallCamel}ResDTO = ${tableSmallCamel}DO2ResDTO(${tableSmallCamel});
-        return ${tableSmallCamel}ResDTO;
+        return RestResultGenerator.genResult(${tableSmallCamel}ResDTO);
     }
 
     @Override
@@ -83,7 +84,8 @@ public class ${tableBigCamel}ServiceImpl implements ${tableBigCamel}Service {
         } else {
             ${tableSmallCamel}Mapper.update${tableBigCamel}(${tableSmallCamel});
         }
-        return ${tableSmallCamel}.get${tabPrikeyBigCamel}();
+        Integer tabPrikeySmallCamel= ${tableSmallCamel}.get${tabPrikeyBigCamel}();
+        return RestResultGenerator.genResult(tabPrikeySmallCamel);
     }
 
     @Override
@@ -94,7 +96,7 @@ public class ${tableBigCamel}ServiceImpl implements ${tableBigCamel}Service {
          }
         String updatedBy = ${tableSmallCamel}BatchDelReqDTO.getUpdatedBy();
         Integer rows = ${tableSmallCamel}Mapper.delete${tableBigCamel}s(${tabPrikeySmallCamel}s,updatedBy);
-        return rows;
+        return RestResultGenerator.genResult(rows);
     }
     </#if>
 
