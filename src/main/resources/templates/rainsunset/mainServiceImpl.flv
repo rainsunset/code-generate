@@ -108,7 +108,7 @@ public class ${tableBigCamel}ServiceImpl implements ${tableBigCamel}Service {
      */
     private ${tableBigCamel}ResDTO ${tableSmallCamel}DO2ResDTO(${tableBigCamel} ${tableSmallCamel}){
         ${tableBigCamel}ResDTO ${tableSmallCamel}ResDTO = new ${tableBigCamel}ResDTO(
-        <#if tabPrikeySmallCamel?? && tabPrikeySmallCamel != "">${tableSmallCamel}.get${tabPrikeyBigCamel}(), </#if>
+            <#if tabPrikeySmallCamel?? && tabPrikeySmallCamel != "">${tableSmallCamel}.get${tabPrikeyBigCamel}(), </#if>
         <#list columList?chunk(4) as row>
             <#list row as map>${tableSmallCamel}.get${map.columnBigCamel}()<#if map_has_next>, </#if></#list><#if row_has_next>, </#if>
         </#list>

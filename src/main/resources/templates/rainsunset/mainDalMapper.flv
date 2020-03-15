@@ -62,7 +62,7 @@ public interface ${tableBigCamel}Mapper {
     /**
      * 依据主键删除 ${tableComment} 记录
      *
-     * @param ${tabPrikeySmallCamel}s
+     * @param ${tabPrikeySmallCamel}Array
      * @param updatedBy
      */
     public Integer delete${tableBigCamel}s(@Param("${tabPrikeySmallCamel}Array") ${tabPrikeyType}[] ${tabPrikeySmallCamel}Array,
