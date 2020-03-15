@@ -90,12 +90,12 @@ public class ${tableBigCamel}ServiceImpl implements ${tableBigCamel}Service {
 
     @Override
     public ResponseResult<Integer> delete${tableBigCamel}s(${tableBigCamel}BatchDelReqDTO ${tableSmallCamel}BatchDelReqDTO){
-        ${tabPrikeyType}[] ${tabPrikeySmallCamel}s = ${tableSmallCamel}BatchDelReqDTO.get${tabPrikeyBigCamel}s();
-        if (null == ${tabPrikeySmallCamel}s || 0 == ${tabPrikeySmallCamel}s.length) {
+        ${tabPrikeyType}[] ${tabPrikeySmallCamel}Array = ${tableSmallCamel}BatchDelReqDTO.get${tabPrikeyBigCamel}Array();
+        if (null == ${tabPrikeySmallCamel}Array || 0 == ${tabPrikeySmallCamel}Array.length) {
              throw new GlobalErrorInfoException(GlobalErrorInfoEnum.DEMOEC_415000);
          }
         String updatedBy = ${tableSmallCamel}BatchDelReqDTO.getUpdatedBy();
-        Integer rows = ${tableSmallCamel}Mapper.delete${tableBigCamel}s(${tabPrikeySmallCamel}s,updatedBy);
+        Integer rows = ${tableSmallCamel}Mapper.delete${tableBigCamel}s(${tabPrikeySmallCamel}Array,updatedBy);
         return RestResultGenerator.genResult(rows);
     }
     </#if>

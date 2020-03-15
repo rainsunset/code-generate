@@ -65,7 +65,7 @@ public interface ${tableBigCamel}Mapper {
      * @param ${tabPrikeySmallCamel}s
      * @param updatedBy
      */
-    public Integer delete${tableBigCamel}s(@Param("${tabPrikeySmallCamel}s") ${tabPrikeyType}[] ${tabPrikeySmallCamel}s,
+    public Integer delete${tableBigCamel}s(@Param("${tabPrikeySmallCamel}Array") ${tabPrikeyType}[] ${tabPrikeySmallCamel}Array,
                                             @Param("updatedBy") String updatedBy);
     </#if>
 }

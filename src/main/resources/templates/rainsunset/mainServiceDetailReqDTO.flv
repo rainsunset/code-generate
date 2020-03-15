@@ -20,7 +20,7 @@ public class ${tableBigCamel}DetailReqDTO extends BaseRequest {
 
     @ApiModelProperty(value = "${tabPrikeyComment}")
     @NotBlank(message = "${tabPrikeyComment}不能为空")
-    private ${tabPrikeyType}  ${tabPrikeySmallCamel};
+    private ${tabPrikeyType} ${tabPrikeySmallCamel};
     </#if>
 
 }

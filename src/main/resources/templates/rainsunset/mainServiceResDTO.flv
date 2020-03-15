@@ -22,7 +22,7 @@ public class ${tableBigCamel}ResDTO implements Serializable {
     <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
 
     @ApiModelProperty(value = "${tabPrikeyComment}")
-    private ${tabPrikeyType}  ${tabPrikeySmallCamel};
+    private ${tabPrikeyType} ${tabPrikeySmallCamel};
     </#if>
     <#list columList as map>
 

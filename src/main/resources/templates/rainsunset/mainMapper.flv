@@ -72,7 +72,7 @@
         UPDATE ${tableName}
         SET `status` = 'UNVALID', updated_by = ${u0023}{updatedBy}
         WHERE ${tabPrikey} IN
-        <foreach collection="${tabPrikeySmallCamel}s" item="${tabPrikeySmallCamel}" open="(" close=")" separator=",">
+        <foreach collection="${tabPrikeySmallCamel}Array" item="${tabPrikeySmallCamel}" open="(" close=")" separator=",">
             ${u0023}{${tabPrikeySmallCamel}}
         </foreach>
     </update>
