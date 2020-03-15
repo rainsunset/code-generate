@@ -1,15 +1,16 @@
 package ${rootPackage}.controller;
 
 import com.rainsunset.common.bean.ResponseResult;
-import ${rootPackage}.service.api.${tableBigCamel}Service;
+import ${rootPackage}.service.${tableBigCamel}Service;
 import ${rootPackage}.service.request.${tableBigCamel}BatchDelReqDTO;
 import ${rootPackage}.service.request.${tableBigCamel}DetailReqDTO;
 import ${rootPackage}.service.request.${tableBigCamel}ListReqDTO;
 import ${rootPackage}.service.request.${tableBigCamel}ReqDTO;
 import ${rootPackage}.service.response.${tableBigCamel}ResDTO;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.util.StringUtils;
 
 import java.util.Date;
 import java.util.HashMap;

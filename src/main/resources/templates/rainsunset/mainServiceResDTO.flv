@@ -1,5 +1,6 @@
 package ${rootPackage}.service.response;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,12 +21,12 @@ import java.util.Date;
 public class ${tableBigCamel}ResDTO implements Serializable {
     <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
 
-    /** ${tabPrikeyComment} */
+    @ApiModelProperty(value = "${tabPrikeyComment}")
     private ${tabPrikeyType}  ${tabPrikeySmallCamel};
     </#if>
     <#list columList as map>
 
-    /** ${map.columnComment} */
+    @ApiModelProperty(value = "${map.columnComment}")
     private ${map.columnType} ${map.columnSmallCamel};
     </#list>
 

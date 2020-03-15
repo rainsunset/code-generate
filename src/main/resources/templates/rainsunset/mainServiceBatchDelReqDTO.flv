@@ -1,6 +1,7 @@
 package ${rootPackage}.service.request;
 
-import com.cmbi.${moduleName}.service.request.base.BaseRequest;
+import com.rainsunset.common.bean.BaseRequest;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.ToString;
 import org.hibernate.validator.constraints.NotBlank;
@@ -18,12 +19,12 @@ import javax.validation.constraints.NotNull;
 public class ${tableBigCamel}BatchDelReqDTO extends BaseRequest {
     <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
 
-    /** 待删除${tabPrikeyComment}数组 */
+    @ApiModelProperty(value = "待删除${tabPrikeyComment}数组")
     @NotNull(message = "待删除${tabPrikeyComment}数组不能为空")
-    private ${tabPrikeyType}[]  ${tabPrikeySmallCamel}s;
+    private ${tabPrikeyType}[]  ${tabPrikeySmallCamel}Array;
     </#if>
 
-    /** 更新人 必传 */
+    @ApiModelProperty(value = "更新人 必传")
     @NotBlank(message = "更新人不能为空")
     private String updatedBy;
 

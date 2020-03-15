@@ -1,6 +1,7 @@
 package ${rootPackage}.service.request;
 
-import com.cmbi.${moduleName}.service.request.base.BaseRequest;
+import com.rainsunset.common.bean.BaseRequest;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.ToString;
 import org.hibernate.validator.constraints.NotBlank;
@@ -17,7 +18,7 @@ import org.hibernate.validator.constraints.NotBlank;
 public class ${tableBigCamel}DetailReqDTO extends BaseRequest {
     <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
 
-    /** ${tabPrikeyComment} */
+    @ApiModelProperty(value = "${tabPrikeyComment}")
     @NotBlank(message = "${tabPrikeyComment}不能为空")
     private ${tabPrikeyType}  ${tabPrikeySmallCamel};
     </#if>

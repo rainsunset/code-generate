@@ -1,6 +1,7 @@
 package ${rootPackage}.service.request;
 
-import com.cmbi.${moduleName}.service.request.base.BaseRequest;
+import com.rainsunset.common.bean.BaseRequest;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.ToString;
 import java.util.Date;
@@ -17,12 +18,12 @@ import java.util.Date;
 public class ${tableBigCamel}ListReqDTO extends BaseRequest {
     <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
 
-    /** ${tabPrikeyComment} */
+    @ApiModelProperty(value = "${tabPrikeyComment}")
     private ${tabPrikeyType}  ${tabPrikeySmallCamel};
     </#if>
     <#list columList as map>
 
-    /** ${map.columnComment} */
+    @ApiModelProperty(value = "${map.columnComment}")
     private ${map.columnType} ${map.columnSmallCamel};
     </#list>
 
