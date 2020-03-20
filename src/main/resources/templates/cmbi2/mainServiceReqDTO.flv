@@ -17,6 +17,7 @@ import java.util.Date;
   */
 @Data
 @ToString(callSuper = true)
+@Api(description = "${tableComment} Model")
 public class ${tableBigCamel}ReqDTO extends BaseRequest {
     <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
 

@@ -15,6 +15,7 @@ import java.util.Date;
   */
 @Data
 @ToString(callSuper = true)
+@Api(description = "查询${tableComment}列表请求体")
 public class ${tableBigCamel}ListReqDTO extends BaseRequest {
     <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
 

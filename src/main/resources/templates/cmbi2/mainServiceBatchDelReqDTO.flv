@@ -16,6 +16,7 @@ import javax.validation.constraints.NotNull;
   */
 @Data
 @ToString(callSuper = true)
+@Api(description = "批量删除${tableComment}请求体")
 public class ${tableBigCamel}BatchDelReqDTO extends BaseRequest {
     <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
 

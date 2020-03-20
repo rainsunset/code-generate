@@ -18,6 +18,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Api(description = "${tableComment} Model")
 public class ${tableBigCamel}ResDTO implements Serializable {
     <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
 
