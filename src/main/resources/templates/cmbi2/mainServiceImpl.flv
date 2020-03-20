@@ -101,7 +101,8 @@ public class ${tableBigCamel}ServiceImpl implements ${tableBigCamel}Service {
              throw new ServiceException(ErrorCode.REWD_415001);
          }
         String updatedBy = ${tableSmallCamel}BatchDelReqDTO.getUpdatedBy();
-        ${tabPrikeyType} rows = ${tableSmallCamel}Mapper.delete${tableBigCamel}s(${tabPrikeySmallCamel}Array,updatedBy);
+        Integer rows = ${tableSmallCamel}Mapper.delete${tableBigCamel}s(${tabPrikeySmallCamel}Array,updatedBy);
+        Response<Integer> response = new Response<>();
         response.setResult(rows);
         return response;
     }
