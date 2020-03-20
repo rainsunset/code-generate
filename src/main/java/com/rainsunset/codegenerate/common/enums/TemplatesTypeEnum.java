@@ -28,6 +28,13 @@ public enum TemplatesTypeEnum {
         return templatePath;
     }
 
+    /**
+     * 返回模板根路径
+     *
+     * @param templateType the template type
+     * @return the string
+     * @author : ligangwei / 2020年3月20日 下午5:36:41
+     */
     public static String getTemplatePathByComp(String templateType) {
         for (TemplatesTypeEnum templatesTypeEnum : TemplatesTypeEnum.values()) {
             if (templateType.equals(templatesTypeEnum.getTemplateType())) {
@@ -38,12 +45,17 @@ public enum TemplatesTypeEnum {
         return RAINSUNSET.getTemplatePath();
     }
 
-    public static  List<String> getTemplateTypes() {
+    /**
+     * 返回所有模板
+     *
+     * @return the list
+     * @author : ligangwei / 2020年3月20日 下午5:36:30
+     */
+    public static List<String> getTemplateTypes() {
         List<String> templateTypes = new ArrayList<>();
         for (TemplatesTypeEnum templatesTypeEnum : TemplatesTypeEnum.values()) {
             templateTypes.add(templatesTypeEnum.getTemplateType());
         }
-        // 默认rainsunset
         return templateTypes;
     }
 
