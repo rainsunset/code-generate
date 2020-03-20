@@ -73,7 +73,7 @@ public class ${tableBigCamel}ServiceImpl implements ${tableBigCamel}Service {
     }
 
     @Override
-    public ResponseResult<Integer> addOrUpdate${tableBigCamel}(${tableBigCamel}ReqDTO ${tableSmallCamel}ReqDTO){
+    public ResponseResult<${tabPrikeyType}> addOrUpdate${tableBigCamel}(${tableBigCamel}ReqDTO ${tableSmallCamel}ReqDTO){
         ${tableBigCamel} ${tableSmallCamel} = ${tableSmallCamel}ReqDTO2DO(${tableSmallCamel}ReqDTO);
         if (null == ${tableSmallCamel}){
             throw new GlobalErrorInfoException(GlobalErrorInfoEnum.DEMOEC_415000);
@@ -84,7 +84,7 @@ public class ${tableBigCamel}ServiceImpl implements ${tableBigCamel}Service {
         } else {
             ${tableSmallCamel}Mapper.update${tableBigCamel}(${tableSmallCamel});
         }
-        Integer tabPrikeySmallCamel= ${tableSmallCamel}.get${tabPrikeyBigCamel}();
+        ${tabPrikeyType} tabPrikeySmallCamel= ${tableSmallCamel}.get${tabPrikeyBigCamel}();
         return RestResultGenerator.genResult(tabPrikeySmallCamel);
     }
 

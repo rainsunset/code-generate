@@ -11,7 +11,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.util.StringUtils;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -67,7 +66,7 @@ public class ${tableBigCamel}Controller{
      */
     @ApiOperation("新增或更新 ${tableComment}")
     @RequestMapping(value = "/addOrUpdate", method = RequestMethod.POST)
-    public Response<Integer> addOrUpdate(@RequestBody ${tableBigCamel}ReqDTO ${tableSmallCamel}ReqDTO) {
+    public Response<${tabPrikeyType}> addOrUpdate(@RequestBody ${tableBigCamel}ReqDTO ${tableSmallCamel}ReqDTO) {
         return ${tableSmallCamel}Service.addOrUpdate${tableBigCamel}(${tableSmallCamel}ReqDTO);
     }
 

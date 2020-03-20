@@ -47,9 +47,9 @@ public class ${tableBigCamel}ServiceImpl implements ${tableBigCamel}Service {
     }
 
     @Override
-    public Response<Integer> addOrUpdate${tableBigCamel}(${tableBigCamel}ReqDTO ${tableSmallCamel}ReqDTO){
-        Response<Integer> response = new Response<>();
-        Integer res = ${tableSmallCamel}Manager.addOrUpdate${tableBigCamel}(${tableSmallCamel}ReqDTO);
+    public Response<${tabPrikeyType}> addOrUpdate${tableBigCamel}(${tableBigCamel}ReqDTO ${tableSmallCamel}ReqDTO){
+        Response<${tabPrikeyType}> response = new Response<>();
+        ${tabPrikeyType} res = ${tableSmallCamel}Manager.addOrUpdate${tableBigCamel}(${tableSmallCamel}ReqDTO);
         response.setResult(res);
         return response;
     }

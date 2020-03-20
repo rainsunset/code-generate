@@ -61,7 +61,7 @@ public class ${tableBigCamel}Controller{
      * @return
      */
     @RequestMapping(value = "/addOrUpdate", method = RequestMethod.POST)
-    public Response<Integer> addOrUpdate(@RequestBody ${tableBigCamel}ReqDTO ${tableSmallCamel}ReqDTO) {
+    public Response<${tabPrikeyType}> addOrUpdate(@RequestBody ${tableBigCamel}ReqDTO ${tableSmallCamel}ReqDTO) {
         return ${tableSmallCamel}Service.addOrUpdate${tableBigCamel}(${tableSmallCamel}ReqDTO);
     }
 

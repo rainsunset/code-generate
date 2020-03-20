@@ -82,7 +82,7 @@ public class ${tableBigCamel}Manager{
      * 新增或更新 ${tableComment} Id不为空时更新
      * @param ${tableSmallCamel}ReqDTO
      */
-    public Integer addOrUpdate${tableBigCamel}(${tableBigCamel}ReqDTO ${tableSmallCamel}ReqDTO){
+    public ${tabPrikeyType} addOrUpdate${tableBigCamel}(${tableBigCamel}ReqDTO ${tableSmallCamel}ReqDTO){
         ${tableBigCamel} ${tableSmallCamel} = ${tableSmallCamel}ReqDTO2DO(${tableSmallCamel}ReqDTO);
         if (null == ${tableSmallCamel}){
             throw new ServiceException(ErrorCode.REWD_415001);

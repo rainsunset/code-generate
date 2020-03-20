@@ -37,7 +37,7 @@ public interface ${tableBigCamel}Service {
      * 新增或更新 ${tableComment}
      * @param ${tableSmallCamel}ReqDTO
      */
-    public ResponseResult<Integer> addOrUpdate${tableBigCamel}(${tableBigCamel}ReqDTO ${tableSmallCamel}ReqDTO);
+    public ResponseResult<${tabPrikeyType}> addOrUpdate${tableBigCamel}(${tableBigCamel}ReqDTO ${tableSmallCamel}ReqDTO);
 
     /**
      * 依据Id批量删除 ${tableComment} 记录

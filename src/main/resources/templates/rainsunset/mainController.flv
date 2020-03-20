@@ -68,7 +68,7 @@ public class ${tableBigCamel}Controller{
      */
     @ApiOperation("新增或更新 ${tableComment}")
     @RequestMapping(value = "/addOrUpdate", method = RequestMethod.POST)
-    public ResponseResult<Integer> addOrUpdate(@RequestBody ${tableBigCamel}ReqDTO ${tableSmallCamel}ReqDTO) {
+    public ResponseResult<${tabPrikeyType}> addOrUpdate(@RequestBody ${tableBigCamel}ReqDTO ${tableSmallCamel}ReqDTO) {
         ResponseResult<Integer> response = ${tableSmallCamel}Service.addOrUpdate${tableBigCamel}(${tableSmallCamel}ReqDTO);
         return response;
     }

@@ -13,7 +13,7 @@ import ${rootPackage}.service.request.${tableBigCamel}ReqDTO;
 import ${rootPackage}.service.response.${tableBigCamel}ResDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
+import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -77,7 +77,7 @@ public class ${tableBigCamel}ServiceImpl implements ${tableBigCamel}Service {
     }
 
     @Override
-    public Response<Integer> addOrUpdate${tableBigCamel}(${tableBigCamel}ReqDTO ${tableSmallCamel}ReqDTO){
+    public Response<${tabPrikeyType}> addOrUpdate${tableBigCamel}(${tableBigCamel}ReqDTO ${tableSmallCamel}ReqDTO){
         ${tableBigCamel} ${tableSmallCamel} = ${tableSmallCamel}ReqDTO2DO(${tableSmallCamel}ReqDTO);
         if (null == ${tableSmallCamel}){
             throw new ServiceException(ErrorCode.REWD_415001);
@@ -88,8 +88,8 @@ public class ${tableBigCamel}ServiceImpl implements ${tableBigCamel}Service {
         } else {
             ${tableSmallCamel}Mapper.update${tableBigCamel}(${tableSmallCamel});
         }
-        Integer id = ${tableSmallCamel}.get${tabPrikeyBigCamel}();
-        Response<Integer> response = new Response<>();
+        ${tabPrikeyType} id = ${tableSmallCamel}.get${tabPrikeyBigCamel}();
+        Response<${tabPrikeyType}> response = new Response<>();
         response.setResult(id);
         return response;
     }
@@ -101,7 +101,7 @@ public class ${tableBigCamel}ServiceImpl implements ${tableBigCamel}Service {
              throw new ServiceException(ErrorCode.REWD_415001);
          }
         String updatedBy = ${tableSmallCamel}BatchDelReqDTO.getUpdatedBy();
-        Integer rows = ${tableSmallCamel}Mapper.delete${tableBigCamel}s(${tabPrikeySmallCamel}Array,updatedBy);
+        ${tabPrikeyType} rows = ${tableSmallCamel}Mapper.delete${tableBigCamel}s(${tabPrikeySmallCamel}Array,updatedBy);
         response.setResult(rows);
         return response;
     }
