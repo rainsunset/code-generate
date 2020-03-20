@@ -46,11 +46,11 @@ public class PackagePathFactory {
 			packageGenerateInfoBO.addpackMapper("mapper", "Mapper.xml", "mainMapper.flv");
 			packageGenerateInfoBO.addpackService("service", "Service.java", "mainService.flv");
 			packageGenerateInfoBO.addpackService("service.impl", "ServiceImpl.java", "mainServiceImpl.flv");
-			packageGenerateInfoBO.addpackService("common.request", "BatchDelReqDTO.java", "mainServiceBatchDelReqDTO.flv");
-			packageGenerateInfoBO.addpackService("common.request", "DetailReqDTO.java", "mainServiceDetailReqDTO.flv");
-			packageGenerateInfoBO.addpackService("common.request", "ListReqDTO.java", "mainServiceListReqDTO.flv");
-			packageGenerateInfoBO.addpackService("common.request", "ReqDTO.java", "mainServiceReqDTO.flv");
-			packageGenerateInfoBO.addpackService("common.response", "ResDTO.java", "mainServiceResDTO.flv");
+			packageGenerateInfoBO.addpackService("service.request", "BatchDelReqDTO.java", "mainServiceBatchDelReqDTO.flv");
+			packageGenerateInfoBO.addpackService("service.request", "DetailReqDTO.java", "mainServiceDetailReqDTO.flv");
+			packageGenerateInfoBO.addpackService("service.request", "ListReqDTO.java", "mainServiceListReqDTO.flv");
+			packageGenerateInfoBO.addpackService("service.request", "ReqDTO.java", "mainServiceReqDTO.flv");
+			packageGenerateInfoBO.addpackService("service.response", "ResDTO.java", "mainServiceResDTO.flv");
 			packageGenerateInfoBO.addpackController("controller", "Controller.java", "mainController.flv");
 			packageGenerateInfoBO.addpackTest("test.dal", "DaoTest.java", "testDal.flv");
 			packageGenerateInfoBO.addpackTest("test.service", "ServiceTest.java", "testService.flv");
