@@ -1,8 +1,11 @@
 package ${rootPackage}.service.impl;
 
 import com.cmbi.base.Response;
-import ${rootPackage}.manager.${tableBigCamel}Manager;
-import ${rootPackage}.service.api.${tableBigCamel}Service;
+import ${rootPackage}.common.enums.ErrorCode;
+import ${rootPackage}.common.exception.ServiceException;
+import ${rootPackage}.dal.model.${tableBigCamel};
+import ${rootPackage}.dal.mapper.${tableBigCamel}Mapper;
+import ${rootPackage}.service.${tableBigCamel}Service;
 import ${rootPackage}.service.request.${tableBigCamel}BatchDelReqDTO;
 import ${rootPackage}.service.request.${tableBigCamel}DetailReqDTO;
 import ${rootPackage}.service.request.${tableBigCamel}ListReqDTO;
@@ -10,11 +13,14 @@ import ${rootPackage}.service.request.${tableBigCamel}ReqDTO;
 import ${rootPackage}.service.response.${tableBigCamel}ResDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
+import java.util.List;
+import java.util.Date;
 
  /**
   * @Description: ${tableComment} 接口实现
@@ -90,14 +96,12 @@ public class ${tableBigCamel}ServiceImpl implements ${tableBigCamel}Service {
 
     @Override
     public Response<Integer> delete${tableBigCamel}s(${tableBigCamel}BatchDelReqDTO ${tableSmallCamel}BatchDelReqDTO){
-        ${tabPrikeyType}[] ${tabPrikeySmallCamel}Array = ${tableSmallCamel}BatchDelReqDTO.get${tabPrikeyBigCamel}s();
+        ${tabPrikeyType}[] ${tabPrikeySmallCamel}Array = ${tableSmallCamel}BatchDelReqDTO.get${tabPrikeyBigCamel}Array();
         if (null == ${tabPrikeySmallCamel}Array || 0 == ${tabPrikeySmallCamel}Array.length) {
              throw new ServiceException(ErrorCode.REWD_415001);
          }
         String updatedBy = ${tableSmallCamel}BatchDelReqDTO.getUpdatedBy();
         Integer rows = ${tableSmallCamel}Mapper.delete${tableBigCamel}s(${tabPrikeySmallCamel}Array,updatedBy);
-        Response<Integer> response = new Response<>();
-        Integer res = ${tableSmallCamel}Manager.delete${tableBigCamel}s(${tableSmallCamel}BatchDelReqDTO);
         response.setResult(rows);
         return response;
     }

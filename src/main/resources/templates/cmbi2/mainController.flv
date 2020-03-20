@@ -1,7 +1,7 @@
 package ${rootPackage}.controller;
 
 import com.cmbi.base.Response;
-import ${rootPackage}.service.api.${tableBigCamel}Service;
+import ${rootPackage}.service.${tableBigCamel}Service;
 import ${rootPackage}.service.request.${tableBigCamel}BatchDelReqDTO;
 import ${rootPackage}.service.request.${tableBigCamel}DetailReqDTO;
 import ${rootPackage}.service.request.${tableBigCamel}ListReqDTO;

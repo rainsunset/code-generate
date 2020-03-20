@@ -1,6 +1,6 @@
 package ${rootPackage}.service.request;
 
-import com.cmbi.${moduleName}.service.request.base.BaseRequest;
+import com.cmbi.javacore.beans.request.BaseRequest
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.ToString;

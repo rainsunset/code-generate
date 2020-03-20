@@ -1,4 +1,4 @@
-package ${rootPackage}.service.api;
+package ${rootPackage}.service;
 
 import com.cmbi.base.Response;
 import ${rootPackage}.service.request.${tableBigCamel}BatchDelReqDTO;
