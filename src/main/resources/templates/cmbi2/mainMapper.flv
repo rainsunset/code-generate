@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="${rootPackage}.dal.mapper.${tableBigCamel}Mapper">
+
+    <sql id="${tableSmallCamel}">
+        <#if tabPrikeySmallCamel?? && tabPrikeySmallCamel != "">`${tabPrikey}` `${tabPrikeySmallCamel}`, </#if>
+        <#list columList?chunk(4) as row>
+        <#list row as map>`${map.column}` `${map.columnSmallCamel}`<#if map_has_next>, </#if></#list><#if row_has_next>,</#if>
+        </#list>
+    </sql>
+
+    <select id="select${tableBigCamel}List" resultType="${rootPackage}.dal.model.${tableBigCamel}">
+        SELECT
+        <include refid="${tableSmallCamel}"/>
+        FROM ${tableName}
+        WHERE `status` = 'VALID'
+        <#list columList as map>
+        <#switch map.columnType>
+        <#case "String">
+        <if test="${map.columnSmallCamel} != null and ${map.columnSmallCamel} != ''">
+            AND `${map.column}` = ${u0023}{${map.columnSmallCamel}}
+        </if>
+        <#break>
+        <#default>
+        <if test="${map.columnSmallCamel} != null">
+            AND `${map.column}` = ${u0023}{${map.columnSmallCamel}}
+        </if>
+        </#switch>
+        </#list>
+        ORDER BY ${tabPrikey} ASC
+    </select>
+
+    <#if tabPrikeySmallCamel?? && tabPrikeySmallCamel != "">
+    <select id="get${tableBigCamel}Detail" parameterType="${tabPrikeyTypeFullName}"
+            resultType="${rootPackage}.dal.model.${tableBigCamel}">
+        SELECT
+        <include refid="${tableSmallCamel}"/>
+        FROM ${tableName}
+        WHERE ${tabPrikey} = ${u0023}{${tabPrikeySmallCamel}}
+    </select>
+    </#if>
+
+    <insert id="fullInsert${tableBigCamel}" parameterType="${rootPackage}.dal.model.${tableBigCamel}"
+        useGeneratedKeys="true" keyProperty="${tabPrikeySmallCamel}">
+        INSERT INTO ${tableName} ( <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "") && (!tabPrikeyIsautoIncrement)>${tabPrikey}, </#if>
+            <#list columList?chunk(4) as row>
+            <#list row as map>`${map.column}`<#if map_has_next>, </#if></#list><#if row_has_next>, </#if>
+            </#list>
+        ) VALUES ( <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "") && (!tabPrikeyIsautoIncrement)>${u0023}{${tabPrikeySmallCamel}},</#if>
+            <#list columList?chunk(4) as row>
+            <#list row as map>${u0023}{${map.columnSmallCamel}}<#if map_has_next>, </#if></#list><#if row_has_next>, </#if>
+            </#list>
+        )
+    </insert>
+
+    <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
+    <update id="update${tableBigCamel}" parameterType="${rootPackage}.dal.model.${tableBigCamel}">
+        UPDATE ${tableName}
+        <trim prefix="SET" suffixOverrides=",">
+            <#list columList as map>
+                <if test="${map.columnSmallCamel} != null">
+                    `${map.column}` = ${u0023}{${map.columnSmallCamel}},
+                </if>
+            </#list>
+        </trim>
+        WHERE ${tabPrikey} = ${u0023}{${tabPrikeySmallCamel}}
+    </update>
+    </#if>
+
+    <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
+    <update id="delete${tableBigCamel}s">
+        UPDATE ${tableName}
+        SET `status` = 'INVALID', updated_by = ${u0023}{updatedBy}
+        WHERE ${tabPrikey} IN
+        <foreach collection="${tabPrikeySmallCamel}Array" item="${tabPrikeySmallCamel}" open="(" close=")" separator=",">
+            ${u0023}{${tabPrikeySmallCamel}}
+        </foreach>
+    </update>
+    </#if>
+</mapper>

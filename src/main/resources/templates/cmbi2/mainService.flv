@@ -1,0 +1,48 @@
+package ${rootPackage}.service.api;
+
+import com.cmbi.base.Response;
+import ${rootPackage}.service.request.${tableBigCamel}BatchDelReqDTO;
+import ${rootPackage}.service.request.${tableBigCamel}DetailReqDTO;
+import ${rootPackage}.service.request.${tableBigCamel}ListReqDTO;
+import ${rootPackage}.service.request.${tableBigCamel}ReqDTO;
+import ${rootPackage}.service.response.${tableBigCamel}ResDTO;
+
+import java.util.List;
+
+ /**
+  * @Description: ${tableComment} 接口
+  * @Author: ${codeAuthor}
+  * @Company ${codeCompany}
+  * @CreateDate: ${now}
+  * @Version : ${codeVersion}
+  */
+public interface ${tableBigCamel}Service {
+
+    /**
+     * 依据条件查找 ${tableComment} 列表
+     * @param ${tableSmallCamel}ListReqDTO
+     * @return
+     */
+    public Response<List<${tableBigCamel}ResDTO>> select${tableBigCamel}List(${tableBigCamel}ListReqDTO ${tableSmallCamel}ListReqDTO);
+
+    <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
+    /**
+     * 依据Id查找 ${tableComment} 详情
+     * @param ${tableSmallCamel}DetailReqDTO
+     * @return
+     */
+    public Response<${tableBigCamel}ResDTO> get${tableBigCamel}Detail(${tableBigCamel}DetailReqDTO ${tableSmallCamel}DetailReqDTO);
+
+    /**
+     * 新增或更新 ${tableComment}
+     * @param ${tableSmallCamel}ReqDTO
+     */
+    public Response<Integer> addOrUpdate${tableBigCamel}(${tableBigCamel}ReqDTO ${tableSmallCamel}ReqDTO);
+
+    /**
+     * 依据Id批量删除 ${tableComment} 记录
+     * @param ${tableSmallCamel}BatchDelReqDTO 待删除${tabPrikeyComment}数组
+     */
+    public Response<Integer> delete${tableBigCamel}s(${tableBigCamel}BatchDelReqDTO ${tableSmallCamel}BatchDelReqDTO);
+    </#if>
+}

@@ -1,0 +1,36 @@
+package ${rootPackage}.service.response;
+
+import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
+import java.util.Date;
+
+ /**
+  * @Description: ${tableComment} Model
+  * @Author: ${codeAuthor}
+  * @Company ${codeCompany}
+  * @CreateDate: ${now}
+  * @Version : ${codeVersion}
+  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class ${tableBigCamel}ResDTO implements Serializable {
+    <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
+
+    @ApiModelProperty(value = "${tabPrikeyComment}")
+    private ${tabPrikeyType}  ${tabPrikeySmallCamel};
+    </#if>
+    <#list columList as map>
+
+    @ApiModelProperty(value = "${map.columnComment}")
+    private ${map.columnType} ${map.columnSmallCamel};
+    </#list>
+
+}
+
+
+

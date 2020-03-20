@@ -2,8 +2,6 @@ package com.rainsunset.codegenerate.bean;
 
 import com.rainsunset.codegenerate.common.enums.TemplatesTypeEnum;
 
-import java.util.List;
-
 /**
  * @ClassName PackagePathFactory
  * @Description: 代码分层包相对路径
@@ -24,12 +22,12 @@ public class PackagePathFactory {
 	 * @author : ligangwei / 2019-04-11
 	 */
 	public static PackageGenerateInfoBO getPackagePath(String templateType) {
-		if (TemplatesTypeEnum.CMBI.getTemplateType().equals(templateType)) {
+		if (TemplatesTypeEnum.CMBI1.getTemplateType().equals(templateType)) {
 			PackageGenerateInfoBO packageGenerateInfoBO = new PackageGenerateInfoBO();
 			packageGenerateInfoBO.addpackModel("dal.model", ".java", "mainDalModel.flv");
 			packageGenerateInfoBO.addpackDao("dal.mapper", "Mapper.java", "mainDalMapper.flv");
 			packageGenerateInfoBO.addpackMapper("mapper", "Mapper.xml", "mainMapper.flv");
-			packageGenerateInfoBO.addpackService("service.api", "Service.java", "mainServiceApi.flv");
+			packageGenerateInfoBO.addpackService("service.api", "Service.java", "mainService.flv");
 			packageGenerateInfoBO.addpackService("service.impl", "ServiceImpl.java", "mainServiceImpl.flv");
 			packageGenerateInfoBO.addpackService("service.request", "BatchDelReqDTO.java", "mainServiceBatchDelReqDTO.flv");
 			packageGenerateInfoBO.addpackService("service.request", "DetailReqDTO.java", "mainServiceDetailReqDTO.flv");
@@ -37,6 +35,22 @@ public class PackagePathFactory {
 			packageGenerateInfoBO.addpackService("service.request", "ReqDTO.java", "mainServiceReqDTO.flv");
 			packageGenerateInfoBO.addpackService("service.response", "ResDTO.java", "mainServiceResDTO.flv");
 			packageGenerateInfoBO.addpackService("manager", "Manager.java", "mainManager.flv");
+			packageGenerateInfoBO.addpackController("controller", "Controller.java", "mainController.flv");
+			packageGenerateInfoBO.addpackTest("test.dal", "DaoTest.java", "testDal.flv");
+			packageGenerateInfoBO.addpackTest("test.service", "ServiceTest.java", "testService.flv");
+			return packageGenerateInfoBO;
+		} else if (TemplatesTypeEnum.CMBI2.getTemplateType().equals(templateType)) {
+			PackageGenerateInfoBO packageGenerateInfoBO = new PackageGenerateInfoBO();
+			packageGenerateInfoBO.addpackModel("dal.model", ".java", "mainDalModel.flv");
+			packageGenerateInfoBO.addpackDao("dal.mapper", "Mapper.java", "mainDalMapper.flv");
+			packageGenerateInfoBO.addpackMapper("mapper", "Mapper.xml", "mainMapper.flv");
+			packageGenerateInfoBO.addpackService("service", "Service.java", "mainService.flv");
+			packageGenerateInfoBO.addpackService("service.impl", "ServiceImpl.java", "mainServiceImpl.flv");
+			packageGenerateInfoBO.addpackService("common.request", "BatchDelReqDTO.java", "mainServiceBatchDelReqDTO.flv");
+			packageGenerateInfoBO.addpackService("common.request", "DetailReqDTO.java", "mainServiceDetailReqDTO.flv");
+			packageGenerateInfoBO.addpackService("common.request", "ListReqDTO.java", "mainServiceListReqDTO.flv");
+			packageGenerateInfoBO.addpackService("common.request", "ReqDTO.java", "mainServiceReqDTO.flv");
+			packageGenerateInfoBO.addpackService("common.response", "ResDTO.java", "mainServiceResDTO.flv");
 			packageGenerateInfoBO.addpackController("controller", "Controller.java", "mainController.flv");
 			packageGenerateInfoBO.addpackTest("test.dal", "DaoTest.java", "testDal.flv");
 			packageGenerateInfoBO.addpackTest("test.service", "ServiceTest.java", "testService.flv");

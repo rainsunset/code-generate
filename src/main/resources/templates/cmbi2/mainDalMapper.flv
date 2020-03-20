@@ -1,0 +1,71 @@
+package ${rootPackage}.dal.mapper;
+
+import ${rootPackage}.dal.model.${tableBigCamel};
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Date;
+
+/**
+ * @Description: ${tableComment} Mapper
+ * @Author: ${codeAuthor}
+ * @Company ${codeCompany}
+ * @CreateDate: ${now}
+ * @Version : ${codeVersion}
+ */
+@Repository
+public interface ${tableBigCamel}Mapper {
+
+    /**
+     * 依据条件查找 ${tableComment} 列表
+     *
+     <#list columList as map>
+     * @param ${map.columnSmallCamel}
+     </#list>
+     * @return
+     */
+    public List<${tableBigCamel}> select${tableBigCamel}List(
+        <#list columList?chunk(2) as row>
+        <#list row as map>@Param("${map.columnSmallCamel}")${map.columnType} ${map.columnSmallCamel}<#if map_has_next>, </#if></#list><#if row_has_next>, </#if>
+        </#list>
+    );
+
+    <#if tabPrikeySmallCamel?? && tabPrikeySmallCamel != "">
+    /**
+     * 依据Id查找 ${tableComment} 详情
+     *
+     * @param ${tabPrikeySmallCamel}
+     * @return
+     */
+    public ${tableBigCamel} get${tableBigCamel}Detail(@Param("${tabPrikeySmallCamel}")${tabPrikeyType} ${tabPrikeySmallCamel});
+    </#if>
+
+    /**
+     * 全量插入 ${tableComment}
+     *
+     * @param ${tableSmallCamel}
+     */
+    public Integer fullInsert${tableBigCamel}(${tableBigCamel} ${tableSmallCamel});
+
+    <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
+    /**
+     * 依据主键更新 ${tableComment}
+     *
+     * @param ${tableSmallCamel}
+     */
+    public Integer update${tableBigCamel}(${tableBigCamel} ${tableSmallCamel});
+    </#if>
+
+    <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
+    /**
+     * 依据主键删除 ${tableComment} 记录
+     *
+     * @param ${tabPrikeySmallCamel}Array
+     * @param updatedBy
+     */
+    public Integer delete${tableBigCamel}s(@Param("${tabPrikeySmallCamel}Array") ${tabPrikeyType}[] ${tabPrikeySmallCamel}Array,
+                                            @Param("updatedBy") String updatedBy);
+    </#if>
+}

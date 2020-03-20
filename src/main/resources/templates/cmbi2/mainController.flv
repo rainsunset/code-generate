@@ -1,0 +1,88 @@
+package ${rootPackage}.controller;
+
+import com.cmbi.base.Response;
+import ${rootPackage}.service.api.${tableBigCamel}Service;
+import ${rootPackage}.service.request.${tableBigCamel}BatchDelReqDTO;
+import ${rootPackage}.service.request.${tableBigCamel}DetailReqDTO;
+import ${rootPackage}.service.request.${tableBigCamel}ListReqDTO;
+import ${rootPackage}.service.request.${tableBigCamel}ReqDTO;
+import ${rootPackage}.service.response.${tableBigCamel}ResDTO;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.util.StringUtils;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+
+ /**
+  * @Description: ${tableComment} API
+  * @Author: ${codeAuthor}
+  * @Company ${codeCompany}
+  * @CreateDate: ${now}
+  * @Version : ${codeVersion}
+  */
+@Api(tags = "${tableComment}接口")
+@RestController
+@RequestMapping("/${moduleName}/${tableSmallCamel}")
+public class ${tableBigCamel}Controller{
+
+    @Autowired
+    private ${tableBigCamel}Service ${tableSmallCamel}Service;
+
+    /**
+     * 依据条件查找 ${tableComment} 列表
+     *
+     * @param ${tableSmallCamel}ListReqDTO
+     * @return
+     */
+    @ApiOperation("依据条件查找 ${tableComment} 列表")
+    @RequestMapping(value = "/findList", method = RequestMethod.POST)
+    public Response<List<${tableBigCamel}ResDTO>> findList(@RequestBody ${tableBigCamel}ListReqDTO ${tableSmallCamel}ListReqDTO) {
+        return ${tableSmallCamel}Service.select${tableBigCamel}List(${tableSmallCamel}ListReqDTO);
+    }
+
+    <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
+    /**
+     * 依据Id查询 ${tableComment} 详情
+     *
+     * @param ${tableSmallCamel}DetailReqDTO
+     * @return
+     */
+    @ApiOperation("依据Id查询 ${tableComment} 详情")
+    @RequestMapping(value = "/getDetail", method = RequestMethod.POST)
+    public Response<${tableBigCamel}ResDTO> get${tableBigCamel}Detail(@RequestBody ${tableBigCamel}DetailReqDTO ${tableSmallCamel}DetailReqDTO) {
+        return ${tableSmallCamel}Service.get${tableBigCamel}Detail(${tableSmallCamel}DetailReqDTO);
+    }
+
+    /**
+     * 新增或更新 ${tableComment}
+     *
+     * @param ${tableSmallCamel}ReqDTO
+     * @return
+     */
+    @ApiOperation("新增或更新 ${tableComment}")
+    @RequestMapping(value = "/addOrUpdate", method = RequestMethod.POST)
+    public Response<Integer> addOrUpdate(@RequestBody ${tableBigCamel}ReqDTO ${tableSmallCamel}ReqDTO) {
+        return ${tableSmallCamel}Service.addOrUpdate${tableBigCamel}(${tableSmallCamel}ReqDTO);
+    }
+
+    /**
+     * 依据Id批量删除 ${tableComment}
+     *
+     * @param ${tableSmallCamel}BatchDelReqDTO 待删除${tabPrikeyComment}数组
+     * @return
+     */
+    @ApiOperation("依据Id批量删除 ${tableComment}")
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public Response<Integer> delete(@RequestBody ${tableBigCamel}BatchDelReqDTO ${tableSmallCamel}BatchDelReqDTO) {
+        return ${tableSmallCamel}Service.delete${tableBigCamel}s(${tableSmallCamel}BatchDelReqDTO);
+    }
+    </#if>
+
+}
+

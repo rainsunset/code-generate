@@ -1,0 +1,30 @@
+package ${rootPackage}.dal.model;
+
+import lombok.Data;
+
+import java.util.Date;
+
+/**
+ * @Description: ${tableComment} Model
+ * @Author: ${codeAuthor}
+ * @Company ${codeCompany}
+ * @CreateDate: ${now}
+ * @Version : ${codeVersion}
+ */
+@Data
+public class ${tableBigCamel} {
+    <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
+
+    /** ${tabPrikeyComment} */
+    private ${tabPrikeyType} ${tabPrikeySmallCamel};
+    </#if>
+    <#list columList as map>
+
+    /** ${map.columnComment} */
+    private ${map.columnType} ${map.columnSmallCamel};
+    </#list>
+
+}
+
+
+

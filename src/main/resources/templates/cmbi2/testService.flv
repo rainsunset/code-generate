@@ -1,0 +1,13 @@
+package ${rootPackage}.test.service;
+
+
+ /**
+  * @Description: ${tableComment} ServiceTest
+  * @Author: ${codeAuthor}
+  * @Company ${codeCompany}
+  * @CreateDate: ${now}
+  * @Version : ${codeVersion}
+  */
+public class ${tableBigCamel}ServiceTest{
+
+}

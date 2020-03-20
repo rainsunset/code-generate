@@ -7,7 +7,10 @@ import java.util.List;
 public enum TemplatesTypeEnum {
 
     RAINSUNSET("rainsunset",File.separator + "templates"+ File.separator+"rainsunset"),
-    CMBI("cmbi",File.separator + "templates"+ File.separator+"cmbi")
+    /** cmbi 1.5 框架 */
+    CMBI1("cmbi1",File.separator + "templates"+ File.separator+"cmbi1"),
+    /** cmbi 2.* 框架 */
+    CMBI2("cmbi2",File.separator + "templates"+ File.separator+"cmbi2"),
     ;
     private String templateType;
     private String templatePath;

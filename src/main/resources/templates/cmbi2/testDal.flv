@@ -1,0 +1,14 @@
+package ${rootPackage}.test.dao;
+
+
+
+ /**
+  * @Description: ${tableComment} DaoTest
+  * @Author: ${codeAuthor}
+  * @Company ${codeCompany}
+  * @CreateDate: ${now}
+  * @Version : ${codeVersion}
+  */
+public class ${tableBigCamel}DaoTest {
+
+}

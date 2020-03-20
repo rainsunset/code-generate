@@ -1,0 +1,135 @@
+package ${rootPackage}.service.impl;
+
+import com.cmbi.base.Response;
+import ${rootPackage}.manager.${tableBigCamel}Manager;
+import ${rootPackage}.service.api.${tableBigCamel}Service;
+import ${rootPackage}.service.request.${tableBigCamel}BatchDelReqDTO;
+import ${rootPackage}.service.request.${tableBigCamel}DetailReqDTO;
+import ${rootPackage}.service.request.${tableBigCamel}ListReqDTO;
+import ${rootPackage}.service.request.${tableBigCamel}ReqDTO;
+import ${rootPackage}.service.response.${tableBigCamel}ResDTO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+
+ /**
+  * @Description: ${tableComment} 接口实现
+  * @Author: ${codeAuthor}
+  * @Company ${codeCompany}
+  * @CreateDate: ${now}
+  * @Version : ${codeVersion}
+  */
+@Service
+public class ${tableBigCamel}ServiceImpl implements ${tableBigCamel}Service {
+
+    @Autowired
+    private ${tableBigCamel}Mapper ${tableSmallCamel}Mapper;
+
+    @Override
+    public Response<List<${tableBigCamel}ResDTO>> select${tableBigCamel}List(${tableBigCamel}ListReqDTO ${tableSmallCamel}ListReqDTO){
+        <#list columList as map>
+        ${map.columnType} ${map.columnSmallCamel} = ${tableSmallCamel}ListReqDTO.get${map.columnBigCamel}();
+        </#list>
+        List<${tableBigCamel}> ${tableSmallCamel}List = ${tableSmallCamel}Mapper.select${tableBigCamel}List(
+        <#list columList?chunk(4) as row>
+        <#list row as map>${map.columnSmallCamel}<#if map_has_next>, </#if></#list><#if row_has_next>, </#if>
+        </#list>
+        );
+        Response<List<${tableBigCamel}ResDTO>> response = new Response<>();
+        if (CollectionUtils.isEmpty(${tableSmallCamel}List)) {
+            response.setResult(null);
+            return response;
+        }
+        List<${tableBigCamel}ResDTO> ${tableSmallCamel}ResDTOList = new LinkedList<${tableBigCamel}ResDTO>();
+        for (int i = 0; i < ${tableSmallCamel}List.size(); i++) {
+            ${tableBigCamel}ResDTO ${tableSmallCamel}ResDTO = ${tableSmallCamel}DO2ResDTO(${tableSmallCamel}List.get(i));
+            if (null == ${tableSmallCamel}ResDTO) {
+                continue;
+            }
+            ${tableSmallCamel}ResDTOList.add(${tableSmallCamel}ResDTO);
+        }
+        response.setResult(${tableSmallCamel}ResDTOList);
+        return response;
+    }
+
+    <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
+    @Override
+    public Response<${tableBigCamel}ResDTO> get${tableBigCamel}Detail(${tableBigCamel}DetailReqDTO ${tableSmallCamel}DetailReqDTO){
+        Response<${tableBigCamel}ResDTO> response = new Response<>();
+        ${tabPrikeyType} ${tabPrikeySmallCamel}= ${tableSmallCamel}DetailReqDTO.get${tabPrikeyBigCamel}();
+        if (null == ${tabPrikeySmallCamel}) {
+            throw new ServiceException(ErrorCode.REWD_415001);
+        }
+        ${tableBigCamel} ${tableSmallCamel} = ${tableSmallCamel}Mapper.get${tableBigCamel}Detail(${tabPrikeySmallCamel});
+        ${tableBigCamel}ResDTO ${tableSmallCamel}ResDTO = ${tableSmallCamel}DO2ResDTO(${tableSmallCamel});
+        response.setResult(${tableSmallCamel}ResDTO);
+        return response;
+    }
+
+    @Override
+    public Response<Integer> addOrUpdate${tableBigCamel}(${tableBigCamel}ReqDTO ${tableSmallCamel}ReqDTO){
+        ${tableBigCamel} ${tableSmallCamel} = ${tableSmallCamel}ReqDTO2DO(${tableSmallCamel}ReqDTO);
+        if (null == ${tableSmallCamel}){
+            throw new ServiceException(ErrorCode.REWD_415001);
+        }
+        // 检查参数
+        if(null == ${tableSmallCamel}.get${tabPrikeyBigCamel}()){
+            ${tableSmallCamel}Mapper.fullInsert${tableBigCamel}(${tableSmallCamel});
+        } else {
+            ${tableSmallCamel}Mapper.update${tableBigCamel}(${tableSmallCamel});
+        }
+        Integer id = ${tableSmallCamel}.get${tabPrikeyBigCamel}();
+        Response<Integer> response = new Response<>();
+        response.setResult(id);
+        return response;
+    }
+
+    @Override
+    public Response<Integer> delete${tableBigCamel}s(${tableBigCamel}BatchDelReqDTO ${tableSmallCamel}BatchDelReqDTO){
+        ${tabPrikeyType}[] ${tabPrikeySmallCamel}Array = ${tableSmallCamel}BatchDelReqDTO.get${tabPrikeyBigCamel}s();
+        if (null == ${tabPrikeySmallCamel}Array || 0 == ${tabPrikeySmallCamel}Array.length) {
+             throw new ServiceException(ErrorCode.REWD_415001);
+         }
+        String updatedBy = ${tableSmallCamel}BatchDelReqDTO.getUpdatedBy();
+        Integer rows = ${tableSmallCamel}Mapper.delete${tableBigCamel}s(${tabPrikeySmallCamel}Array,updatedBy);
+        Response<Integer> response = new Response<>();
+        Integer res = ${tableSmallCamel}Manager.delete${tableBigCamel}s(${tableSmallCamel}BatchDelReqDTO);
+        response.setResult(rows);
+        return response;
+    }
+    </#if>
+
+    /**
+     * 对象转换 ${tableBigCamel}  DO  -> ResDTO
+     *
+     * @param ${tableSmallCamel}
+     * @return
+     */
+    private ${tableBigCamel}ResDTO ${tableSmallCamel}DO2ResDTO(${tableBigCamel} ${tableSmallCamel}){
+        ${tableBigCamel}ResDTO ${tableSmallCamel}ResDTO = new ${tableBigCamel}ResDTO(
+        <#if tabPrikeySmallCamel?? && tabPrikeySmallCamel != "">${tableSmallCamel}.get${tabPrikeyBigCamel}(), </#if>
+        <#list columList?chunk(4) as row>
+            <#list row as map>${tableSmallCamel}.get${map.columnBigCamel}()<#if map_has_next>, </#if></#list><#if row_has_next>, </#if>
+        </#list>
+        );
+        return ${tableSmallCamel}ResDTO;
+    }
+
+    /**
+     * 对象转换 ${tableBigCamel}  ReqDTO  -> DO
+     *
+     * @param ${tableSmallCamel}ReqDTO
+     * @return
+     */
+    private ${tableBigCamel} ${tableSmallCamel}ReqDTO2DO(${tableBigCamel}ReqDTO ${tableSmallCamel}ReqDTO){
+        ${tableBigCamel} ${tableSmallCamel} = new ${tableBigCamel}();
+        <#list columList as map>
+        ${tableSmallCamel}.set${map.columnBigCamel}(${tableSmallCamel}ReqDTO.get${map.columnBigCamel}());
+        </#list>
+        return ${tableSmallCamel};
+    }
+}

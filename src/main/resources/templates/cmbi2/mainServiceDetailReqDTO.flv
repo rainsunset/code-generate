@@ -1,0 +1,29 @@
+package ${rootPackage}.service.request;
+
+import com.cmbi.${moduleName}.service.request.base.BaseRequest;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import lombok.ToString;
+import org.hibernate.validator.constraints.NotBlank;
+
+ /**
+  * @Description: 查询${tableComment}详情请求体
+  * @Author: ${codeAuthor}
+  * @Company ${codeCompany}
+  * @CreateDate: ${now}
+  * @Version : ${codeVersion}
+  */
+@Data
+@ToString(callSuper = true)
+public class ${tableBigCamel}DetailReqDTO extends BaseRequest {
+    <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
+
+    @ApiModelProperty(value = "${tabPrikeyComment}")
+    @NotBlank(message = "${tabPrikeyComment}不能为空")
+    private ${tabPrikeyType}  ${tabPrikeySmallCamel};
+    </#if>
+
+}
+
+
+
