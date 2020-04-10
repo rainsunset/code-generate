@@ -1,11 +1,11 @@
 package ${rootPackage}.service.request;
 
 import com.cmbi.javacore.beans.request.BaseRequest;
-import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.ToString;
-import org.hibernate.validator.constraints.NotBlank;
+import javax.validation.constraints.NotBlank;
 
 import javax.validation.constraints.NotNull;
  /**
@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
   */
 @Data
 @ToString(callSuper = true)
-@Api(description = "批量删除${tableComment}请求体")
+@ApiModel(description = "批量删除${tableComment}请求体")
 public class ${tableBigCamel}BatchDelReqDTO extends BaseRequest {
     <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
 

@@ -1,11 +1,11 @@
 package ${rootPackage}.service.request;
 
 import com.cmbi.javacore.beans.request.BaseRequest;
-import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.ToString;
-import org.hibernate.validator.constraints.NotBlank;
+import javax.validation.constraints.NotBlank;
 
  /**
   * @Description: 查询${tableComment}详情请求体
@@ -16,7 +16,7 @@ import org.hibernate.validator.constraints.NotBlank;
   */
 @Data
 @ToString(callSuper = true)
-@Api(description = "查询${tableComment}详情请求体")
+@ApiModel(description = "查询${tableComment}详情请求体")
 public class ${tableBigCamel}DetailReqDTO extends BaseRequest {
     <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
 

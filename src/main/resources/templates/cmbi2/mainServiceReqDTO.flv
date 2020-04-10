@@ -1,11 +1,11 @@
 package ${rootPackage}.service.request;
 
 import com.cmbi.javacore.beans.request.BaseRequest;
-import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.ToString;
-import org.hibernate.validator.constraints.NotBlank;
+import javax.validation.constraints.NotBlank;
 
 import java.util.Date;
 
@@ -18,7 +18,7 @@ import java.util.Date;
   */
 @Data
 @ToString(callSuper = true)
-@Api(description = "${tableComment} Model")
+@ApiModel(description = "${tableComment} Model")
 public class ${tableBigCamel}ReqDTO extends BaseRequest {
     <#if (tabPrikeySmallCamel??) && (tabPrikeySmallCamel != "")>
 
