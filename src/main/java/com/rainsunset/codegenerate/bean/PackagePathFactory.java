@@ -27,7 +27,7 @@ public class PackagePathFactory {
 			packageGenerateInfoBO.addpackModel("dal.model", ".java", "mainDalModel.flv");
 			packageGenerateInfoBO.addpackDao("dal.mapper", "Mapper.java", "mainDalMapper.flv");
 			packageGenerateInfoBO.addpackMapper("mapper", "Mapper.xml", "mainMapper.flv");
-			packageGenerateInfoBO.addpackService("service.api", "Service.java", "mainService.flv");
+			packageGenerateInfoBO.addpackService("service.api", "Service.java", "mainServiceApi.flv");
 			packageGenerateInfoBO.addpackService("service.impl", "ServiceImpl.java", "mainServiceImpl.flv");
 			packageGenerateInfoBO.addpackService("service.request", "BatchDelReqDTO.java", "mainServiceBatchDelReqDTO.flv");
 			packageGenerateInfoBO.addpackService("service.request", "DetailReqDTO.java", "mainServiceDetailReqDTO.flv");
